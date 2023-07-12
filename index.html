@@ -2,28 +2,110 @@
 <html>
     <head>
         <meta charset = "uft-8">
-        <title>Charlie's website</title> 
+        <title>Kunjoong's website</title> 
+        <link rel="icon" type="image/x-icon" href="./img/favicon.jpg">
         <link rel="stylesheet" href="./style.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Red+Hat+Display&display=swap" rel="stylesheet">
+
+        <script src="https://kit.fontawesome.com/7a70d5c651.js" crossorigin="anonymous"></script>
+
     </head>  
     <body>
         <header>
             <nav>
+                <a id="title" href="#home">Kunjoong Kim</a>
                 <ul>
-                    <li><a href="#home">home</a></li>
-                    <li><a href="#about">about</a></li>
-                    <li><a href="#activities">activities</a></li>
-                    <li><a href="#contact">contact</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#activities">Activities</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-    
-            <section id="home" style="height:100vh;">home</section>
-            <section id="about" style="height:100vh;">about</section>
-            <section id="activities" style="height:100vh;">activities</section>
-            <section id="contact" style="height:100vh;">contact</section>
-
-            <a href="https://www.google.com/">google</a>
         </header>
-        <div></div>
+
+            <!-- Home -->
+
+            <section class="home" id="home">
+                <div style="display: flex;">
+                    <img src="./img/profile.png" style = "height: 400px;">
+                </div>
+                <div>
+                    <h1>Hi I'm Kunjoong Kim!</h1>
+                    <h1>저는 김건중입니다.</h1>
+                    <h1>我是金建中!</h1>
+                    <h2>I also go by Charlie!</h2>
+                </div>
+            </section>
+
+            <!-- About -->
+
+            <section class="about" id="about">
+                <div class="about-container">
+                    <h1>About me</h1>
+                    <p>I go to Pennsylvania State University.</p>
+                    <p>My major is Computer Science.</p>
+                </div>
+                <div class="about-image">
+                    <img src="./img/life.png" style = "height: 500px;">
+                </div>
+
+            </section>
+
+            <!-- Activities -->
+
+            <section class="activities" id="activities">
+                <h1>Activities</h1>
+                <div class="activities-wrapper">
+                    <div class="activities-container">
+                        <img src="./img/germany.png" style="height: 300px;">
+                        <h2>Travelling</h2>
+                        <p>Korea, China, Hong Kong, USA, and Germany</p>
+                    </div>
+                    <div class="activities-container">
+                        <img src="./img/halloween.png" style="height: 300px;">
+                        <h2>Drawing</h2>
+                        <p>I want to create my style of drawing</p>
+                    </div>
+                    <div class="activities-container">
+                        <img src="./img/blog.jpg" style="height: 300px;">
+                        <h2>Blogging</h2>
+                        <p>I want to give people contributive energy</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contacts -->
+
+            <section class="contact" id="contact">
+                <h1>Contact</h1>
+                <div class="contact-container">
+                    <img src="./img/phone.png" style="height:400px;">
+                    <form action="mailto:kxk5808@psu.edu" method="post" enctype="text/plain">
+                        <div style="display: flex; flex-direction: column">
+                            <label>Name:</label>
+                            <input type="text" name="Your name" placeholder="Enter your name here">
+                            <label>email:</label>
+                            <input type="email" name="Your email" placeholder="Enter your email here">
+                            <label>Message:</label>
+                            <textarea name="Your message" cols="50" rows="10" placeholder="enter your message"></textarea>
+                            <input type="submit">
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </header>
+
+        <footer>
+            <div class="footer-icon-button">
+                <a href="https://github.com/Charlie0921"><div> GitHub </div></a>
+                <a href="http://www.linkedin.com/in/kunjoong-kim"><div> LinkedIn </div></a>
+                <a href="http://blog.naver.com/kunmiddle"><div> Korean Blog </div></a>
+                <a href="https://www.instagram.com/chocolatefactory_02/"><div> Instagram </div></a>
+            </div>
+            <p>814-753-2758 | kxk5808@psu.edu</p>
+        </footer>
     </body>
-    <script></script>
 </html>

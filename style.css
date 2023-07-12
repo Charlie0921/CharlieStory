@@ -1,0 +1,173 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans','sans-serif';
+    scroll-behavior: smooth;
+    font-weight: 100;
+}
+
+body{
+    min-width:1150px;
+}
+
+section{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+h1{
+    font-size: 50px;
+    line-height: 2;
+    font-family: "Open Sans";
+    font-weight: bold;
+    padding: 10px;
+}
+
+h2{
+    font-size: 30px;
+    padding: 10px;
+}
+
+p{
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+img{
+    margin-bottom: 50px;
+    border: 12px solid black;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    color: #b3b3b3;
+}
+
+form {
+    line-height: 2;
+    font-size: 1.25rem;
+}
+
+i {
+    font-size: 1.75rem;
+    margin: 0 10px 10px 10px;
+}
+
+/* Navbar */
+
+nav{
+    height: 64px;
+    width: 100%;
+    background-color: black;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 10;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li{
+    margin: 30px;
+}
+
+#title {
+    font-size: 1.8rem;
+    font-family: 'Red Hat Display', sans-serif;
+    text-transform: uppercase;
+}
+
+/* Home Section */
+
+#home{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+/* About Section */
+
+#about {
+    background-color:rgb(196, 217, 225);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.about-image{
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+/* Activities Section */
+
+#activities {
+    display: flex;
+    flex-direction: column;
+    background-color: beige;
+    text-align: center;
+    justify-content: center;
+}
+
+.activities-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.activities-container {
+    width: 300px;
+}
+
+.activities-container img{
+    margin: 0%;
+}
+
+/* Contact Section */
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact h1{
+    text-align: center;
+}
+
+.contact-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Footer */
+
+footer {
+    height: 125px;
+    width: 100%;
+    background-color: rgb(120, 114, 114);
+    color: white;
+    padding-top: 25px;
+    text-align: center;
+}
+
+.footer-icon-button{
+    display: flex;
+    justify-content: center;
+}
+
+.footer-icon-button a{
+    margin: 10px;
+}

@@ -1,131 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset = "uft-8">
-        <title>Kunjoong's website</title> 
-        <link rel="icon" type="image/x-icon" href="./img/favicon.jpg">
-        <link rel="stylesheet" href="./style.css">
+  <head>
+    <meta charset="uft-8" />
+    <title>Kunjoong's website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
+    <link rel="stylesheet" href="./style.css" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Red+Hat+Display&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Red+Hat+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-        <script src="https://kit.fontawesome.com/7a70d5c651.js" crossorigin="anonymous"></script>
-
-    </head>  
-    <body>
-        <header>
-            <nav>
-                <a id="title" href="#home">Kunjoong Kim</a>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#teenage">Teenage Years</a></li>
-                    <li><a href="#now">How about now?</a></li>
-                    <li><a href="#developer">Developer?</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-
-            <!-- Home -->
-
-            <section class="home" id="home">
-                <div style="display: flex;">
-                    <img src="./img/profile.jpg" style = "height: 400px;">
-                </div>
-                <div>
-                    <h1>Hello, I'm Kunjoong Kim, but you call me Charlie</h1>
-                    <h2>Let me tell you why I want to become a software engineer</h2>
-                </div>
-            </section>
-
-            <!-- Introduction -->
-
-            <section class="about" id="about">
-                <div class="about-container">
-                    <ul>To briefly introduce myself...
-                        <li>I'm from Korea and currently finishing required enlistment</li>
-                        <li>Just finished second year of Computer Science at Penn State University</li>
-                        <li>I view every choices as an opportunity. You will know what this means</li>
-                    </ul>
-                </div>
-                <div class="about-image">
-                    <img src="./img/life.png" style = "height: 500px;">
-                </div>
-
-            </section>
-
-            <!-- Background -->
-
-            <section class="teenage" id="teenage">
-                <h1>Elementary</h1>
-                <div class="elementary-wrapper">
-                    <p>Kunjoong was just a Korean student with a passion for devices, often sharing his thoughts on his blog.</p>
-                    <p>One of his dreams was to make friends from divers background. However, he couldn't speak a single sentence in English.</p>
-                    <p>Suddenly, he moved to China and attend an international school for the first time, gradually became fluent in English</p>
-                    <p>This is where his journey truly began</p>
-                </div>
-                <h1>Middle School</h1>
-                <div class="middleschool-wrapper">
-                    <p>When he got his first Android smartphone, he loved experimenting with different open-source firmware on his device.</p>
-                    <p>One day, he felt inspired to build an app and joined an after-school acvitiy called "App Developer. </p>
-                    <p>Alongside his interest in app development, he was passionate about environmental contributions.</p>
-                    <p>In the Habitat for Humanity club, he helped build a well in a community in cChina that desperately need a reliable water source.</p>
-
-                </div>
-                <h1>High School</h1>
-                <div class="highschool-wrapper">
-                    <p>After moving back to Korea, he had to adapt to a new school environment but COVID pendamic hit.</p>
-                    <p>Despite the challenges of virtual communication, he returned to his blog to stay connected and continue shared his thoughts about new technology.</p>
-                    <p>He also dedicated an hour each week to teach English to elementary stduents from migrant families at the Seongnam Migrants Center.</p>
-                    <p>During the college appliacation process, he reflected on his past activites and wanted to choose a major that would allow him to use technology to address socital issues.</p>
-                    <p>That's why he decided to pursue Computer Science.</p>
-                </div>
-            </section>
-
-            <!-- Where I am at -->
-
-            <section class="now" id="now">
-                <h1>How about now?</h1>
-                <div class="elementary-wrapper">
-                    <p>Thankfully, he was accepted into Penn State University as a Computer Science major.
-                        Through various competitions and projects, he's continuously building on his development skills.
-                        While he knows there's still a long journey ahead, his dream of becoming a software engineer who sees every challenge
-                        as an opportunity reminas unchanged.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Contacts -->
-
-            <section class="contact" id="contact">
-                <h1>Contact</h1>
-                <div class="contact-container">
-                    <img src="./img/phone.png" style="height:400px;">
-                    <form action="mailto:kunmiddle02@gmail.com" method="post" enctype="text/plain">
-                        <div style="display: flex; flex-direction: column">
-                            <label>Name:</label>
-                            <input type="text" name="Your name" placeholder="Enter your name here">
-                            <label>email:</label>
-                            <input type="email" name="Your email" placeholder="Enter your email here">
-                            <label>Message:</label>
-                            <textarea name="Your message" cols="50" rows="10" placeholder="enter your message"></textarea>
-                            <input type="submit">
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </header>
-
-        <footer>
-            <div class="footer-icon-button">
-                <a href="https://github.com/Charlie0921"><div> GitHub </div></a>
-                <a href="http://www.linkedin.com/in/kunjoong-kim"><div> LinkedIn </div></a>
-                <a href="http://blog.naver.com/kunmiddle"><div> Korean Blog </div></a>
-                <a href="https://www.instagram.com/chocolatefactory_02/"><div> Instagram </div></a>
-            </div>
-            <p>814-753-2758 | kxk5808@psu.edu</p>
-        </footer>
-    </body>
+    <script
+      src="https://kit.fontawesome.com/7a70d5c651.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div>
+          <a id="title" href="#home">Kunjoong Kim</a>
+        </div>
+        <div class="right">
+          <a href="#home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+          </a>
+          <a href="#teenage">
+            <i class="fa-solid fa-child"></i>
+            <span>Teenage Years</span>
+          </a>
+          <a href="#now">
+            <i class="fa-solid fa-question"></i>
+            <span>Now</span>
+          </a>
+          <a href="#developer">
+            <i class="fa-solid fa-code"></i>
+            <span>Developer</span>
+          </a>
+          <a href="#contact">
+            <i class="fa-solid fa-address-book"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+  </body>
 </html>

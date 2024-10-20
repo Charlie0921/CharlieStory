@@ -53,15 +53,100 @@ nav .right a span {
 }
 
 /* SECTION 1: HOME */
-.home{
-    display: flex;
-    justify-content: space-between;
+.home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  margin: 50px 0;
+  gap: 40px;
+}
+
+.home .text {
+  flex: 5;
+}
+
+.home .text h2 {
+  font-size: 45px;
+}
+
+.home .text .links {
+  margin-top: 45px;
+}
+
+.home .text .links a {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid var(--link-color);
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.home .text .links a:hover {
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+}
+
+.home .headshot {
+  flex: 2;
+}
+
+.home .headshot img {
+  border-radius: 50%;
+  width: 350px;
+}
+
+/* SECTION 2: TEENAGE */
+.teenage {
+  width: 600px;
+  padding: 30px;
+  box-shadow: 0 2px 16px black;
+  border-radius: 20px;
+}
+
+.teenage .tab-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 2px solid rgba(229, 229, 229);
+}
+
+.teenage .tab-wrapper .tab-button {
+  font-size: 18px;
+  width: 30%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 18px;
+}
+
+@media (max-width: 740px) {
+  .home {
+    flex-direction: column-reverse;
+  }
+  .home .headshot img {
+    width: 300px;
+  }
 }
 
 @media (max-width: 930px) {
+  /*Section 1: Home */
+  .home {
+    padding: 0 20px;
+  }
+
+  .home .text h2 {
+    font-size: 30px;
+  }
+
   /* NAVBAR */
   nav {
     padding: 0 20px;
+  }
+
+  nav .right a {
     font-size: 22px;
   }
   nav .right a:last-child {

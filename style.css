@@ -99,10 +99,13 @@ nav .right a span {
 
 /* SECTION 2: TEENAGE */
 .teenage {
-  width: 600px;
-  padding: 30px;
-  box-shadow: 0 2px 16px black;
-  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  margin: 50px 0;
+  gap: 40px;
 }
 
 .teenage .tab-wrapper {
@@ -120,6 +123,26 @@ nav .right a span {
   border: none;
   cursor: pointer;
   padding: 18px;
+}
+
+.teenage .tab-wrapper .tab-button.active {
+  color: var(--link-color);
+}
+
+.teenage .content-wrapper {
+  padding: 20px;
+}
+
+.teenage .content-wrapper .content {
+  display: none;
+}
+
+.teenage .content-wrapper .content.active {
+  display: block;
+}
+
+.teenage .content-wrapper .content h2 {
+  margin-bottom: 10px;
 }
 
 @media (max-width: 740px) {

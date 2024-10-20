@@ -90,13 +90,14 @@
 
         <!-- SECTION 2: TEENAGE -->
         <section class="teenage" id="teenage">
+          <h2>Teenage Years</h2>
           <div class="tab-wrapper">
             <button class="tab-button">Elementary</button>
             <button class="tab-button">Middle</button>
             <button class="tab-button">High</button>
           </div>
           <div class="content-wrapper">
-            <div class="content">
+            <div class="content active">
               <h2>Elementary</h2>
               <p>
                 Kunjoong was just a Korean student with a passion for devices,
@@ -141,5 +142,26 @@
         </section>
       </main>
     </header>
+    <script>
+      const tabs = document.querySelectorAll(".tab-button");
+      const all_content = document.querySelectorAll(
+        ".content-wrapper .content"
+      );
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((tab) => {
+            tab.classList.remove("active");
+          });
+          tab.classList.add("active");
+
+          all_content.forEach((content) => {
+            content.classList.remove("active");
+          });
+          all_content[index].classList.add("active");
+        });
+        console.log(index);
+      });
+    </script>
   </body>
 </html>

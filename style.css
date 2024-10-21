@@ -27,7 +27,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0 50px;
-  height: 80px;
+  height: 60px;
 }
 
 nav .left a {
@@ -155,11 +155,42 @@ nav .right a span {
   gap: 40px;
 }
 
+/* SECTION 4: Contact */
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 50px;
+  margin: 50px 0;
+  gap: 20px;
+}
+
+.contact .contact-container {
+  display: flex;
+  align-items: center;
+  margin: 50px 0;
+  gap: 40px;
+}
+
+.contact .contact-container img {
+  border-radius: 50%;
+  width: 350px;
+}
+
 @media (max-width: 740px) {
   .home {
     flex-direction: column-reverse;
   }
   .home .headshot img {
+    width: 300px;
+  }
+
+  .contact .contact-container {
+    flex-direction: column;
+  }
+
+  .contact .contact-container img {
     width: 300px;
   }
 }

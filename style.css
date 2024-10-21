@@ -145,6 +145,15 @@ nav .right a span {
   margin-bottom: 10px;
 }
 
+/* SECTION 3: NOW */
+.now {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 50px;
+  gap: 40px;
+}
+
 @media (max-width: 740px) {
   .home {
     flex-direction: column-reverse;
@@ -162,6 +171,20 @@ nav .right a span {
 
   .home .text h2 {
     font-size: 30px;
+  }
+
+  /*Section 2: Teenage */
+  .teenage {
+    padding: 0 5px;
+  }
+
+  .teenage .text h2 {
+    font-size: 30px;
+  }
+
+  /* SECTION 3: NOW */
+  .now {
+    padding: 0 20px;
   }
 
   /* NAVBAR */

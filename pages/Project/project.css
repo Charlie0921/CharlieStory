@@ -13,6 +13,7 @@
 
 body {
   background-color: var(--background);
+  padding-top: 70px;
 }
 
 a {
@@ -102,7 +103,6 @@ nav .right a span {
 }
 
 /* SECTION 2: TEENAGE */
-
 
 .teenage {
   display: flex;

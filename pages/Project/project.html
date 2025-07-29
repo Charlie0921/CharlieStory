@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="uft-8" />
     <title>Kunjoong's website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
-    <link rel="stylesheet" href="./project.css" />
+    <link rel="stylesheet" href="./contact.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,37 +27,15 @@
     ></script>
   </head>
   <body>
-    <header>
-      <nav>
-        <div>
-          <a id="title" href="../../index.html">Kunjoong Kim</a>
-        </div>
-        <div class="right">
-          <a href="../../index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-          </a>
-          <a href="../Project/project.html">
-            <i class="fa-solid fa-child"></i>
-            <span>Projects</span>
-          </a>
-          <a href="../AboutMe/aboutme.html">
-            <i class="fa-solid fa-question"></i>
-            <span>About Me</span>
-          </a>
-          <a href="../Contact/contact.html">
-            <i class="fa-solid fa-address-book"></i>
-            <span>Contact</span>
-          </a>
-        </div>
-      </nav>
+    <h1>My Projects</h1>
+    <project-wrapper id="wrapper"></project-wrapper>
 
-      <main>
-        <!-- SECTION 1: HOME -->
-        <h1>My Projects</h1>
-  <div id="project-container"></div>
+    <script type="module">
+      import './components/ProjectWrapper/ProjectWrapper.js';
+      import { projectsData } from './projectsData.js';
 
-  <script type="module" src="project.js"></script>
-      </main>
+      const wrapper = document.getElementById('wrapper');
+      wrapper.data = projectsData;
+    </script>
   </body>
 </html>

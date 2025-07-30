@@ -9,7 +9,7 @@ export const projectsData = [
     github: "https://github.com/Charlie0921/CharlieStory.git",
     website: "https://chocolatefactory02.netlify.app",
     text: "sdfsdfsdfsdfd",
-    image: "../../assets/story.png",
+    image: "../../img/ProjectImg/CharlieStory.webp",
   },
   {
     title: "Tanyak Laundry",
@@ -22,7 +22,7 @@ export const projectsData = [
     github: "https://github.com/albert-yim/tanyak-laundry.git",
     website: "tanyak20.netlify.app",
     text: "sdfsdfsdfsdf",
-    image: "../../assets/laundry.png",
+    image: "../../img/ProjectImg/TanyakLaundry.webp",
   },
   {
     title: "Faulty Sewage Pipe AI Detector",
@@ -36,7 +36,7 @@ export const projectsData = [
     website:
       "https://www.wevity.com/index_university.php?c=find&s=_university&gbn=viewok&gp=4&ix=85983",
     text: "sdfsdfsfffff",
-    image: "../../assets/pipe.png",
+    image: "../../img/ProjectImg/SewageClassifier.webp",
   },
   {
     title: "Responsive TodoList (without framework)",
@@ -48,7 +48,7 @@ export const projectsData = [
     github: "https://github.com/Charlie0921/responsive-todo.git",
     website: "https://rokaf-to-do-list.netlify.app/",
     text: "asdfasdfasdfasdf",
-    image: "../../assets/todo.png",
+    image: "../../img/ProjectImg/ToDoList.webp",
   },
   {
     title: "BeyondClass",
@@ -61,7 +61,7 @@ export const projectsData = [
     github: "",
     website: "https://beyondclassmvp.netlify.app",
     text: "afasldkflasdkf",
-    image: "../../assets/beyondclass.png",
+    image: "../../img/ProjectImg/beyondclass.webp",
   },
   {
     title: "PSUStudyFinder",

@@ -51,13 +51,13 @@
   </nav>
   <body>
     <h1>My Projects</h1>
-    <project-wrapper id="project-wrapper"></project-wrapper>
+    <project-grid id="project-grid-component"></project-grid>
 
     <script type="module">
-      import "./components/ProjectWrapper/ProjectWrapper.js";
+      import "./components/ProjectGrid/ProjectGrid.js";
       import { projectsData } from "./projectsData.js";
 
-      const wrapper = document.getElementById("project-wrapper");
+      const wrapper = document.getElementById("project-grid-component");
       wrapper.data = projectsData;
     </script>
   </body>

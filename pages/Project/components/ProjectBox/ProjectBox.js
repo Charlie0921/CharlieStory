@@ -41,13 +41,33 @@ class ProjectBox extends HTMLElement {
     this.shadow.innerHTML = `
       <style>
         .project-box-wrapper {
-          background-color: blue;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           border: 1px solid #ccc;
           border-radius: 10px;
           width: 250px;
           height: 300px;
           box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-  }
+        }
+
+        .project-box-content-wrapper{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 90%;
+          width: 90%; 
+        }
+
+        .project-box-wrapper .project-box-description{
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 15px;
+        }
+
         .project-box-img-wrapper{
         width: 100%;
         height: 40%;
@@ -55,33 +75,27 @@ class ProjectBox extends HTMLElement {
         display: flex;
         justify-content: center;
         }
+
         img {
         width: 90%;
         height: 100%;
         object-fit: cover;
         border-radius: 8px;
         }
+
         h2 {
           font-size: 20px;
           margin: 0 0 0.5rem 0;
         }
-        div {
-          background-color: yellow;
-          margin-bottom: 0.5rem;
-          font-size: 13px;
-        }
-        .project-box-wrapper .project-box-description{
-          font-size: 15px;
-          text-overflow: nowrap;
-        }
-        .
       </style>
       <div class="project-box-wrapper">
-        <div class="project-box-img-wrapper"><img src = ${this.image}></img></div>
-        <h2>${this.title}</h2>
-        <div class="project-box-description">${this.description}</div>
-        <div><strong>Skills:</strong> ${this.skills}</div>
-        <div><strong>Date:</strong> ${this.date}</div>
+        <div class = "project-box-content-wrapper">
+          <div class="project-box-img-wrapper"><img src = ${this.image}></img></div>
+          <h2>${this.title}</h2>
+          <div class="project-box-description">${this.description}</div>
+          <div><strong>Skills:</strong> ${this.skills}</div>
+          <div><strong>Date:</strong> ${this.date}</div>
+        </div>
       </div>
     `;
   }

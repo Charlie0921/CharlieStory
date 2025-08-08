@@ -14,22 +14,31 @@ class ProjectGrid extends HTMLElement {
   render(projects) {
     // Render the initial wrapper
     this.shadowRoot.innerHTML = ` <style>
-      .wrapper {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 columns */
-        background-color: red;
-        width: 700px;
+      .project-grid-wrapper {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr); 
+          width: 100%;
+          max-width: 900px;
+          gap: 10px;
+        }
+
+      @media (max-width: 740px) {
+        .project-grid-wrapper {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr); 
+          width: 100%;
+        }
       }
+      
 
       project-box {
-       background-color: green;
        display: flex;
        justify-content: center;
        align-items: center;
       }
     </style>
-    <div class="wrapper"></div>`;
-    const wrapper = this.shadowRoot.querySelector(".wrapper");
+    <div class="project-grid-wrapper"></div>`;
+    const wrapper = this.shadowRoot.querySelector(".project-grid-wrapper");
 
     // Now safely append project boxes
     projects.forEach((project) => {

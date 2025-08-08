@@ -14,6 +14,9 @@
 body {
   background-color: var(--background);
   padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 a {
@@ -104,84 +107,18 @@ nav .right a span {
 
 /* SECTION 2: TEENAGE */
 
-.teenage {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
+project-grid {
+  display: block; /* Ensures we can set width */
+  max-width: 900px; /* Adjust to fit 3 cards nicely */
+  width: 100%; /* Let it shrink on small screens */
+  margin: 0 auto; /* Center horizontally */
 }
 
-.teenage .tab-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 2px solid rgba(229, 229, 229);
-}
-
-.teenage .tab-wrapper .tab-button {
-  font-size: 18px;
-  width: 30%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 18px;
-}
-
-.teenage .tab-wrapper .tab-button.active {
-  color: var(--link-color);
-}
-
-.teenage .content-wrapper {
-  padding: 20px;
-}
-
-.teenage .content-wrapper .content {
-  display: none;
-}
-
-.teenage .content-wrapper .content.active {
-  display: block;
-}
-
-.teenage .content-wrapper .content h2 {
-  margin-bottom: 10px;
-}
-
-/* SECTION 3: NOW */
-.now {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
-}
-
-/* SECTION 4: Contact */
-
-.contact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 20px;
-}
-
-.contact .contact-container {
+.project-title-text {
   display: flex;
   align-items: center;
-  margin: 50px 0;
-  gap: 40px;
-}
-
-.contact .contact-container img {
-  border-radius: 50%;
-  width: 350px;
+  justify-content: center;
+  margin: 20px;
 }
 
 @media (max-width: 740px) {

@@ -8,7 +8,14 @@ export const projectsData = [
     position: "Full Stack",
     github: "https://github.com/Charlie0921/CharlieStory.git",
     website: "https://chocolatefactory02.netlify.app",
-    text: "sdfsdfsdfsdfd",
+    details: {
+      background: "",
+      whatItDoes: "",
+      challenges: "",
+      resolution: "",
+      accomplishments: "",
+      lessonsLearned: "",
+    },
     image: "../../img/ProjectImg/CharlieStory.webp",
   },
   {

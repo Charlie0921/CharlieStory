@@ -1,5 +1,6 @@
 export const projectsData = [
   {
+    id: 1,
     title: "Charlie's Story (without Framework)",
     date: "August 31, 2022 → October 19, 2024",
     description: "Personal Story Website",
@@ -19,6 +20,7 @@ export const projectsData = [
     image: "../../img/ProjectImg/CharlieStory.webp",
   },
   {
+    id: 2,
     title: "Tanyak Laundry",
     date: "August 4, 2024 → January 22, 2025",
     description:
@@ -39,6 +41,7 @@ export const projectsData = [
     image: "../../img/ProjectImg/TanyakLaundry.webp",
   },
   {
+    id: 3,
     title: "Faulty Sewage Pipe AI Detector",
     date: "June 17, 2024 → June 21, 2024",
     description:
@@ -60,6 +63,7 @@ export const projectsData = [
     image: "../../img/ProjectImg/SewageClassifier.webp",
   },
   {
+    id: 4,
     title: "Responsive TodoList (without framework)",
     date: "March 1, 2024 → March 24, 2024",
     description: "A responsive to-do list without using any framework.",
@@ -79,6 +83,7 @@ export const projectsData = [
     image: "../../img/ProjectImg/ToDoList.webp",
   },
   {
+    id: 5,
     title: "BeyondClass",
     date: "June 23, 2022 → April 23, 2023",
     description:
@@ -99,6 +104,7 @@ export const projectsData = [
     image: "../../img/ProjectImg/beyondclass.webp",
   },
   {
+    id: 6,
     title: "PSUStudyFinder",
     date: "April 10, 2022 → April 11, 2022",
     description: "",
@@ -118,6 +124,7 @@ export const projectsData = [
     image: "",
   },
   {
+    id: 7,
     title: "Mapping Space Trash",
     date: "October 1, 2021 → October 3, 2021",
     description:

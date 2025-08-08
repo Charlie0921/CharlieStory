@@ -6,7 +6,11 @@ class ProjectBox extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["title", "description", "skills", "date", "image"];
+    return ["id", "title", "description", "skills", "date", "image"];
+  }
+
+  get id() {
+    return this.getAttribute("id");
   }
 
   get image() {
@@ -35,6 +39,18 @@ class ProjectBox extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    // Emit an event when clicked so the modal can open
+    this.shadow
+      .querySelector(".project-box-wrapper")
+      .addEventListener("click", () => {
+        this.dispatchEvent(
+          new CustomEvent("open-modal", {
+            detail: { id: this.id },
+            bubbles: true,
+            composed: true,
+          })
+        );
+      });
   }
 
   render() {
@@ -71,9 +87,12 @@ class ProjectBox extends HTMLElement {
         .project-box-img-wrapper{
         width: 100%;
         height: 40%;
-
         display: flex;
         justify-content: center;
+        }
+
+        .project-box-wrapper {
+          cursor: pointer;
         }
 
         img {

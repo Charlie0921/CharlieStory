@@ -30,7 +30,6 @@ class ProjectGrid extends HTMLElement {
         }
       }
       
-
       project-box {
        display: flex;
        justify-content: center;
@@ -43,6 +42,7 @@ class ProjectGrid extends HTMLElement {
     // Now safely append project boxes
     projects.forEach((project) => {
       const box = document.createElement("project-box");
+      box.setAttribute("id", project.id);
       box.setAttribute("title", project.title);
       box.setAttribute("description", project.description);
       box.setAttribute("skills", project.skills);

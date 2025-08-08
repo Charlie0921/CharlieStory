@@ -59,10 +59,23 @@
 
     <script type="module">
       import "./components/ProjectGrid/ProjectGrid.js";
+      import "./components/ProjectModal/ProjectModal.js";
       import { projectsData } from "./projectsData.js";
 
-      const wrapper = document.getElementById("project-grid-component");
-      wrapper.data = projectsData;
+      document.addEventListener("DOMContentLoaded", () => {
+        const wrapper = document.getElementById("project-grid-component");
+        wrapper.data = projectsData;
+
+        document.addEventListener("open-modal", (e) => {
+          console.log(e.detail);
+          const projectId = parseInt(e.detail.id, 10);
+          const project = projectsData.find((p) => p.id === projectId);
+          const modal = document.createElement("project-modal");
+          console.log(project, modal);
+          modal.data = project;
+          document.body.appendChild(modal);
+        });
+      });
     </script>
   </body>
 </html>

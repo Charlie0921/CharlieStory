@@ -121,7 +121,7 @@ export const projectsData = [
       accomplishments: "",
       lessonsLearned: "",
     },
-    image: "",
+    image: "../../img/ProjectImg/beyondclass.webp",
   },
   {
     id: 7,
@@ -141,7 +141,7 @@ export const projectsData = [
       challenges: "",
       resolution: "",
       accomplishments: "",
-      lessonsLearned: "",
+      lessonsLearned: "../../img/ProjectImg/Nasa.webp",
     },
     image: "",
   },

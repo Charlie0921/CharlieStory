@@ -42,12 +42,12 @@ class ProjectGrid extends HTMLElement {
     // Now safely append project boxes
     projects.forEach((project) => {
       const box = document.createElement("project-box");
-      box.setAttribute("id", project.id);
-      box.setAttribute("title", project.title);
-      box.setAttribute("description", project.description);
-      box.setAttribute("skills", project.skills);
-      box.setAttribute("date", project.date);
-      box.setAttribute("image", project.image);
+      box.setAttribute("id", project.project_id);
+      box.setAttribute("title", project.project_title);
+      box.setAttribute("description", project.project_description);
+      box.setAttribute("skills", project.project_skills);
+      box.setAttribute("date", project.project_date);
+      box.setAttribute("image", project.project_image);
       wrapper.appendChild(box);
     });
   }

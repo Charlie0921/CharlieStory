@@ -60,20 +60,27 @@
     <script type="module">
       import "./components/ProjectGrid/ProjectGrid.js";
       import "./components/ProjectModal/ProjectModal.js";
-      import { projectsData } from "./projectsData.js";
 
       document.addEventListener("DOMContentLoaded", () => {
-        const wrapper = document.getElementById("project-grid-component");
-        wrapper.data = projectsData;
+        fetch("http://localhost:3000/projects") // Node backend → PostgreSQL
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Projects loaded from backend:", data);
+            const wrapper = document.getElementById("project-grid-component");
+            wrapper.data = data; // pass fetched array to ProjectGrid
+          })
+          .catch((err) => console.error("Error fetching projects:", err));
 
         document.addEventListener("open-modal", (e) => {
-          console.log(e.detail);
           const projectId = parseInt(e.detail.id, 10);
-          const project = projectsData.find((p) => p.id === projectId);
-          const modal = document.createElement("project-modal");
-          console.log(project, modal);
-          modal.data = project;
-          document.body.appendChild(modal);
+
+          fetch(`http://localhost:3000/projects/${projectId}`)
+            .then((res) => res.json())
+            .then((project) => {
+              const modal = document.createElement("project-modal");
+              modal.data = project;
+              document.body.appendChild(modal);
+            });
         });
       });
     </script>

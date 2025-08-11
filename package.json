@@ -4,7 +4,8 @@
   "description": "- While researching how to become a developer, I noticed many websites focused heavily on developers’ average wages. I felt that focusing on financial aspects rather than passion was unhealthy when choosing a career.\r - This website serves not only as a way to introduce myself to others but also as a personal motivation tool to keep me focused on my developer journey.\r - It was created during my first development club experience and has been continually improved since then.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
     "url": "https://github.com/Charlie0921/CharlieStory/issues"
   },
   "homepage": "https://github.com/Charlie0921/CharlieStory#readme",
+  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",

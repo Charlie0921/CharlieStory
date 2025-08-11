@@ -39,18 +39,16 @@ class ProjectBox extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    // Emit an event when clicked so the modal can open
-    this.shadow
-      .querySelector(".project-box-wrapper")
-      .addEventListener("click", () => {
-        this.dispatchEvent(
-          new CustomEvent("open-modal", {
-            detail: { id: this.id },
-            bubbles: true,
-            composed: true,
-          })
-        );
-      });
+
+    // Open modal when clicked
+    this.addEventListener("click", () => {
+      this.dispatchEvent(
+        new CustomEvent("open-modal", {
+          detail: { id: this.idAttr },
+          bubbles: true,
+        })
+      );
+    });
   }
 
   render() {

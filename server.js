@@ -1,48 +1,33 @@
 import express from "express";
 import cors from "cors";
-import pkg from "pg";
+import dotenv from "dotenv";
+import { createClient } from "@supabase/supabase-js";
 
-const { Pool } = pkg;
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "CharlieStory",
-  password: "0921",
-  port: 5432,
-});
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
-// GET all projects
+// Fetch projects
 app.get("/projects", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM projects");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
+  const { data, error } = await supabase.from("projects").select("*");
+
+  console.log(data);
+  if (error) {
+    console.error("Supabase error:", error);
+    return res.status(500).json({ error: "Database fetch error" });
   }
+
+  res.json(data);
 });
 
-// GET single project by id
-app.get("/projects/:id", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM projects WHERE id = $1", [
-      req.params.id,
-    ]);
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Not found" });
-    }
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });

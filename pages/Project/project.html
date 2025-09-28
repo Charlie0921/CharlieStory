@@ -71,16 +71,20 @@
           })
           .catch((err) => console.error("Error fetching projects:", err));
 
-        document.addEventListener("open-modal", (e) => {
-          const projectId = parseInt(e.detail.id, 10);
+        document.addEventListener("open-modal", async (e) => {
+          console.log("open-modal event received:", e.detail.id);
 
-          fetch(`http://localhost:3000/projects/${projectId}`)
-            .then((res) => res.json())
-            .then((project) => {
-              const modal = document.createElement("project-modal");
-              modal.data = project;
-              document.body.appendChild(modal);
-            });
+          const projectId = parseInt(e.detail.id, 10);
+          const res = await fetch(
+            `http://localhost:3000/projects/${projectId}`
+          );
+          const project = await res.json();
+
+          console.log("Fetched project:", project);
+
+          const modal = document.createElement("project-modal");
+          modal.data = project;
+          document.body.appendChild(modal);
         });
       });
     </script>

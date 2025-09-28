@@ -42,10 +42,12 @@ class ProjectBox extends HTMLElement {
 
     // Open modal when clicked
     this.addEventListener("click", () => {
+      console.log("Box clicked!", this.id); // debug
       this.dispatchEvent(
         new CustomEvent("open-modal", {
-          detail: { id: this.idAttr },
+          detail: { id: this.id }, // ✅ use getter
           bubbles: true,
+          composed: true,
         })
       );
     });

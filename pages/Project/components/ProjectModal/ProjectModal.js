@@ -49,13 +49,26 @@ class ProjectModal extends HTMLElement {
       <div class="overlay">
         <div class="modal">
           <button id="close">&times;</button>
-          <h2>${this.project.title}</h2>
-          <p><strong>Background:</strong> ${this.project.details.background}</p>
-          <p><strong>What It Does:</strong> ${this.project.details.whatItDoes}</p>
-          <p><strong>Challenges:</strong> ${this.project.details.challenges}</p>
-          <p><strong>Resolution:</strong> ${this.project.details.resolution}</p>
-          <p><strong>Accomplishments:</strong> ${this.project.details.accomplishments}</p>
-          <p><strong>Lessons Learned:</strong> ${this.project.details.lessonsLearned}</p>
+          <h2>${this.project.project_title}</h2>
+<p><strong>Inspirations:</strong> ${
+      this.project.details?.project_inspirations || ""
+    }</p>
+<p><strong>What It Does:</strong> ${
+      this.project.details?.project_whatitdoes || ""
+    }</p>
+<p><strong>Challenges:</strong> ${
+      this.project.details?.project_challenges || ""
+    }</p>
+<p><strong>Resolutions:</strong> ${
+      this.project.details?.project_resolutions || ""
+    }</p>
+<p><strong>Accomplishments:</strong> ${
+      this.project.details?.project_accomplishments || ""
+    }</p>
+<p><strong>Lessons Learned:</strong> ${
+      this.project.details?.project_lessons || ""
+    }</p>
+
         </div>
       </div>
     `;

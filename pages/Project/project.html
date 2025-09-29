@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="uft-8" />
+    <title>Kunjoong's website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
+    <link rel="stylesheet" href="./project.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Red+Hat+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/7a70d5c651.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <nav>
+    <div>
+      <a id="title" href="../../index.html">Kunjoong Kim</a>
+    </div>
+    <div class="right">
+      <a href="../../index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="../Project/project.html">
+        <i class="fa-solid fa-child"></i>
+        <span>Projects</span>
+      </a>
+      <a href="../AboutMe/aboutme.html">
+        <i class="fa-solid fa-question"></i>
+        <span>About Me</span>
+      </a>
+      <a href="../Contact/contact.html">
+        <i class="fa-solid fa-address-book"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </nav>
+  <body>
+    <div class="project-page-wrapper">
+      <div class="project-title-text">
+        <h1>My Projects</h1>
+      </div>
+      <project-grid id="project-grid-component"></project-grid>
+    </div>
+
+    <script type="module">
+      import "./components/ProjectGrid/ProjectGrid.js";
+      import "./components/ProjectModal/ProjectModal.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("http://localhost:3000/projects") // Node backend → PostgreSQL
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Projects loaded from backend:", data);
+            const wrapper = document.getElementById("project-grid-component");
+            wrapper.data = data; // pass fetched array to ProjectGrid
+          })
+          .catch((err) => console.error("Error fetching projects:", err));
+
+        document.addEventListener("open-modal", async (e) => {
+          console.log("open-modal event received:", e.detail.id);
+
+          const projectId = parseInt(e.detail.id, 10);
+          const res = await fetch(
+            `http://localhost:3000/projects/${projectId}`
+          );
+          const project = await res.json();
+
+          console.log("Fetched project:", project);
+
+          const modal = document.createElement("project-modal");
+          modal.data = project;
+          document.body.appendChild(modal);
+        });
+      });
+    </script>
+  </body>
+</html>

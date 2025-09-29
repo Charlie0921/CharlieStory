@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="uft-8" />
+    <title>Kunjoong's website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
+    <link rel="stylesheet" href="./contact.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Red+Hat+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/7a70d5c651.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div>
+          <a id="title" href="../../index.html">Kunjoong Kim</a>
+        </div>
+        <div class="right">
+          <a href="../../index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+          </a>
+          <a href="../Project/project.html">
+            <i class="fa-solid fa-child"></i>
+            <span>Projects</span>
+          </a>
+          <a href="../AboutMe/aboutme.html">
+            <i class="fa-solid fa-question"></i>
+            <span>About Me</span>
+          </a>
+          <a href="../Contact/contact.html">
+            <i class="fa-solid fa-address-book"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+      </nav>
+
+      <main>
+        <!-- SECTION 4: Contact -->
+        <section class="contact" id="contact">
+          <h2>Wanna keep in touch?</h2>
+          <div class="contact-container">
+            <img src="../../img/phone.png" />
+            <form
+              action="mailto:kunmiddle02@gmail.com"
+              method="post"
+              enctype="text/plain"
+            >
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <label>Name:</label>
+                <input
+                  type="text"
+                  name="Your name"
+                  placeholder="Enter your name here"
+                />
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="Your email"
+                  placeholder="Enter your email here"
+                />
+                <label>Message:</label>
+                <textarea
+                  name="Your message"
+                  cols="50"
+                  rows="10"
+                  placeholder="Enter your message"
+                ></textarea>
+                <input class="submit_button" type="submit" />
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+    </header>
+    <script>
+      const tabs = document.querySelectorAll(".tab-button");
+      const all_content = document.querySelectorAll(
+        ".content-wrapper .content"
+      );
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((tab) => {
+            tab.classList.remove("active");
+          });
+          tab.classList.add("active");
+
+          all_content.forEach((content) => {
+            content.classList.remove("active");
+          });
+          all_content[index].classList.add("active");
+        });
+        console.log(index);
+      });
+    </script>
+  </body>
+</html>

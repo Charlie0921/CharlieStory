@@ -32,6 +32,7 @@ class ProjectModal extends HTMLElement {
           width: 90%;
           max-height: 80%;
           overflow-y: auto;
+          position: relative;
         }
         h2 {
           margin-top: 0;
@@ -39,11 +40,12 @@ class ProjectModal extends HTMLElement {
         button {
           background: none;
           border: none;
-          font-size: 20px;
+          font-size: 40px;
           cursor: pointer;
           position: absolute;
           top: 10px;
           right: 20px;
+          length: 10px;
         }
       </style>
       <div class="overlay">

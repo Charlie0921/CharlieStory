@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 // Fetch projects
+
 // Fetch projects with details joined
 app.get("/projects", async (req, res) => {
   const { data, error } = await supabase.from("projects").select(`
@@ -47,6 +48,43 @@ app.get("/projects", async (req, res) => {
     console.error("Supabase error:", error);
     return res.status(500).json({ error: "Database fetch error" });
   }
+
+  res.json(data);
+});
+
+app.get("/projects/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const { data, error } = await supabase
+    .from("projects")
+    .select(
+      `
+      project_id,
+      project_title,
+      project_date,
+      project_description,
+      project_skills,
+      project_position,
+      project_github,
+      project_website,
+      project_image,
+      details:project_detail (
+        id,
+        project_inspirations,
+        project_whatitdoes,
+        project_challenges,
+        project_resolutions,
+        project_accomplishments,
+        project_lessons,
+        project_improvements
+      )
+    `
+    )
+    .eq("project_id", id) // filter by project_id
+    .single();
+
+  if (error) return res.status(500).json({ error: "Database fetch error" });
+  if (!data) return res.status(404).json({ error: "Project not found" });
 
   res.json(data);
 });

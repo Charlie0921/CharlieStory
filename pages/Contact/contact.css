@@ -181,6 +181,28 @@ nav .right a span {
   width: 350px;
 }
 
+input {
+  height: 40px;
+  border-radius: 10px;
+  border: None;
+  background-color: rgba(229, 229, 229);
+  padding-left: 10px;
+}
+
+textarea {
+  border: None;
+  border-radius: 10px;
+  background-color: rgba(229, 229, 229);
+  resize: none;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.submit_button {
+  background-color: var(--link-color);
+  color: var(--background-color);
+}
+
 @media (max-width: 740px) {
   .home {
     flex-direction: column-reverse;

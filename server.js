@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
+  "https://iwhyfeosfcjdgabsvccs.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3aHlmZW9zZmNqZGdhYnN2Y2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MjE3ODUsImV4cCI6MjA3MDQ5Nzc4NX0.vNtgwd2LqdZx0k5jvC8T31hJY_zwsf_q1tFoeRoskdw"
 );
 
 app.get("/", (req, res) => {

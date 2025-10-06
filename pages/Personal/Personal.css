@@ -34,13 +34,13 @@ nav {
 }
 
 nav .left a {
-  color: var(--text-color);
+  color: var(--background-color);
   font-size: 22px;
   font-weight: 600;
 }
 
 nav .right a {
-  color: var(--text-color);
+  color: var(--background-color);
   margin: 0 10px;
 }
 

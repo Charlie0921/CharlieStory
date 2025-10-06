@@ -196,24 +196,91 @@ nav .right a span {
   background: #fff;
 }
 
-/* Now section */
-.now {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 24px 80px;
-  gap: 16px;
+/* how about now? */
+.current-focus {
+  background-color: #3d8d7a;
+  color: #fff;
 }
 
-.now h2 {
+.current-focus p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 16px;
+  color: #fff;
+}
+
+.focus-btn {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 24px;
+  background-color: #2f6f5e;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.focus-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Why should i become an engineer?*/
+.about-engineer,
+.current-focus,
+.contact-me {
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.about-engineer {
+  background-color: #fbffe4; /* contrast section */
+  color: var(--muted-text);
+}
+
+.about-engineer h2,
+.current-focus h2,
+.contact-me h2 {
   font-size: clamp(20px, 2.2vw, 28px);
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
-.now p {
-  max-width: 900px;
-  color: #2a2a2a;
-  text-align: center;
+.engineer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.engineer-image {
+  width: 200px;
+  height: auto;
+  background-color: #dcdcdc; /* placeholder */
+  border-radius: 10px;
+}
+
+.engineer-list {
+  width: 500px;
+}
+
+.engineer-content ul {
+  text-align: left;
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.contact-me {
+  background-color: var(--link-color);
+  color: #fff;
+}
+
+.contact-me a {
+  color: #fff;
+  text-decoration: underline;
 }
 
 /* Hover interaction (subtle) */

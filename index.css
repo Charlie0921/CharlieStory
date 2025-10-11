@@ -1,26 +1,27 @@
 :root {
-  --text-color: #7e6060;
-  --link-color: #3d8d7a;
+  --text-color: #27482b;
+  --link-color: #2f8a78;
+  --highlight-bg: #d8e8d4;
   --background-color: #fbffe4;
 }
+
+/* BASE STYLE */
 * {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", "sans-serif";
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--background);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
-a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-/* NAVBAR*/
-
+/* NAVBAR */
 nav {
   display: flex;
   justify-content: space-between;
@@ -30,213 +31,130 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white;
+  background-color: var(--background-color);
+  z-index: 100;
 }
 
-nav .left a {
+nav a {
+  text-decoration: none;
   color: var(--text-color);
-  font-size: 22px;
-  font-weight: 600;
 }
 
 nav .right a {
-  color: var(--text-color);
   margin: 0 10px;
+  font-weight: 500;
 }
 
 nav .right a:last-child {
-  color: var(--background-color);
-  background-color: var(--text-color);
-  padding: 5px 15px;
-  border-radius: 5px;
+  background-color: var(--link-color);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
 }
 
 nav .right a span {
   margin-left: 5px;
 }
 
-/* SECTION 1: HOME */
+/* HERO SECTION */
 .home {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
+  justify-content: space-between;
+  padding: 120px 60px;
+  gap: 50px;
 }
 
-.home .text {
-  flex: 5;
+.headshot img {
+  width: 280px;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.home .text h2 {
-  font-size: 45px;
+.text {
+  max-width: 600px;
 }
 
-.home .text .links {
-  margin-top: 45px;
+.text h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1a4a3d;
+  line-height: 1.2;
 }
 
-.home .text .links a {
+.links {
+  margin: 25px 0;
+}
+
+.links a {
   display: inline-block;
-  padding: 5px 10px;
-  border: 2px solid var(--link-color);
-  border-radius: 5px;
+  background-color: var(--link-color);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 600;
   margin-right: 10px;
-  margin-bottom: 10px;
+  text-decoration: none;
+  transition: 0.3s ease;
 }
 
-.home .text .links a:hover {
-  color: var(--text-color);
-  border: 2px solid var(--text-color);
+.links a:hover {
+  background-color: #256e60;
 }
 
-.home .headshot {
-  flex: 2;
-}
-
-.home .headshot img {
-  border-radius: 50%;
-  width: 350px;
-}
-
-/* SECTION 2: TEENAGE */
-.teenage {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
-}
-
-.teenage .tab-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 2px solid rgba(229, 229, 229);
-}
-
-.teenage .tab-wrapper .tab-button {
-  font-size: 18px;
-  width: 30%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 18px;
-}
-
-.teenage .tab-wrapper .tab-button.active {
-  color: var(--link-color);
-}
-
-.teenage .content-wrapper {
-  padding: 20px;
-}
-
-.teenage .content-wrapper .content {
-  display: none;
-}
-
-.teenage .content-wrapper .content.active {
-  display: block;
-}
-
-.teenage .content-wrapper .content h2 {
-  margin-bottom: 10px;
-}
-
-/* SECTION 3: NOW */
-.now {
+.home-intro {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
+  margin-bottom: 60px;
 }
 
-/* SECTION 4: Contact */
-
-.contact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 20px;
+.intro {
+  font-size: 2rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  font-weight: 400;
 }
 
-.contact .contact-container {
-  display: flex;
-  align-items: center;
-  margin: 50px 0;
-  gap: 40px;
+.highlight {
+  background-color: var(--highlight-bg);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 600;
 }
 
-.contact .contact-container img {
-  border-radius: 50%;
-  width: 350px;
+.cta-btn {
+  background-color: var(--link-color);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease;
 }
 
-@media (max-width: 740px) {
+.cta-btn:hover {
+  background-color: #256e60;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 850px) {
   .home {
-    flex-direction: column-reverse;
-  }
-  .home .headshot img {
-    width: 300px;
-  }
-
-  .contact .contact-container {
     flex-direction: column;
+    text-align: center;
+    padding: 100px 30px;
   }
 
-  .contact .contact-container img {
-    width: 300px;
-  }
-}
-
-@media (max-width: 930px) {
-  /*Section 1: Home */
-  .home {
-    padding: 0 20px;
+  .headshot img {
+    width: 220px;
   }
 
-  .home .text h2 {
-    font-size: 30px;
+  .text h1 {
+    font-size: 2rem;
   }
 
-  /*Section 2: Teenage */
-  .teenage {
-    padding: 0 5px;
-  }
-
-  /* SECTION 3: Now */
-  .now {
-    padding: 0 20px;
-  }
-
-  /* SECTION 4: Contact */
-  .contact {
-    padding: 0 20px;
-  }
-
-  /* NAVBAR */
-  nav {
-    padding: 0 20px;
-  }
-
-  nav .right a {
-    font-size: 22px;
-  }
-  nav .right a:last-child {
-    color: var(--text-color);
-    background-color: transparent;
-    padding: 0;
-  }
-  nav .right a span {
-    display: none;
+  .links a {
+    margin-bottom: 10px;
   }
 }

@@ -1,12 +1,8 @@
 :root {
-  --text-color: #1a1a1a;
-  --muted-text: #5a5a5a;
-  --link-color: #3d8d7a;
-  --bg-problem: #e3e3e3;
-  --bg-solution: #cee2c7;
-  --bg-page: #fbffe4;
-  --pill-bg: #fbffe4;
-  --nav-bg: #3d8d7a;
+  --text-color: #27482b;
+  --link-color: #2f8a78;
+  --highlight-bg: #d8e8d4;
+  --background-color: #fbffe4;
 }
 
 * {
@@ -25,7 +21,7 @@ body {
   line-height: 1.6;
 }
 
-/* NAVBAR*/
+/* NAVBAR */
 nav {
   display: flex;
   justify-content: space-between;
@@ -35,33 +31,29 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: var(--nav-bg);
-  z-index: 50;
+  background-color: var(--background-color);
+  z-index: 100;
 }
 
-nav .left a,
-nav .right a {
-  color: #fff;
+nav a {
   text-decoration: none;
-}
-
-nav .left a {
-  font-size: 22px;
-  font-weight: 700;
+  color: var(--text-color);
 }
 
 nav .right a {
   margin: 0 10px;
+  font-weight: 500;
 }
 
 nav .right a:last-child {
-  background-color: rgba(0, 0, 0, 0.15);
-  padding: 6px 12px;
-  border-radius: 8px;
+  background-color: var(--link-color);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
 }
 
 nav .right a span {
-  margin-left: 6px;
+  margin-left: 5px;
 }
 
 /* Opening banner */

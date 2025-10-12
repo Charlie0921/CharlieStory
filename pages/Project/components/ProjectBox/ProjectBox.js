@@ -1,4 +1,3 @@
-// components/ProjectBox/ProjectBox.js
 class ProjectBox extends HTMLElement {
   constructor() {
     super();
@@ -12,23 +11,18 @@ class ProjectBox extends HTMLElement {
   get id() {
     return this.getAttribute("id");
   }
-
   get image() {
     return this.getAttribute("image");
   }
-
   get title() {
     return this.getAttribute("title");
   }
-
   get description() {
     return this.getAttribute("description");
   }
-
   get skills() {
     return this.getAttribute("skills");
   }
-
   get date() {
     return this.getAttribute("date");
   }
@@ -40,12 +34,11 @@ class ProjectBox extends HTMLElement {
   connectedCallback() {
     this.render();
 
-    // Open modal when clicked
+    // Modal trigger
     this.addEventListener("click", () => {
-      console.log("Box clicked!", this.id); // debug
       this.dispatchEvent(
         new CustomEvent("open-modal", {
-          detail: { id: this.id }, // ✅ use getter
+          detail: { id: this.id },
           bubbles: true,
           composed: true,
         })
@@ -54,66 +47,130 @@ class ProjectBox extends HTMLElement {
   }
 
   render() {
+    const skillArray =
+      this.skills && this.skills.length > 0
+        ? this.skills.split(",").map((s) => s.trim())
+        : [];
+
     this.shadow.innerHTML = `
       <style>
-        .project-box-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-          width: 250px;
-          height: 300px;
-          box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        :host {
+          display: block;
+          margin-bottom: 25px;
+          cursor: pointer;
+          font-family: "Open Sans", sans-serif;
         }
 
-        .project-box-content-wrapper{
+        .project-box {
+          display: flex;
+          align-items: flex-start;
+          gap: 20px;
+          background-color: #3a8b76; /* green card */
+          border-radius: 15px;
+          color: white;
+          padding: 20px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-box:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-wrapper {
+          flex: 0 0 130px;
+          height: 130px;
+          background-color: #d7e6db;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .image-wrapper img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .content {
+          flex: 1;
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          height: 90%;
-          width: 90%; 
+          justify-content: space-between;
         }
 
-        .project-box-wrapper .project-box-description{
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
+        .title {
+          font-size: 18px;
+          font-weight: 700;
+          margin-bottom: 6px;
+        }
+
+        .date {
+          font-size: 13px;
+          opacity: 0.9;
+          margin-bottom: 8px;
+        }
+
+        .description {
+          font-size: 14px;
+          line-height: 1.4;
+          margin-bottom: 10px;
           overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 15px;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
         }
 
-        .project-box-img-wrapper{
-        width: 100%;
-        height: 40%;
-        display: flex;
-        justify-content: center;
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
         }
 
-        .project-box-wrapper {
-          cursor: pointer;
+        .tag {
+          background-color: #f3f3f3;
+          color: #2f2f2f;
+          font-size: 11px;
+          font-weight: 600;
+          border-radius: 12px;
+          padding: 3px 8px;
         }
 
-        img {
-        width: 90%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 8px;
-        }
+        @media (max-width: 700px) {
+          .project-box {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
 
-        h2 {
-          font-size: 20px;
-          margin: 0 0 0.5rem 0;
+          .image-wrapper {
+            width: 100%;
+            height: 180px;
+          }
+
+          .content {
+            align-items: center;
+          }
+
+          .tags {
+            justify-content: center;
+          }
         }
       </style>
-      <div class="project-box-wrapper">
-        <div class = "project-box-content-wrapper">
-          <div class="project-box-img-wrapper"><img src = ${this.image}></img></div>
-          <h2>${this.title}</h2>
-          <div class="project-box-description">${this.description}</div>
-          <div><strong>Skills:</strong> ${this.skills}</div>
-          <div><strong>Date:</strong> ${this.date}</div>
+
+      <div class="project-box">
+        <div class="image-wrapper">
+          <img src="${this.image || "./img/default.jpg"}" alt="${this.title}" />
+        </div>
+        <div class="content">
+          <div>
+            <div class="title">${this.title}</div>
+            <div class="date">${this.date}</div>
+            <div class="description">${this.description}</div>
+          </div>
+          <div class="tags">
+            ${skillArray.map((s) => `<span class="tag">${s}</span>`).join("")}
+          </div>
         </div>
       </div>
     `;

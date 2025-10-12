@@ -48,6 +48,7 @@ class ProjectGrid extends HTMLElement {
       box.setAttribute("skills", project.project_skills);
       box.setAttribute("date", project.project_date);
       box.setAttribute("image", project.project_image);
+      box.setAttribute("website", project.project_website);
       wrapper.appendChild(box);
     });
   }

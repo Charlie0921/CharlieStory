@@ -5,7 +5,7 @@ class ProjectBox extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["id", "title", "description", "skills", "date", "image"];
+    return ["id", "title", "description", "skills", "date", "image", "website"];
   }
 
   get id() {
@@ -26,6 +26,9 @@ class ProjectBox extends HTMLElement {
   get date() {
     return this.getAttribute("date");
   }
+  get website() {
+    return this.getAttribute("website");
+  }
 
   attributeChangedCallback() {
     this.render();
@@ -34,15 +37,21 @@ class ProjectBox extends HTMLElement {
   connectedCallback() {
     this.render();
 
-    // Modal trigger
+    // Handle click: open website if available, else modal
     this.addEventListener("click", () => {
-      this.dispatchEvent(
-        new CustomEvent("open-modal", {
-          detail: { id: this.id },
-          bubbles: true,
-          composed: true,
-        })
-      );
+      if (this.website && this.website.trim() !== "") {
+        // ✅ Open external project link
+        window.open(this.website, "_blank", "noopener,noreferrer");
+      } else {
+        // ✅ Fallback: open modal if no website link
+        this.dispatchEvent(
+          new CustomEvent("open-modal", {
+            detail: { id: this.id },
+            bubbles: true,
+            composed: true,
+          })
+        );
+      }
     });
   }
 
@@ -66,19 +75,20 @@ class ProjectBox extends HTMLElement {
           align-items: flex-start;
           justify-content: center;
           gap: 30px;
-          background-color: #3a8b76; /* green card */
+          background-color: #3a8b76;
           border-radius: 30px;
           color: white;
           height: 200px;
-          max-width:480px;
+          max-width: 480px;
           padding: 20px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
         }
 
         .project-box:hover {
           transform: translateY(-4px);
           box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
+          opacity: 0.95;
         }
 
         .image-wrapper {
@@ -141,15 +151,24 @@ class ProjectBox extends HTMLElement {
 
         @media (max-width: 700px) {
           .project-box {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: auto;
           }
 
           .image-wrapper {
+            width: 100%;
+            height: 180px;
           }
 
           .content {
+            width: 100%;
+            align-items: center;
           }
 
           .tags {
+            justify-content: center;
           }
         }
       </style>

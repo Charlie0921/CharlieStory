@@ -42,6 +42,17 @@ nav a {
   color: var(--background-color);
 }
 
+nav a img {
+  border-radius: 50px;
+}
+
+nav .left a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 nav .right a {
   margin: 0 10px;
   font-weight: 500;
@@ -276,11 +287,23 @@ nav .right a span {
   text-decoration: underline;
 }
 
+.event-img-click {
+  visibility: hidden;
+}
+
 /* Hover interaction */
 .event:hover .media img {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.event:hover .media .event-img-click {
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  text-decoration: none;
 }
 
 /* Responsive */

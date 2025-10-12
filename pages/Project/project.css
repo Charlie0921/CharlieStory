@@ -47,6 +47,17 @@ nav a {
   color: var(--background-color);
 }
 
+nav a img {
+  border-radius: 50px;
+}
+
+nav .left a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 nav .right a {
   margin: 0 10px;
   font-weight: 500;
@@ -72,12 +83,13 @@ nav .right a span {
   background-color: #f8fbe8;
   color: #183d2a;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
   padding-top: 60px; /* prevent navbar overlap */
 }
 
 /* LEFT PANEL (Fixed Text) */
 .intro-section {
-  flex: 0 0 40%;
   position: sticky;
   top: 0;
   align-self: flex-start;
@@ -93,13 +105,14 @@ nav .right a span {
   font-weight: 700;
 }
 
-.intro-section h2 {
-  font-size: 22px;
+.intro-section .intro-section-title {
+  font-size: 30px;
   margin-bottom: 15px;
 }
 
 .intro-section p {
   margin-bottom: 20px;
+  font-size: 20px;
 }
 
 .contact-btn {
@@ -137,7 +150,6 @@ nav .right a span {
 
 /* RIGHT SIDE (Scrollable Cards) */
 .cards-section {
-  flex: 1;
   height: 100vh;
   overflow-y: auto;
   padding: 100px 60px;

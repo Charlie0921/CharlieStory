@@ -1,17 +1,24 @@
 :root {
-  --text-color: #1a1c20;
-  --link-color: #4a76ee;
-  --background-color: #eeeff1;
+  --text-color: #27482b;
+  --link-color: #2f8a78;
+  --highlight-bg: #d8e8d4;
+  --background-color: #fbffe4;
+  --background-problem: #e3e3e3;
 }
+
 * {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", "sans-serif";
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Arial, sans-serif;
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--background);
+  background-color: var(--background-color);
+  min-width: 1200px;
+  overflow-x: auto;
 }
 
 a {
@@ -19,8 +26,7 @@ a {
   text-decoration: none;
 }
 
-/* NAVBAR*/
-
+/* NAVBAR */
 nav {
   display: flex;
   justify-content: space-between;
@@ -30,132 +36,41 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white;
+  min-width: 1200px;
+  background-color: var(--link-color);
+  z-index: 100;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--background-color);
+}
+
+nav a img {
+  border-radius: 50px;
 }
 
 nav .left a {
-  color: var(--text-color);
-  font-size: 22px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 nav .right a {
-  color: var(--text-color);
   margin: 0 10px;
+  font-weight: 500;
 }
 
 nav .right a:last-child {
-  color: var(--background-color);
-  background-color: var(--text-color);
-  padding: 5px 15px;
-  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--link-color);
+  padding: 6px 14px;
+  border-radius: 20px;
 }
 
 nav .right a span {
   margin-left: 5px;
-}
-
-/* SECTION 1: HOME */
-.home {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
-}
-
-.home .text {
-  flex: 5;
-}
-
-.home .text h2 {
-  font-size: 45px;
-}
-
-.home .text .links {
-  margin-top: 45px;
-}
-
-.home .text .links a {
-  display: inline-block;
-  padding: 5px 10px;
-  border: 2px solid var(--link-color);
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.home .text .links a:hover {
-  color: var(--text-color);
-  border: 2px solid var(--text-color);
-}
-
-.home .headshot {
-  flex: 2;
-}
-
-.home .headshot img {
-  border-radius: 50%;
-  width: 350px;
-}
-
-/* SECTION 2: TEENAGE */
-.teenage {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
-}
-
-.teenage .tab-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 2px solid rgba(229, 229, 229);
-}
-
-.teenage .tab-wrapper .tab-button {
-  font-size: 18px;
-  width: 30%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 18px;
-}
-
-.teenage .tab-wrapper .tab-button.active {
-  color: var(--link-color);
-}
-
-.teenage .content-wrapper {
-  padding: 20px;
-}
-
-.teenage .content-wrapper .content {
-  display: none;
-}
-
-.teenage .content-wrapper .content.active {
-  display: block;
-}
-
-.teenage .content-wrapper .content h2 {
-  margin-bottom: 10px;
-}
-
-/* SECTION 3: NOW */
-.now {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
 }
 
 /* SECTION 4: Contact */
@@ -164,20 +79,30 @@ nav .right a span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 50px;
+  padding-top: 60px;
   margin: 50px 0;
   gap: 20px;
+}
+
+label {
+  color: var(--text-color);
+}
+
+.contact .title {
+  font-size: 30px;
+  color: var(--text-color);
 }
 
 .contact .contact-container {
   display: flex;
   align-items: center;
   margin: 50px 0;
-  gap: 40px;
+  gap: 60px;
 }
 
 .contact .contact-container img {
-  border-radius: 50%;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 350px;
 }
 
@@ -185,14 +110,14 @@ input {
   height: 40px;
   border-radius: 10px;
   border: None;
-  background-color: rgba(229, 229, 229);
+  background-color: var(--highlight-bg);
   padding-left: 10px;
 }
 
 textarea {
   border: None;
   border-radius: 10px;
-  background-color: rgba(229, 229, 229);
+  background-color: var(--highlight-bg);
   resize: none;
   padding-left: 10px;
   padding-top: 10px;
@@ -203,6 +128,7 @@ textarea {
   color: var(--background-color);
 }
 
+/* Responsive
 @media (max-width: 740px) {
   .home {
     flex-direction: column-reverse;
@@ -219,9 +145,10 @@ textarea {
     width: 300px;
   }
 }
+*/
 
+/*
 @media (max-width: 930px) {
-  /*Section 1: Home */
   .home {
     padding: 0 20px;
   }
@@ -230,22 +157,18 @@ textarea {
     font-size: 30px;
   }
 
-  /*Section 2: Teenage */
   .teenage {
     padding: 0 5px;
   }
 
-  /* SECTION 3: Now */
   .now {
     padding: 0 20px;
   }
 
-  /* SECTION 4: Contact */
   .contact {
     padding: 0 20px;
   }
 
-  /* NAVBAR */
   nav {
     padding: 0 20px;
   }
@@ -262,3 +185,5 @@ textarea {
     display: none;
   }
 }
+
+*/

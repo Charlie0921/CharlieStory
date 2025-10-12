@@ -1,22 +1,28 @@
 :root {
-  --text-color: #1a1c20;
-  --link-color: #4a76ee;
-  --background-color: #eeeff1;
+  --text-color: #27482b;
+  --link-color: #2f8a78;
+  --highlight-bg: #d8e8d4;
+  --background-color: #fbffe4;
+  --background-problem: #e3e3e3;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", "sans-serif";
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Arial, sans-serif;
   scroll-behavior: smooth;
 }
 
+/* ------------------- BASE ------------------- */
 body {
   background-color: var(--background);
-  padding-top: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 1200px; /* prevent the site from getting narrower than this */
+  overflow-x: auto; /* allow horizontal scroll instead of shrinking */
 }
 
 a {
@@ -24,8 +30,7 @@ a {
   text-decoration: none;
 }
 
-/* NAVBAR*/
-
+/* NAVBAR */
 nav {
   display: flex;
   justify-content: space-between;
@@ -35,148 +40,170 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white;
+  min-width: 1200px;
+  background-color: var(--link-color);
+  z-index: 100;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--background-color);
+}
+
+nav a img {
+  border-radius: 50px;
 }
 
 nav .left a {
-  color: var(--text-color);
-  font-size: 22px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 nav .right a {
-  color: var(--text-color);
   margin: 0 10px;
+  font-weight: 500;
 }
 
 nav .right a:last-child {
-  color: var(--background-color);
-  background-color: var(--text-color);
-  padding: 5px 15px;
-  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--link-color);
+  padding: 6px 14px;
+  border-radius: 20px;
 }
 
 nav .right a span {
   margin-left: 5px;
 }
 
-/* SECTION 1: HOME */
-.home {
+/* ------------------- PROJECT PAGE ------------------- */
+
+/* Split Layout */
+.project-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
-  margin: 50px 0;
-  gap: 40px;
-}
-
-.home .text {
-  flex: 5;
-}
-
-.home .text h2 {
-  font-size: 45px;
-}
-
-.home .text .links {
-  margin-top: 45px;
-}
-
-.home .text .links a {
-  display: inline-block;
-  padding: 5px 10px;
-  border: 2px solid var(--link-color);
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.home .text .links a:hover {
-  color: var(--text-color);
-  border: 2px solid var(--text-color);
-}
-
-.home .headshot {
-  flex: 2;
-}
-
-.home .headshot img {
-  border-radius: 50%;
-  width: 350px;
-}
-
-/* SECTION 2: TEENAGE */
-
-project-grid {
-  display: block; /* Ensures we can set width */
-  max-width: 900px; /* Adjust to fit 3 cards nicely */
-  width: 100%; /* Let it shrink on small screens */
-  margin: 0 auto; /* Center horizontally */
-}
-
-.project-title-text {
-  display: flex;
-  align-items: center;
+  height: 100vh;
+  background-color: #f8fbe8;
+  color: #183d2a;
+  overflow: hidden;
   justify-content: center;
-  margin: 20px;
+  align-items: center;
+  padding-top: 60px; /* prevent navbar overlap */
+}
+
+/* LEFT PANEL (Fixed Text) */
+.intro-section {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100vh;
+  padding: 100px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f8fbe8;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.intro-section .intro-section-title {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.intro-section p {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.contact-btn {
+  display: inline-block;
+  background-color: #3a8b76;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.contact-btn:hover {
+  background-color: #2e6f60;
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RIGHT SIDE (Scrollable Cards) */
+.cards-section {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 100px 60px;
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar Styling */
+.cards-section::-webkit-scrollbar {
+  width: 8px;
+}
+.cards-section::-webkit-scrollbar-thumb {
+  background-color: rgba(90, 90, 90, 0.3);
+  border-radius: 4px;
+}
+.cards-section::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(90, 90, 90, 0.5);
+}
+
+/* Optional fallback background behind grid */
+.project-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ------------------- RESPONSIVE -------------------
+@media (max-width: 930px) {
+  .project-container {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .intro-section {
+    position: relative;
+    height: auto;
+    padding: 60px 30px;
+  }
+
+  .cards-section {
+    height: auto;
+    overflow: visible;
+    padding: 40px 30px;
+  }
 }
 
 @media (max-width: 740px) {
-  .home {
-    flex-direction: column-reverse;
-  }
-  .home .headshot img {
-    width: 300px;
-  }
-
-  .contact .contact-container {
-    flex-direction: column;
-  }
-
-  .contact .contact-container img {
-    width: 300px;
-  }
-}
-
-@media (max-width: 930px) {
-  /*Section 1: Home */
-  .home {
-    padding: 0 20px;
-  }
-
-  .home .text h2 {
-    font-size: 30px;
-  }
-
-  /*Section 2: Teenage */
-  .teenage {
-    padding: 0 5px;
-  }
-
-  /* SECTION 3: Now */
-  .now {
-    padding: 0 20px;
-  }
-
-  /* SECTION 4: Contact */
-  .contact {
-    padding: 0 20px;
-  }
-
-  /* NAVBAR */
   nav {
     padding: 0 20px;
   }
-
-  nav .right a {
-    font-size: 22px;
-  }
-  nav .right a:last-child {
-    color: var(--text-color);
-    background-color: transparent;
-    padding: 0;
-  }
-  nav .right a span {
-    display: none;
-  }
 }
+ */

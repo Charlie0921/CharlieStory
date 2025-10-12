@@ -1,4 +1,3 @@
-// components/ProjectBox/ProjectBox.js
 class ProjectBox extends HTMLElement {
   constructor() {
     super();
@@ -6,31 +5,29 @@ class ProjectBox extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["id", "title", "description", "skills", "date", "image"];
+    return ["id", "title", "description", "skills", "date", "image", "website"];
   }
 
   get id() {
     return this.getAttribute("id");
   }
-
   get image() {
     return this.getAttribute("image");
   }
-
   get title() {
     return this.getAttribute("title");
   }
-
   get description() {
     return this.getAttribute("description");
   }
-
   get skills() {
     return this.getAttribute("skills");
   }
-
   get date() {
     return this.getAttribute("date");
+  }
+  get website() {
+    return this.getAttribute("website");
   }
 
   attributeChangedCallback() {
@@ -40,80 +37,155 @@ class ProjectBox extends HTMLElement {
   connectedCallback() {
     this.render();
 
-    // Open modal when clicked
+    // Handle click: open website if available, else modal
     this.addEventListener("click", () => {
-      console.log("Box clicked!", this.id); // debug
-      this.dispatchEvent(
-        new CustomEvent("open-modal", {
-          detail: { id: this.id }, // ✅ use getter
-          bubbles: true,
-          composed: true,
-        })
-      );
+      if (this.website && this.website.trim() !== "") {
+        // ✅ Open external project link
+        window.open(this.website, "_blank", "noopener,noreferrer");
+      } else {
+        // ✅ Fallback: open modal if no website link
+        this.dispatchEvent(
+          new CustomEvent("open-modal", {
+            detail: { id: this.id },
+            bubbles: true,
+            composed: true,
+          })
+        );
+      }
     });
   }
 
   render() {
+    const skillArray =
+      this.skills && this.skills.length > 0
+        ? this.skills.split(",").map((s) => s.trim())
+        : [];
+
     this.shadow.innerHTML = `
       <style>
-        .project-box-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-          width: 250px;
-          height: 300px;
-          box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        :host {
+          display: block;
+          margin-bottom: 25px;
+          cursor: pointer;
+          font-family: "Inter";
         }
 
-        .project-box-content-wrapper{
+        .project-box {
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 30px;
+          background-color: #3a8b76;
+          border-radius: 30px;
+          color: white;
+          height: 200px;
+          max-width: 480px;
+          padding: 20px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+
+        .project-box:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
+          opacity: 0.95;
+        }
+
+        .image-wrapper {
+          height: 200px;
+          width: 200px;
+          background-color: #d7e6db;
+          border-radius: 20px;
+          overflow: hidden;
+        }
+
+        .image-wrapper img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+
+        .content {
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          height: 90%;
-          width: 90%; 
+          height: 100%;
+          width: 15rem;
         }
 
-        .project-box-wrapper .project-box-description{
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 15px;
-        }
-
-        .project-box-img-wrapper{
-        width: 100%;
-        height: 40%;
-        display: flex;
-        justify-content: center;
-        }
-
-        .project-box-wrapper {
-          cursor: pointer;
-        }
-
-        img {
-        width: 90%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 8px;
-        }
-
-        h2 {
+        .title {
           font-size: 20px;
-          margin: 0 0 0.5rem 0;
+          font-weight: 700;
+          margin-bottom: 6px;
+        }
+
+        .date {
+          font-size: 13px;
+          opacity: 0.9;
+          margin-bottom: 8px;
+        }
+
+        .description {
+          font-size: 15px;
+          line-height: 1.4;
+          margin-bottom: 10px;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 5;
+          -webkit-box-orient: vertical;
+        }
+
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+
+        .tag {
+          background-color: #d8e8d4;
+          color: #27482b;
+          font-size: 14px;
+          font-weight: 600;
+          border-radius: 12px;
+          padding: 3px 8px;
+        }
+
+        @media (max-width: 700px) {
+          .project-box {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: auto;
+          }
+
+          .image-wrapper {
+            width: 100%;
+            height: 180px;
+          }
+
+          .content {
+            width: 100%;
+            align-items: center;
+          }
+
+          .tags {
+            justify-content: center;
+          }
         }
       </style>
-      <div class="project-box-wrapper">
-        <div class = "project-box-content-wrapper">
-          <div class="project-box-img-wrapper"><img src = ${this.image}></img></div>
-          <h2>${this.title}</h2>
-          <div class="project-box-description">${this.description}</div>
-          <div><strong>Skills:</strong> ${this.skills}</div>
-          <div><strong>Date:</strong> ${this.date}</div>
+
+      <div class="project-box">
+        <div class="image-wrapper">
+          <img src="${this.image || "./img/default.jpg"}" alt="${this.title}" />
+        </div>
+        <div class="content">
+          <div>
+            <div class="title">${this.title}</div>
+            <div class="date">${this.date}</div>
+            <div class="description">${this.description}</div>
+          </div>
+          <div class="tags">
+            ${skillArray.map((s) => `<span class="tag">${s}</span>`).join("")}
+          </div>
         </div>
       </div>
     `;

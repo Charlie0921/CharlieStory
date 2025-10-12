@@ -1,31 +1,31 @@
 :root {
-  --text-color: #1a1a1a;
-  --muted-text: #5a5a5a;
-  --link-color: #3d8d7a;
-  --bg-problem: #e3e3e3;
-  --bg-solution: #cee2c7;
-  --bg-page: #fbffe4;
-  --pill-bg: #fbffe4;
-  --nav-bg: #3d8d7a;
+  --text-color: #27482b;
+  --link-color: #2f8a78;
+  --highlight-bg: #d8e8d4;
+  --background-color: #fbffe4;
+  --background-problem: #e3e3e3;
 }
 
+/* Global reset + font setup */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Arial, sans-serif;
   scroll-behavior: smooth;
 }
 
 /* Page base */
 body {
-  background-color: var(--bg-page);
+  background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+  min-width: 1200px; /* prevent the site from getting narrower than this */
+  overflow-x: auto; /* allow horizontal scroll instead of shrinking */
 }
 
-/* NAVBAR*/
+/* NAVBAR */
 nav {
   display: flex;
   justify-content: space-between;
@@ -35,33 +35,41 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: var(--nav-bg);
-  z-index: 50;
+  min-width: 1200px;
+  background-color: var(--link-color);
+  z-index: 100;
 }
 
-nav .left a,
-nav .right a {
-  color: #fff;
+nav a {
   text-decoration: none;
+  color: var(--background-color);
+}
+
+nav a img {
+  border-radius: 50px;
 }
 
 nav .left a {
-  font-size: 22px;
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 nav .right a {
   margin: 0 10px;
+  font-weight: 500;
 }
 
 nav .right a:last-child {
-  background-color: rgba(0, 0, 0, 0.15);
-  padding: 6px 12px;
-  border-radius: 8px;
+  background-color: var(--background-color);
+  color: var(--link-color);
+  padding: 6px 14px;
+  border-radius: 20px;
 }
 
 nav .right a span {
-  margin-left: 6px;
+  margin-left: 5px;
 }
 
 /* Opening banner */
@@ -76,11 +84,10 @@ nav .right a span {
   text-align: center;
 }
 
-.opening-wrapper h1 {
-  font-size: clamp(18px, 2.2vw, 28px);
-  color: #fff;
+.opening-wrapper p {
+  font-size: clamp(18px, 2.7vw, 28px);
+  color: var(--background-problem);
   max-width: 1100px;
-  font-weight: 700;
 }
 
 /* Timeline split background */
@@ -88,8 +95,8 @@ nav .right a span {
   position: relative;
   background-image: linear-gradient(
     to right,
-    var(--bg-problem) 50%,
-    var(--bg-solution) 50%
+    var(--background-problem) 50%,
+    var(--background-color) 50%
   );
   padding: 48px 0 24px;
 }
@@ -100,7 +107,6 @@ nav .right a span {
   max-width: 1200px;
   margin: 0 auto 24px;
   padding: 0 24px;
-  font-family: "Red Hat Display", sans-serif;
 }
 
 .timeline-header .problem-title,
@@ -137,9 +143,9 @@ nav .right a span {
   color: var(--muted-text);
   font-weight: 700;
   letter-spacing: 0.5px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
+  font-size: 20px;
 }
-
 .tags {
   display: flex;
   gap: 8px;
@@ -147,10 +153,10 @@ nav .right a span {
 }
 
 .tag {
-  background: var(--pill-bg);
+  background: var(--highlight-bg);
   border-radius: 999px;
   padding: 6px 12px;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   border: 1px solid #e2e8d8;
 }
@@ -176,6 +182,7 @@ nav .right a span {
 .problem {
   text-align: left;
 }
+
 .solution {
   text-align: left;
 }
@@ -196,7 +203,7 @@ nav .right a span {
   background: #fff;
 }
 
-/* how about now? */
+/* Current Focus Section */
 .current-focus {
   background-color: #3d8d7a;
   color: #fff;
@@ -227,7 +234,7 @@ nav .right a span {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Why should i become an engineer?*/
+/* Why Should I Become an Engineer? */
 .about-engineer,
 .current-focus,
 .contact-me {
@@ -236,7 +243,7 @@ nav .right a span {
 }
 
 .about-engineer {
-  background-color: #fbffe4; /* contrast section */
+  background-color: #fbffe4;
   color: var(--muted-text);
 }
 
@@ -259,7 +266,7 @@ nav .right a span {
 .engineer-image {
   width: 200px;
   height: auto;
-  background-color: #dcdcdc; /* placeholder */
+  background-color: #dcdcdc;
   border-radius: 10px;
 }
 
@@ -283,14 +290,26 @@ nav .right a span {
   text-decoration: underline;
 }
 
-/* Hover interaction (subtle) */
+.event-img-click {
+  visibility: hidden;
+}
+
+/* Hover interaction */
 .event:hover .media img {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* Responsive */
+.event:hover .media .event-img-click {
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* Responsive 
 @media (max-width: 740px) {
   .event-grid {
     grid-template-columns: 1fr;
@@ -304,38 +323,13 @@ nav .right a span {
   }
 
   .media img {
-    width: 80%; /* reduces image size for mobile */
-    max-width: 400px; /* ensures consistency across devices */
-    height: 300px; /* keeps natural aspect ratio */
+    width: 80%;
+    max-width: 400px;
+    height: 300px;
   }
 
   .timeline-wrapper {
-    background: linear-gradient(to bottom, var(--bg-solution) 100%);
-  }
-  .timeline-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .problem-title {
-    display: none;
-  }
-  .solution-title {
-    display: none;
-  }
-
-  .timeline-header .solution-title {
-    text-align: left;
-    margin-top: 6px;
-  }
-
-  nav {
-    padding: 0 16px;
-  }
-  nav .right a span {
-    display: none;
-  }
-  .opening-wrapper {
-    padding: 28px 18px;
+    background-color: var(--text-color);
   }
 }
+*/

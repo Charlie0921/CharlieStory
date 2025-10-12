@@ -4,15 +4,17 @@
     <meta charset="uft-8" />
     <title>Kunjoong's website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.jpg" />
     <link rel="stylesheet" href="./contact.css" />
 
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Red+Hat+Display&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -27,69 +29,72 @@
     ></script>
   </head>
   <body>
+    <!-- NAVBAR -->
     <header>
       <nav>
-        <div>
-          <a id="title" href="../../index.html">Kunjoong Kim</a>
+        <div class="left">
+          <a id="title" href="../../index.html">
+            <img src="../../img/favicon.jpg" height="40px" /> KUNJOONG KIM</a
+          >
         </div>
         <div class="right">
           <a href="../../index.html">
             <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-          </a>
-          <a href="../Project/project.html">
-            <i class="fa-solid fa-child"></i>
-            <span>Projects</span>
+            <span>HOME</span>
           </a>
           <a href="../AboutMe/aboutme.html">
             <i class="fa-solid fa-question"></i>
-            <span>About Me</span>
+            <span>ABOUT ME</span>
+          </a>
+          <a href="../Project/project.html">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>PROJECTS</span>
           </a>
           <a href="../Contact/contact.html">
             <i class="fa-solid fa-address-book"></i>
-            <span>Contact</span>
+            <span>CONTACT</span>
           </a>
         </div>
       </nav>
-
-      <main>
-        <!-- SECTION 4: Contact -->
-        <section class="contact" id="contact">
-          <h2>Wanna keep in touch?</h2>
-          <div class="contact-container">
-            <img src="../../img/phone.png" />
-            <form
-              action="mailto:kunmiddle02@gmail.com"
-              method="post"
-              enctype="text/plain"
-            >
-              <div style="display: flex; flex-direction: column; gap: 10px">
-                <label>Name:</label>
-                <input
-                  type="text"
-                  name="Your name"
-                  placeholder="Enter your name here"
-                />
-                <label>Email:</label>
-                <input
-                  type="email"
-                  name="Your email"
-                  placeholder="Enter your email here"
-                />
-                <label>Message:</label>
-                <textarea
-                  name="Your message"
-                  cols="50"
-                  rows="10"
-                  placeholder="Enter your message"
-                ></textarea>
-                <input class="submit_button" type="submit" />
-              </div>
-            </form>
-          </div>
-        </section>
-      </main>
     </header>
+
+    <main>
+      <!-- SECTION 4: Contact -->
+      <section class="contact" id="contact">
+        <div class="title"><strong>Let's Get in Touch</strong></div>
+        <div class="contact-container">
+          <img src="../../img/phone.png" />
+          <form
+            action="mailto:kunmiddle02@gmail.com"
+            method="post"
+            enctype="text/plain"
+          >
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <label>Name:</label>
+              <input
+                type="text"
+                name="Your name"
+                placeholder="Enter your name here"
+              />
+              <label>Email:</label>
+              <input
+                type="email"
+                name="Your email"
+                placeholder="Enter your email here"
+              />
+              <label>Message:</label>
+              <textarea
+                name="Your message"
+                cols="50"
+                rows="10"
+                placeholder="Enter your message"
+              ></textarea>
+              <input class="submit_button" type="submit" />
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
     <script>
       const tabs = document.querySelectorAll(".tab-button");
       const all_content = document.querySelectorAll(

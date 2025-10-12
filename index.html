@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="uft-8" />
-    <title>Kunjoong's website</title>
+    <meta charset="utf-8" />
+    <title>Kunjoong Kim | Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
-    <link rel="stylesheet" href="./index.css" />
 
+    <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
+
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Red+Hat+Display&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -21,67 +24,84 @@
       referrerpolicy="no-referrer"
     />
 
-    <script
-      src="https://kit.fontawesome.com/7a70d5c651.js"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" href="./index.css" />
   </head>
+
   <body>
+    <!-- NAVBAR -->
     <header>
       <nav>
-        <div>
-          <a id="title" href="index.html">Kunjoong Kim</a>
+        <div class="left">
+          <a id="title" href="../../index.html">
+            <img src="../../img/favicon.jpg" height="40px" /> KUNJOONG KIM</a
+          >
         </div>
         <div class="right">
           <a href="index.html">
             <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-          </a>
-          <a href="pages/Project/project.html">
-            <i class="fa-solid fa-child"></i>
-            <span>Projects</span>
+            <span>HOME</span>
           </a>
           <a href="pages/AboutMe/aboutme.html">
             <i class="fa-solid fa-question"></i>
-            <span>About Me</span>
+            <span>ABOUT ME</span>
+          </a>
+          <a href="pages/Project/project.html">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>PROJECTS</span>
           </a>
           <a href="pages/Contact/contact.html">
             <i class="fa-solid fa-address-book"></i>
-            <span>Contact</span>
+            <span>CONTACT</span>
           </a>
         </div>
       </nav>
+    </header>
 
-      <main>
-        <!-- SECTION 1: HOME -->
-        <section class="home" id="home">
-          <div class="text">
-            <h2>Hi, I'm Kunjoong Kim</h2>
-            <h2>but you can call me Charlie</h2>
-            <p>
-              I'm from Korea and currently finishing required enlistment. Just
-              finished second year of Computer Science at Penn State University
-              I view every choices as an opportunity. You will know what this
-              means
-            </p>
-            <div class="links">
-              <a href="https://github.com/Charlie0921">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
-              </a>
-              <a href="http://www.linkedin.com/in/kunjoong-kim">
-                <i class="fa-brands fa-linkedin"></i>
-                <span>LinkedIn</span>
-              </a>
-              <a href="http://blog.naver.com/kunmiddle">
-                <i class="fa-solid fa-book"></i>
-                <span>Korean Blog</span>
-              </a>
-            </div>
+    <!-- MAIN SECTION -->
+    <main>
+      <!-- SECTION 1: HOME -->
+      <section class="home" id="home">
+        <div class="headshot">
+          <img src="img/profile.jpg" alt="Kunjoong Charlie Kim" />
+        </div>
+
+        <div class="text">
+          <h1>
+            <span class="name">KUNJOONG</span><br />
+            <span class="name">CHARLIE</span><br />
+            <span class="name">KIM</span>
+          </h1>
+
+          <div class="links">
+            <a href="https://github.com/Charlie0921" target="_blank">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="https://linkedin.com/in/kunjoong-kim" target="_blank">
+              <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+            <a
+              href="https://blog.naver.com/PostList.naver?blogId=kunmiddle&from=postList&categoryNo=8"
+              target="_blank"
+            >
+              <i class="fa-solid fa-book"></i> Blog
+            </a>
+            <a href="resume.pdf" target="_blank">
+              <i class="fa-solid fa-file"></i> Resume
+            </a>
           </div>
-          <div class="headshot">
-            <img src="img/profile.jpg" alt="kunjoong kim headshot" />
-          </div>
-        </section>
+        </div>
+      </section>
+      <section class="home-intro">
+        <p class="intro">
+          I am a <span class="highlight">COMPUTER SCIENCE</span> student at
+          <span class="highlight">PENN STATE</span><br />
+          born in <span class="highlight">SOUTH KOREA</span><br />
+          dreaming to become a <span class="highlight">DEVELOPER</span><br />
+          <em>who turns every challenge into an opportunity</em>
+        </p>
+
+        <a href="pages/AboutMe/aboutme.html" class="cta-btn">Know about me!</a>
+      </section>
+    </main>
   </body>
 </html>

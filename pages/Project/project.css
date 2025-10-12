@@ -21,6 +21,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 1200px; /* prevent the site from getting narrower than this */
+  overflow-x: auto; /* allow horizontal scroll instead of shrinking */
 }
 
 a {
@@ -38,6 +40,7 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
+  min-width: 1200px;
   background-color: var(--link-color);
   z-index: 100;
 }
@@ -177,7 +180,7 @@ nav .right a span {
   gap: 25px;
 }
 
-/* ------------------- RESPONSIVE ------------------- */
+/* ------------------- RESPONSIVE -------------------
 @media (max-width: 930px) {
   .project-container {
     flex-direction: column;
@@ -203,3 +206,4 @@ nav .right a span {
     padding: 0 20px;
   }
 }
+ */

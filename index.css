@@ -19,6 +19,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+  min-width: 1200px; /* prevent the site from getting narrower than this */
+  overflow-x: auto; /* allow horizontal scroll instead of shrinking */
 }
 
 /* NAVBAR */
@@ -31,6 +33,7 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
+  min-width: 1200px;
   background-color: var(--background-color);
   z-index: 100;
 }
@@ -150,7 +153,7 @@ nav .right a span {
   background-color: #256e60;
 }
 
-/* RESPONSIVE DESIGN */
+/* RESPONSIVE DESIGN 
 @media (max-width: 850px) {
   .home {
     flex-direction: column;
@@ -170,3 +173,4 @@ nav .right a span {
     margin-bottom: 10px;
   }
 }
+  */

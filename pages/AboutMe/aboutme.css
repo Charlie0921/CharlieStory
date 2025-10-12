@@ -21,6 +21,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+  min-width: 1200px; /* prevent the site from getting narrower than this */
+  overflow-x: auto; /* allow horizontal scroll instead of shrinking */
 }
 
 /* NAVBAR */
@@ -33,6 +35,7 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
+  min-width: 1200px;
   background-color: var(--link-color);
   z-index: 100;
 }
@@ -306,7 +309,7 @@ nav .right a span {
   text-decoration: none;
 }
 
-/* Responsive */
+/* Responsive 
 @media (max-width: 740px) {
   .event-grid {
     grid-template-columns: 1fr;
@@ -329,3 +332,4 @@ nav .right a span {
     background-color: var(--text-color);
   }
 }
+*/

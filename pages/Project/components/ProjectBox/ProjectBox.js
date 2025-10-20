@@ -79,7 +79,7 @@ class ProjectBox extends HTMLElement {
           border-radius: 30px;
           color: white;
           height: 200px;
-          max-width: 480px;
+          width: 480px;
           padding: 20px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
@@ -149,12 +149,13 @@ class ProjectBox extends HTMLElement {
           padding: 3px 8px;
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 1200px) {
           .project-box {
             flex-direction: column;
             align-items: center;
             text-align: center;
             height: auto;
+            width: 300px;
           }
 
           .image-wrapper {

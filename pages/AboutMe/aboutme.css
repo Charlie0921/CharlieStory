@@ -21,8 +21,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
-  min-width: 1200px; /* prevent the site from getting narrower than this */
-  overflow-x: auto; /* allow horizontal scroll instead of shrinking */
+  overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -35,7 +34,6 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  min-width: 1200px;
   background-color: var(--link-color);
   z-index: 100;
 }
@@ -54,11 +52,19 @@ nav .left a {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  font-weight: 600;
+}
+
+nav .right {
+  display: flex;
+  gap: 10px;
 }
 
 nav .right a {
-  margin: 0 10px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 nav .right a:last-child {
@@ -68,26 +74,23 @@ nav .right a:last-child {
   border-radius: 20px;
 }
 
-nav .right a span {
-  margin-left: 5px;
-}
-
 /* Opening banner */
 .opening-wrapper {
   background-color: var(--link-color);
   min-height: 200px;
-  margin-top: 60px; /* below fixed nav */
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 40px 24px;
   text-align: center;
 }
 
 .opening-wrapper p {
-  font-size: clamp(18px, 2.7vw, 28px);
-  color: var(--background-problem);
-  max-width: 1100px;
+  font-size: clamp(16px, 2.2vw, 22px);
+  color: white;
+  max-width: 800px;
+  line-height: 1.8;
 }
 
 /* Timeline split background */
@@ -140,12 +143,13 @@ nav .right a span {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--muted-text);
+  color: var(--text-color);
   font-weight: 700;
   letter-spacing: 0.5px;
   margin-bottom: 30px;
   font-size: 20px;
 }
+
 .tags {
   display: flex;
   gap: 8px;
@@ -177,6 +181,7 @@ nav .right a span {
 .solution {
   font-size: 16px;
   color: #222;
+  line-height: 1.7;
 }
 
 .problem {
@@ -214,6 +219,7 @@ nav .right a span {
   margin: 0 auto;
   font-size: 16px;
   color: #fff;
+  line-height: 1.7;
 }
 
 .focus-btn {
@@ -244,7 +250,7 @@ nav .right a span {
 
 .about-engineer {
   background-color: #fbffe4;
-  color: var(--muted-text);
+  color: var(--text-color);
 }
 
 .about-engineer h2,
@@ -261,6 +267,8 @@ nav .right a span {
   align-items: center;
   gap: 40px;
   flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .engineer-image {
@@ -271,7 +279,7 @@ nav .right a span {
 }
 
 .engineer-list {
-  width: 500px;
+  max-width: 500px;
 }
 
 .engineer-content ul {
@@ -280,9 +288,18 @@ nav .right a span {
   padding-left: 20px;
 }
 
+.engineer-content ul li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
 .contact-me {
   background-color: var(--link-color);
   color: #fff;
+}
+
+.contact-me p {
+  line-height: 1.8;
 }
 
 .contact-me a {
@@ -292,6 +309,9 @@ nav .right a span {
 
 .event-img-click {
   visibility: hidden;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 /* Hover interaction */
@@ -309,27 +329,206 @@ nav .right a span {
   text-decoration: none;
 }
 
-/* Responsive 
-@media (max-width: 740px) {
+/* TABLET RESPONSIVE */
+@media (max-width: 1024px) {
+  nav {
+    padding: 0 30px;
+  }
+
+  .event-grid {
+    gap: 20px;
+  }
+
+  .media {
+    width: 250px;
+  }
+
+  .media img {
+    width: 250px;
+    height: 180px;
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 20px;
+    height: auto;
+    min-height: 60px;
+  }
+
+  nav .left a {
+    font-size: 0.9rem;
+  }
+
+  nav .left a img {
+    height: 30px;
+  }
+
+  nav .right a span {
+    display: none;
+  }
+
+  nav .right a i {
+    font-size: 1.2rem;
+  }
+
+  .opening-wrapper {
+    padding: 60px 30px;
+    min-height: 300px;
+  }
+
+  .opening-wrapper p {
+    font-size: 18px;
+  }
+
+  /* Mobile Timeline - Single Column */
+  .timeline-wrapper {
+    background: var(--background-color);
+    padding: 30px 0;
+  }
+
+  .timeline-header {
+    grid-template-columns: 1fr;
+    margin-bottom: 20px;
+  }
+
+  .timeline-header .problem-title,
+  .timeline-header .solution-title {
+    display: none;
+  }
+
+  .journey-title {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    color: #243b2e;
+  }
+
+  .event {
+    padding: 20px 20px 30px;
+    margin-bottom: 20px;
+  }
+
+  .event-year {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 18px;
+  }
+
+  .tags {
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+
   .event-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 20px;
+  }
+
+  .problem,
+  .solution {
+    font-size: 15px;
   }
 
   .media {
     width: 100%;
-    display: flex;
-    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
   }
 
   .media img {
-    width: 80%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/2;
     max-width: 400px;
-    height: 300px;
   }
 
-  .timeline-wrapper {
-    background-color: var(--text-color);
+  .about-engineer,
+  .current-focus,
+  .contact-me {
+    padding: 40px 20px;
+  }
+
+  .engineer-content {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .engineer-image {
+    width: 180px;
+  }
+
+  .engineer-list {
+    width: 100%;
+    max-width: 100%;
   }
 }
-*/
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  nav {
+    padding: 0 15px;
+  }
+
+  nav .left a {
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+
+  nav .right {
+    gap: 5px;
+  }
+
+  nav .right a {
+    padding: 5px 8px;
+  }
+
+  nav .right a:last-child {
+    padding: 5px 10px;
+  }
+
+  .opening-wrapper {
+    padding: 50px 20px;
+  }
+
+  .opening-wrapper p {
+    font-size: 16px;
+  }
+
+  .event {
+    padding: 15px 15px 25px;
+  }
+
+  .event-year {
+    font-size: 16px;
+  }
+
+  .tag {
+    font-size: 12px;
+  }
+
+  .problem,
+  .solution {
+    font-size: 14px;
+  }
+
+  .media img {
+    max-width: 100%;
+  }
+
+  .engineer-image {
+    width: 150px;
+  }
+
+  .about-engineer h2,
+  .current-focus h2,
+  .contact-me h2 {
+    font-size: 22px;
+  }
+}

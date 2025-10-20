@@ -27,9 +27,9 @@ class ProjectGrid extends HTMLElement {
           width: 100%;
         }
 
-        @media (max-width: 740px) {
+        @media (max-width: 768px) {
           .project-grid-wrapper {
-            padding: 0 10px 40px 10px;
+            padding: 0;
             gap: 20px;
           }
         }

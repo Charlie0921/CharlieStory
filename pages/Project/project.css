@@ -20,8 +20,7 @@ body {
   background-color: var(--background);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-width: 1200px; /* prevent the site from getting narrower than this */
+  justify-content: center; /* prevent the site from getting narrower than this */
   overflow-x: auto; /* allow horizontal scroll instead of shrinking */
 }
 
@@ -40,7 +39,6 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  min-width: 1200px;
   background-color: var(--link-color);
   z-index: 100;
 }
@@ -59,11 +57,19 @@ nav .left a {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  font-weight: 600;
+}
+
+nav .right {
+  display: flex;
+  gap: 10px;
 }
 
 nav .right a {
-  margin: 0 10px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 nav .right a:last-child {
@@ -71,10 +77,6 @@ nav .right a:last-child {
   color: var(--link-color);
   padding: 6px 14px;
   border-radius: 20px;
-}
-
-nav .right a span {
-  margin-left: 5px;
 }
 
 /* ------------------- PROJECT PAGE ------------------- */
@@ -181,7 +183,52 @@ nav .right a span {
 }
 
 /* ------------------- RESPONSIVE -------------------
-@media (max-width: 930px) {
+ */
+
+/* TABLET RESPONSIVE */
+@media (max-width: 1024px) {
+  nav {
+    padding: 0 30px;
+  }
+  .intro-section {
+    padding: 0;
+    width: 30%;
+  }
+  .cards-section {
+    padding: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 100px 60px;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 20px;
+    height: auto;
+    min-height: 60px;
+  }
+
+  nav .left a {
+    font-size: 0.9rem;
+  }
+
+  nav .left a img {
+    height: 30px;
+  }
+
+  nav .right a span {
+    display: none;
+  }
+
+  nav .right a i {
+    font-size: 1.2rem;
+  }
+
   .project-container {
     flex-direction: column;
     height: auto;
@@ -191,19 +238,21 @@ nav .right a span {
   .intro-section {
     position: relative;
     height: auto;
+    width: 100%;
     padding: 60px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .intro-section .fade-in {
+    width: 100%; /* allows centering within section */
   }
 
   .cards-section {
     height: auto;
     overflow: visible;
-    padding: 40px 30px;
+    padding: 0px 0px;
   }
 }
-
-@media (max-width: 740px) {
-  nav {
-    padding: 0 20px;
-  }
-}
- */

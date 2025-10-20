@@ -19,8 +19,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
-  min-width: 1200px; /* prevent the site from getting narrower than this */
-  overflow-x: auto; /* allow horizontal scroll instead of shrinking */
+  overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -33,7 +32,6 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  min-width: 1200px;
   background-color: var(--background-color);
   z-index: 100;
 }
@@ -52,11 +50,19 @@ nav .left a {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  font-weight: 600;
+}
+
+nav .right {
+  display: flex;
+  gap: 10px;
 }
 
 nav .right a {
-  margin: 0 10px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 nav .right a:last-child {
@@ -66,16 +72,12 @@ nav .right a:last-child {
   border-radius: 20px;
 }
 
-nav .right a span {
-  margin-left: 5px;
-}
-
 /* HERO SECTION */
 .home {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px 60px;
+  padding: 120px 60px 60px;
   width: 100%;
   gap: 50px;
 }
@@ -95,20 +97,25 @@ nav .right a span {
   font-weight: 700;
   color: #1a4a3d;
   line-height: 1.2;
+  text-align: left;
 }
 
 .links {
   margin: 25px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .links a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   background-color: var(--link-color);
   color: white;
   padding: 8px 18px;
   border-radius: 20px;
   font-weight: 600;
-  margin-right: 10px;
   text-decoration: none;
   transition: 0.3s ease;
 }
@@ -121,12 +128,14 @@ nav .right a span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 60px;
+  padding: 0 60px 60px;
+  text-align: center;
 }
 
 .intro {
   font-size: 2rem;
   line-height: 1.7;
+  text-align: left;
   margin-bottom: 30px;
   font-weight: 400;
 }
@@ -153,24 +162,149 @@ nav .right a span {
   background-color: #256e60;
 }
 
-/* RESPONSIVE DESIGN 
-@media (max-width: 850px) {
+/* TABLET RESPONSIVE */
+@media (max-width: 1024px) {
+  nav {
+    padding: 0 30px;
+  }
+
   .home {
-    flex-direction: column;
-    text-align: center;
-    padding: 100px 30px;
+    padding: 100px 40px 40px;
+    gap: 40px;
   }
 
   .headshot img {
-    width: 220px;
+    width: 240px;
   }
 
   .text h1 {
-    font-size: 2rem;
+    font-size: 3rem;
+  }
+
+  .intro {
+    font-size: 1.5rem;
+    text-align: left;
+  }
+
+  .home-intro {
+    padding: 0 40px 40px;
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 20px;
+    height: auto;
+    min-height: 60px;
+  }
+
+  nav .left a {
+    font-size: 0.9rem;
+  }
+
+  nav .left a img {
+    height: 30px;
+  }
+
+  nav .right a span {
+    display: none;
+  }
+
+  nav .right a i {
+    font-size: 1.2rem;
+  }
+
+  .home {
+    flex-direction: column;
+    text-align: center;
+    padding: 100px 30px 30px;
+    gap: 30px;
+  }
+
+  .headshot img {
+    width: 300px;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text h1 {
+    font-size: 2.5rem;
+  }
+
+  .links {
+    justify-content: center;
+  }
+
+  .home-intro {
+    padding: 0 30px 40px;
+  }
+
+  .intro {
+    font-size: 1.3rem;
+    text-align: left;
+  }
+
+  .intro br {
+    display: block;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  nav {
+    padding: 0 15px;
+    flex-wrap: wrap;
+  }
+
+  nav .left a {
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+
+  nav .right {
+    gap: 5px;
+  }
+
+  nav .right a {
+    padding: 5px 8px;
+  }
+
+  nav .right a:last-child {
+    padding: 5px 10px;
+  }
+
+  .home {
+    padding: 90px 20px 20px;
+  }
+
+  .headshot img {
+    width: 250px;
+  }
+
+  .text h1 {
+    font-size: 2.5rem;
   }
 
   .links a {
-    margin-bottom: 10px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+
+  .home-intro {
+    padding: 0 20px 30px;
+  }
+
+  .intro {
+    font-size: 1.1rem;
+  }
+
+  .cta-btn {
+    padding: 8px 18px;
+    font-size: 0.95rem;
   }
 }
-  */

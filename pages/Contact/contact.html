@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="uft-8" />
-    <title>Kunjoong's website</title>
+    <meta charset="utf-8" />
+    <title>Contact | Kunjoong Kim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="../../img/favicon.jpg" />
     <link rel="stylesheet" href="./contact.css" />
@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
 
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -22,11 +23,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
-    <script
-      src="https://kit.fontawesome.com/7a70d5c651.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
   <body>
     <!-- NAVBAR -->
@@ -34,8 +30,8 @@
       <nav>
         <div class="left">
           <a id="title" href="../../index.html">
-            <img src="../../img/favicon.jpg" height="40px" /> KUNJOONG KIM</a
-          >
+            <img src="../../img/favicon.jpg" height="40px" /> KUNJOONG KIM
+          </a>
         </div>
         <div class="right">
           <a href="../../index.html">
@@ -59,62 +55,121 @@
     </header>
 
     <main>
-      <!-- SECTION 4: Contact -->
+      <!-- CONTACT SECTION -->
       <section class="contact" id="contact">
-        <div class="title"><strong>Let's Get in Touch</strong></div>
+        <h1 class="title">Let's Get in Touch</h1>
+        <p class="subtitle">
+          Have a project in mind or want to collaborate? <br />
+          I'd love to hear from you!
+        </p>
+
         <div class="contact-container">
-          <img src="../../img/phone.png" />
-          <form
-            action="mailto:kunmiddle02@gmail.com"
-            method="post"
-            enctype="text/plain"
-          >
-            <div style="display: flex; flex-direction: column; gap: 10px">
-              <label>Name:</label>
-              <input
-                type="text"
-                name="Your name"
-                placeholder="Enter your name here"
-              />
-              <label>Email:</label>
-              <input
-                type="email"
-                name="Your email"
-                placeholder="Enter your email here"
-              />
-              <label>Message:</label>
-              <textarea
-                name="Your message"
-                cols="50"
-                rows="10"
-                placeholder="Enter your message"
-              ></textarea>
-              <input class="submit_button" type="submit" />
+          <!-- Contact Image -->
+          <div class="contact-image">
+            <img src="../../img/phone.png" alt="Contact illustration" />
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form-wrapper">
+            <form
+              class="contact-form"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST"
+            >
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell me about your project or just say hi!"
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-button">Send Message</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Contact Info Cards -->
+        <div class="contact-info">
+          <div class="info-card">
+            <i class="fa-solid fa-envelope"></i>
+            <div class="info-card-content">
+              <span class="info-card-label">Email</span>
+              <a href="mailto:kunmiddle02@gmail.com" class="info-card-value">
+                kunmiddle02@gmail.com
+              </a>
             </div>
-          </form>
+          </div>
+
+          <div class="info-card">
+            <i class="fa-solid fa-location-dot"></i>
+            <div class="info-card-content">
+              <span class="info-card-label">Location</span>
+              <span class="info-card-value">Pennsylvania, USA</span>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <div class="info-card-content">
+              <span class="info-card-label">Education</span>
+              <span class="info-card-value">Penn State, Computer Science</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+          <a
+            href="https://github.com/Charlie0921"
+            target="_blank"
+            class="social-link"
+            aria-label="GitHub"
+          >
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a
+            href="https://linkedin.com/in/kunjoong-kim"
+            target="_blank"
+            class="social-link"
+            aria-label="LinkedIn"
+          >
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a
+            href="https://blog.naver.com/PostList.naver?blogId=kunmiddle&from=postList&categoryNo=8"
+            target="_blank"
+            class="social-link"
+            aria-label="Blog"
+          >
+            <i class="fa-solid fa-book"></i>
+          </a>
         </div>
       </section>
     </main>
-    <script>
-      const tabs = document.querySelectorAll(".tab-button");
-      const all_content = document.querySelectorAll(
-        ".content-wrapper .content"
-      );
-
-      tabs.forEach((tab, index) => {
-        tab.addEventListener("click", () => {
-          tabs.forEach((tab) => {
-            tab.classList.remove("active");
-          });
-          tab.classList.add("active");
-
-          all_content.forEach((content) => {
-            content.classList.remove("active");
-          });
-          all_content[index].classList.add("active");
-        });
-        console.log(index);
-      });
-    </script>
   </body>
 </html>

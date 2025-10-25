@@ -92,6 +92,10 @@
         try {
           statusEl.textContent = "Loading projects...";
           const projects = await fetchProjects();
+          const sortedProjects = projects.sort(
+            (a, b) => a.project_id - b.project_id
+          );
+          console.log("sorted", sortedProjects);
 
           if (!projects || projects.length === 0) {
             statusEl.textContent = "No projects found.";
@@ -99,7 +103,7 @@
             statusEl.textContent = "";
           }
 
-          gridEl.data = projects;
+          gridEl.data = sortedProjects;
           console.log("Projects loaded from Supabase:", projects);
         } catch (err) {
           console.error(err);

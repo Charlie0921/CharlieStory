@@ -130,7 +130,7 @@ class ProjectBox extends HTMLElement {
           margin-bottom: 10px;
           overflow: hidden;
           display: -webkit-box;
-          -webkit-line-clamp: 5;
+          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
         }
 

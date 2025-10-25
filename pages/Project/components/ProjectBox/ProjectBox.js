@@ -176,7 +176,9 @@ class ProjectBox extends HTMLElement {
 
       <div class="project-box">
         <div class="image-wrapper">
-          <img src="${this.image || "./img/default.jpg"}" alt="${this.title}" />
+          <img src="${this.image || "../../img/dessert.png"}" alt="${
+      this.title
+    }" />
         </div>
         <div class="content">
           <div>

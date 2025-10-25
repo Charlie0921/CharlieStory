@@ -59,7 +59,8 @@ nav .left a {
 
 nav .right {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  height: 40px;
 }
 
 nav .right a {
@@ -72,7 +73,7 @@ nav .right a {
 nav .right a:last-child {
   background-color: var(--background-color);
   color: var(--link-color);
-  padding: 6px 14px !important;
+  padding: 6px 14px;
   border-radius: 20px;
 }
 

@@ -55,7 +55,8 @@ nav .left a {
 
 nav .right {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  height: 40px;
 }
 
 nav .right a {

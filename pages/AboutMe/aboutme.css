@@ -320,7 +320,7 @@ nav .right a:last-child {
 
 .contact-me a {
   color: #fff;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .event-img-click {

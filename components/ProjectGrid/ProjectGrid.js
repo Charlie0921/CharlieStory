@@ -14,23 +14,28 @@ class ProjectGrid extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         .project-grid-wrapper {
-          display: flex;
-          flex-direction: column;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
           gap: 25px;
           width: 100%;
-          max-width: 850px;
-          margin: 0 auto;
-          padding-bottom: 60px;
+          padding-bottom: 40px;
         }
 
         project-box {
           width: 100%;
         }
 
+        @media (max-width: 1200px) {
+          .project-grid-wrapper {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+        }
+
         @media (max-width: 768px) {
           .project-grid-wrapper {
-            padding: 0;
-            gap: 20px;
+            padding-bottom: 20px;
+            gap: 15px;
           }
         }
       </style>

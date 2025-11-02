@@ -24,6 +24,21 @@ body {
   overflow-x: hidden;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+section {
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out forwards;
+  animation-delay: 0.3s; /* optional slight delay */
+}
+
 /* NAVBAR */
 nav {
   display: flex;
@@ -57,7 +72,8 @@ nav .left a {
 
 nav .right {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  height: 40px;
 }
 
 nav .right a {
@@ -87,7 +103,7 @@ nav .right a:last-child {
 }
 
 .opening-wrapper p {
-  font-size: clamp(16px, 2.2vw, 22px);
+  font-size: clamp(16px, 22vw, 22px);
   color: white;
   max-width: 800px;
   line-height: 1.8;
@@ -373,13 +389,8 @@ nav .right a:last-child {
     font-size: 1.2rem;
   }
 
-  .opening-wrapper {
-    padding: 60px 30px;
-    min-height: 300px;
-  }
-
   .opening-wrapper p {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   /* Mobile Timeline - Single Column */
@@ -493,12 +504,8 @@ nav .right a:last-child {
     padding: 5px 10px;
   }
 
-  .opening-wrapper {
-    padding: 50px 20px;
-  }
-
   .opening-wrapper p {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .event {

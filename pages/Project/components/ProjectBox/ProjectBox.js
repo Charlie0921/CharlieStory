@@ -130,7 +130,7 @@ class ProjectBox extends HTMLElement {
           margin-bottom: 10px;
           overflow: hidden;
           display: -webkit-box;
-          -webkit-line-clamp: 5;
+          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
         }
 
@@ -176,7 +176,9 @@ class ProjectBox extends HTMLElement {
 
       <div class="project-box">
         <div class="image-wrapper">
-          <img src="${this.image || "./img/default.jpg"}" alt="${this.title}" />
+          <img src="${this.image || "../../img/dessert.png"}" alt="${
+      this.title
+    }" />
         </div>
         <div class="content">
           <div>

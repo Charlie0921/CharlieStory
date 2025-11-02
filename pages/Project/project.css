@@ -62,7 +62,8 @@ nav .left a {
 
 nav .right {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  height: 40px;
 }
 
 nav .right a {
@@ -142,14 +143,18 @@ nav .right a:last-child {
   animation: fadeInUp 1.2s ease-out forwards;
 }
 
+section {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translateY(15px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

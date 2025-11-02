@@ -32,31 +32,45 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: var(--background-color);
+  background-color: var(--link-color);
   z-index: 100;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 nav a {
   text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.5px;
+  color: var(--background-color);
 }
 
-.logo-text {
-  font-weight: 700;
-  font-size: 16px;
+nav a img {
+  border-radius: 50px;
+}
+
+nav .left a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 600;
 }
 
 nav .right {
   display: flex;
-  gap: 30px;
+  gap: 20px;
+  height: 40px;
 }
 
-nav .right a:hover {
+nav .right a {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+nav .right a:last-child {
+  background-color: var(--background-color);
   color: var(--link-color);
+  padding: 6px 14px;
+  border-radius: 20px;
 }
 
 /* MAIN CONTAINER */
@@ -225,14 +239,24 @@ nav .right a:hover {
 @media (max-width: 768px) {
   nav {
     padding: 0 20px;
+    height: auto;
+    min-height: 60px;
   }
 
-  nav .right {
-    gap: 15px;
+  nav .left a {
+    font-size: 0.9rem;
   }
 
-  nav .right a {
-    font-size: 12px;
+  nav .left a img {
+    height: 30px;
+  }
+
+  nav .right a span {
+    display: none;
+  }
+
+  nav .right a i {
+    font-size: 1.2rem;
   }
 
   .main-container {
@@ -261,19 +285,25 @@ nav .right a:hover {
 /* SMALL MOBILE */
 @media (max-width: 480px) {
   nav {
-    padding: 0 15px;
+    padding: 0 20px;
+    height: auto;
+    min-height: 60px;
   }
 
-  nav .logo-text {
-    font-size: 14px;
+  nav .left a {
+    font-size: 0.9rem;
   }
 
-  nav .right {
-    gap: 10px;
+  nav .left a img {
+    height: 30px;
   }
 
-  nav .right a {
-    font-size: 11px;
+  nav .right a span {
+    display: none;
+  }
+
+  nav .right a i {
+    font-size: 1.2rem;
   }
 
   .main-container {

@@ -106,8 +106,8 @@ nav .right a:last-child {
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: 15px;
@@ -193,7 +193,7 @@ nav .right a:last-child {
 }
 
 .info-content {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.8;
 }
 

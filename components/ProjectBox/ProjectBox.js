@@ -115,7 +115,7 @@ class ProjectBox extends HTMLElement {
         }
 
         .description {
-          font-size: 14px;
+          font-size: 15px;
           line-height: 1.5;
           opacity: 0.95;
           flex: 1;

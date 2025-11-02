@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="icon" type="image/x-icon" href="./img/favicon.jpg" />
+    <link rel="stylesheet" href="./index.css" />
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,8 +24,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
-    <link rel="stylesheet" href="./index.css" />
   </head>
 
   <body>
@@ -32,79 +31,145 @@
     <header>
       <nav>
         <div class="left">
-          <a id="title" href="../../index.html">
-            <img src="../../img/favicon.jpg" height="40px" /> KUNJOONG KIM</a
-          >
+          <a id="title" href="#home">
+            <span class="logo-text">CHARLIE KIM</span>
+          </a>
         </div>
         <div class="right">
-          <a href="index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>HOME</span>
-          </a>
-          <a href="pages/AboutMe/aboutme.html">
-            <i class="fa-solid fa-question"></i>
-            <span>ABOUT ME</span>
-          </a>
-          <a href="pages/Project/project.html">
-            <i class="fa-solid fa-diagram-project"></i>
-            <span>PROJECTS</span>
-          </a>
-          <a href="pages/Contact/contact.html">
-            <i class="fa-solid fa-address-book"></i>
-            <span>CONTACT</span>
-          </a>
+          <a href="#work">MY WORK</a>
+          <a href="#about">ABOUT ME</a>
+          <a href="#contact">CONTACT</a>
         </div>
       </nav>
     </header>
 
-    <!-- MAIN SECTION -->
-    <main>
-      <!-- SECTION 1: HOME -->
-      <section class="home" id="home">
-        <div class="headshot">
-          <img src="img/profile.jpg" alt="Kunjoong Charlie Kim" />
-        </div>
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="profile-card">
+          <div class="profile-image">
+            <img src="img/profile.jpg" alt="Kunjoong Charlie Kim" />
+          </div>
+          <h2 class="profile-name">KUNJOONG<br />CHARLIE<br />KIM</h2>
+          <p class="profile-title">Software Engineer</p>
 
-        <div class="text">
-          <h1>
-            <span class="name">KUNJOONG</span><br />
-            <span class="name">CHARLIE</span><br />
-            <span class="name">KIM</span>
-          </h1>
-
-          <div class="links">
-            <a href="https://github.com/Charlie0921" target="_blank">
-              <i class="fa-brands fa-github"></i> GitHub
-            </a>
-            <a href="https://linkedin.com/in/kunjoong-kim" target="_blank">
-              <i class="fa-brands fa-linkedin"></i> LinkedIn
-            </a>
+          <div class="social-links">
             <a
               href="https://blog.naver.com/PostList.naver?blogId=kunmiddle&from=postList&categoryNo=8"
               target="_blank"
+              class="social-btn"
+              >BLOG</a
             >
-              <i class="fa-solid fa-book"></i> Blog
-            </a>
             <a
-              href="https://drive.google.com/file/d/183Fv45j9JrNTFqDaq1zEz2v45OfOsr8D/view?usp=sharing"
+              href="https://linkedin.com/in/kunjoong-kim"
               target="_blank"
+              class="social-btn"
+              >LinkedIn</a
             >
-              <i class="fa-solid fa-file"></i> Resume
-            </a>
+            <a
+              href="https://github.com/Charlie0921"
+              target="_blank"
+              class="social-btn"
+              >GitHub</a
+            >
+          </div>
+
+          <a
+            href="https://drive.google.com/file/d/183Fv45j9JrNTFqDaq1zEz2v45OfOsr8D/view?usp=sharing"
+            target="_blank"
+            class="resume-btn"
+            >RESUME</a
+          >
+        </div>
+
+        <div class="info-card">
+          <h3 class="info-title">INTRODUCTION</h3>
+          <div class="info-content">
+            <p><strong>Education:</strong> Penn State, Computer Science</p>
+            <p><strong>Nationality:</strong> South Korea</p>
+            <p><strong>Email:</strong> kunmiddle93@gmail.com</p>
+            <p><strong>Language:</strong> Korean, English, Chinese</p>
           </div>
         </div>
-      </section>
-      <section class="home-intro">
-        <p class="intro">
-          I am a <span class="highlight">COMPUTER SCIENCE</span> student at
-          <span class="highlight">PENN STATE</span><br />
-          born in <span class="highlight">SOUTH KOREA</span><br />
-          dreaming to become a <span class="highlight">DEVELOPER</span><br />
-          <em>who turns every challenge into an opportunity</em>
-        </p>
 
-        <a href="pages/AboutMe/aboutme.html" class="cta-btn">Know about me!</a>
-      </section>
-    </main>
+        <div class="info-card">
+          <h3 class="info-title">SKILLSET</h3>
+          <div class="info-content">
+            <p>JavaScript, Python, React.js</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT CONTENT AREA -->
+      <main class="content-area">
+        <div class="projects-wrapper">
+          <project-grid id="project-grid-component"></project-grid>
+          <div
+            id="status"
+            style="margin-top: 12px; font-size: 0.95rem; text-align: center"
+          ></div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      import "./components/ProjectGrid/ProjectGrid.js";
+      import "./components/ProjectModal/ProjectModal.js";
+      import { fetchProjects, fetchProjectById } from "./api.js";
+
+      const statusEl = document.getElementById("status");
+      const gridEl = document.getElementById("project-grid-component");
+
+      async function init() {
+        try {
+          statusEl.textContent = "Loading projects...";
+          const projects = await fetchProjects();
+          const sortedProjects = projects.sort(
+            (a, b) => a.project_id - b.project_id
+          );
+
+          if (!projects || projects.length === 0) {
+            statusEl.textContent = "No projects found.";
+          } else {
+            statusEl.textContent = "";
+          }
+
+          gridEl.data = sortedProjects;
+          console.log("Projects loaded:", projects);
+        } catch (err) {
+          console.error(err);
+          statusEl.textContent =
+            "Failed to load projects. Please try again later.";
+        }
+      }
+
+      document.addEventListener("open-modal", async (e) => {
+        try {
+          const idRaw = e?.detail?.id;
+          const projectId = Number(idRaw);
+
+          if (!Number.isFinite(projectId)) {
+            console.warn("Invalid project id:", idRaw);
+            return;
+          }
+
+          const project = await fetchProjectById(projectId);
+          if (!project) {
+            alert("Project not found.");
+            return;
+          }
+
+          const modal = document.createElement("project-modal");
+          modal.data = project;
+          document.body.appendChild(modal);
+        } catch (err) {
+          console.error("open-modal error:", err);
+          alert("Failed to load project detail.");
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", init);
+    </script>
   </body>
 </html>

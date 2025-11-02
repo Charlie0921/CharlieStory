@@ -40,10 +40,8 @@ class ProjectBox extends HTMLElement {
     // Handle click: open website if available, else modal
     this.addEventListener("click", () => {
       if (this.website && this.website.trim() !== "") {
-        // ✅ Open external project link
         window.open(this.website, "_blank", "noopener,noreferrer");
       } else {
-        // ✅ Fallback: open modal if no website link
         this.dispatchEvent(
           new CustomEvent("open-modal", {
             detail: { id: this.id },
@@ -65,73 +63,74 @@ class ProjectBox extends HTMLElement {
       <style>
         :host {
           display: block;
-          margin-bottom: 25px;
           cursor: pointer;
           font-family: "Inter";
         }
 
         .project-box {
           display: flex;
-          align-items: flex-start;
-          justify-content: center;
-          gap: 30px;
+          flex-direction: column;
           background-color: #3a8b76;
-          border-radius: 30px;
+          border-radius: 25px;
           color: white;
-          height: 200px;
-          width: 480px;
-          padding: 20px;
+          height: 100%;
+          min-height: 380px;
+          padding: 0;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          overflow: hidden;
         }
 
         .project-box:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
-          opacity: 0.95;
+          transform: translateY(-5px);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
 
         .image-wrapper {
-          height: 200px;
-          width: 200px;
+          width: 100%;
+          height: 220px;
           background-color: #d7e6db;
-          border-radius: 20px;
           overflow: hidden;
+          flex-shrink: 0;
         }
 
         .image-wrapper img {
           width: 100%;
           height: 100%;
-          object-fit: contain;
+          object-fit: cover;
         }
 
         .content {
           display: flex;
           flex-direction: column;
-          height: 100%;
-          width: 15rem;
+          flex: 1;
+          padding: 20px;
+          gap: 12px;
         }
 
         .title {
-          font-size: 20px;
+          font-size: 22px;
           font-weight: 700;
-          margin-bottom: 6px;
+          line-height: 1.2;
+        }
+
+        .description {
+          font-size: 14px;
+          line-height: 1.5;
+          opacity: 0.95;
+          flex: 1;
+        }
+
+        .footer {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-top: auto;
         }
 
         .date {
           font-size: 13px;
-          opacity: 0.9;
-          margin-bottom: 8px;
-        }
-
-        .description {
-          font-size: 15px;
-          line-height: 1.4;
-          margin-bottom: 10px;
-          overflow: hidden;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
+          opacity: 0.85;
         }
 
         .tags {
@@ -143,33 +142,27 @@ class ProjectBox extends HTMLElement {
         .tag {
           background-color: #d8e8d4;
           color: #27482b;
-          font-size: 14px;
+          font-size: 12px;
           font-weight: 600;
           border-radius: 12px;
-          padding: 3px 8px;
+          padding: 4px 10px;
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 768px) {
           .project-box {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            height: auto;
-            width: 300px;
+            min-height: 350px;
           }
 
           .image-wrapper {
-            width: 100%;
             height: 180px;
           }
 
-          .content {
-            width: 100%;
-            align-items: center;
+          .title {
+            font-size: 20px;
           }
 
-          .tags {
-            justify-content: center;
+          .description {
+            font-size: 13px;
           }
         }
       </style>
@@ -181,13 +174,13 @@ class ProjectBox extends HTMLElement {
     }" />
         </div>
         <div class="content">
-          <div>
-            <div class="title">${this.title}</div>
+          <div class="title">${this.title}</div>
+          <div class="description">${this.description}</div>
+          <div class="footer">
             <div class="date">${this.date}</div>
-            <div class="description">${this.description}</div>
-          </div>
-          <div class="tags">
-            ${skillArray.map((s) => `<span class="tag">${s}</span>`).join("")}
+            <div class="tags">
+              ${skillArray.map((s) => `<span class="tag">${s}</span>`).join("")}
+            </div>
           </div>
         </div>
       </div>

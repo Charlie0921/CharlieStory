@@ -70,26 +70,29 @@ class ProjectBox extends HTMLElement {
         .project-box {
           display: flex;
           flex-direction: column;
-          background-color: #3a8b76;
-          border-radius: 25px;
-          color: white;
+          background-color: #FFFFFF;
+          border-radius: 16px;
+          color: #0F172A;
           height: 100%;
           min-height: 380px;
           padding: 0;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+          border: 1px solid #E2E8F0;
+          border-left: 4px solid #0EA5E9;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
           overflow: hidden;
         }
 
         .project-box:hover {
           transform: translateY(-5px);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 8px 24px rgba(14, 165, 233, 0.12);
+          border-left-color: #0284C7;
         }
 
         .image-wrapper {
           width: 100%;
           height: 220px;
-          background-color: #d7e6db;
+          background-color: #E0F2FE;
           overflow: hidden;
           flex-shrink: 0;
         }
@@ -112,12 +115,13 @@ class ProjectBox extends HTMLElement {
           font-size: 22px;
           font-weight: 700;
           line-height: 1.2;
+          color: #0F172A;
         }
 
         .description {
           font-size: 15px;
           line-height: 1.5;
-          opacity: 0.95;
+          color: #64748B;
           flex: 1;
         }
 
@@ -130,7 +134,8 @@ class ProjectBox extends HTMLElement {
 
         .date {
           font-size: 13px;
-          opacity: 0.85;
+          color: #94A3B8;
+          font-weight: 500;
         }
 
         .tags {
@@ -140,11 +145,11 @@ class ProjectBox extends HTMLElement {
         }
 
         .tag {
-          background-color: #d8e8d4;
-          color: #27482b;
+          background-color: #E0F2FE;
+          color: #0284C7;
           font-size: 12px;
           font-weight: 600;
-          border-radius: 12px;
+          border-radius: 6px;
           padding: 4px 10px;
         }
 

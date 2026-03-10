@@ -1,10 +1,10 @@
 :root {
-  --text-color: #27482b;
-  --link-color: #2f8a78;
-  --card-color: #3a8b76;
-  --highlight-bg: #d8e8d4;
-  --background-color: #fbffe4;
-  --sidebar-bg: #d8e8d4;
+  --text-color: #0f172a;
+  --link-color: #0ea5e9;
+  --card-color: #0284c7;
+  --highlight-bg: #e0f2fe;
+  --background-color: #f8fafc;
+  --sidebar-bg: #ffffff;
 }
 
 * {
@@ -32,13 +32,13 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: var(--link-color);
+  background-color: #0f172a;
   z-index: 100;
 }
 
 nav a {
   text-decoration: none;
-  color: var(--background-color);
+  color: #ffffff;
 }
 
 nav a img {
@@ -64,13 +64,15 @@ nav .right a {
   display: flex;
   align-items: center;
   gap: 5px;
+  color: #94a3b8;
 }
 
 nav .right a:last-child {
-  background-color: var(--background-color);
-  color: var(--link-color);
+  background-color: var(--link-color);
+  color: #ffffff;
   padding: 6px 14px;
-  border-radius: 20px;
+  border-radius: 8px;
+  font-weight: 600;
 }
 
 /* MAIN CONTAINER */
@@ -94,8 +96,9 @@ nav .right a:last-child {
 .profile-card,
 .info-card {
   background-color: var(--sidebar-bg);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 25px;
+  border: 1px solid #e2e8f0;
 }
 
 .profile-card {
@@ -111,7 +114,7 @@ nav .right a:last-child {
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: 15px;
-  border: 3px solid white;
+  border: 3px solid var(--link-color);
 }
 
 .profile-image img {
@@ -124,15 +127,15 @@ nav .right a:last-child {
   font-size: 22px;
   font-weight: 800;
   line-height: 1.2;
-  color: var(--card-color);
+  color: var(--text-color);
   margin-bottom: 5px;
 }
 
 .profile-title {
   font-size: 14px;
-  color: var(--text-color);
+  color: var(--link-color);
+  font-weight: 600;
   margin-bottom: 15px;
-  opacity: 0.8;
 }
 
 .social-links {
@@ -147,7 +150,7 @@ nav .right a:last-child {
   background-color: var(--link-color);
   color: white;
   padding: 6px 14px;
-  border-radius: 15px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
   text-decoration: none;
@@ -155,7 +158,7 @@ nav .right a:last-child {
 }
 
 .social-btn:hover {
-  background-color: #256e60;
+  background-color: var(--card-color);
   transform: translateY(-2px);
 }
 
@@ -163,7 +166,7 @@ nav .right a:last-child {
   background-color: var(--background-color);
   color: var(--text-color);
   padding: 10px 20px;
-  border-radius: 18px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
@@ -172,10 +175,11 @@ nav .right a:last-child {
   width: 100%;
   text-align: center;
   letter-spacing: 0.5px;
+  border: 1px solid #e2e8f0;
 }
 
 .resume-btn:hover {
-  background-color: #f0f5e8;
+  background-color: var(--highlight-bg);
   transform: translateY(-2px);
 }
 
@@ -195,6 +199,7 @@ nav .right a:last-child {
 .info-content {
   font-size: 15px;
   line-height: 1.8;
+  color: #64748b;
 }
 
 .info-content p {
@@ -203,6 +208,7 @@ nav .right a:last-child {
 
 .info-content strong {
   font-weight: 600;
+  color: var(--text-color);
 }
 
 /* RIGHT CONTENT AREA */

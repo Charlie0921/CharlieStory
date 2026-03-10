@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -31,7 +31,7 @@
     <header>
       <nav>
         <div class="left">
-          <a> KUNJOONG KIM</a>
+          <a href="./index.html"> KUNJOONG KIM</a>
         </div>
         <div class="right">
           <a href="../../index.html">
@@ -144,7 +144,7 @@
           statusEl.textContent = "Loading projects...";
           const projects = await fetchProjects();
           const sortedProjects = projects.sort(
-            (a, b) => a.project_id - b.project_id
+            (a, b) => a.project_id - b.project_id,
           );
 
           if (!projects || projects.length === 0) {

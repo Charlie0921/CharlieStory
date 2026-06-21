@@ -84,19 +84,40 @@ export function FrameArt(props: P) {
   );
 }
 
-export function PhoneArt(props: P) {
+export function MailboxArt(props: P) {
   return (
-    <svg viewBox="0 0 130 100" width="100%" height="100%" {...props}>
-      <rect x="18" y="18" width="94" height="67" rx="9" fill="#FBFAF6" stroke="#AEB5A7" strokeWidth="2" />
-      <path d="M18 31h94" fill="none" stroke="#AEB5A7" strokeWidth="2" />
-      <circle cx="29" cy="25" r="2" fill="#7F9477" />
-      <circle cx="37" cy="25" r="2" fill="#D7DDCF" />
-      <rect x="31" y="41" width="68" height="34" rx="4" fill="#E4EBDD" stroke="#73806D" strokeWidth="2" />
-      <path d="M34 44l31 21 31-21" fill="#F6F3EC" stroke="#73806D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M34 72l23-18M96 72L73 54" fill="none" stroke="#9BA995" strokeWidth="1.75" strokeLinecap="round" />
-      <circle cx="99" cy="37" r="8" fill="#C96D60" stroke="#FBFAF6" strokeWidth="2" />
-      <path d="M96 37h6M99 34v6" stroke="#FBFAF6" strokeWidth="1.5" strokeLinecap="round" />
-      <ellipse cx="65" cy="91" rx="38" ry="4" fill="#596254" opacity="0.1" />
+    <svg viewBox="0 0 130 110" width="100%" height="100%" {...props}>
+      <ellipse cx="65" cy="101" rx="42" ry="5" fill="#26262B" opacity="0.1" />
+
+      {/* Cream shell with a gently arched top, like a small room prop. */}
+      <path
+        d="M22 49c0-20 16-36 36-36h22c16 0 28 13 28 28v49H22z"
+        fill="#ECEAE3"
+        stroke="#DEDBD2"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path d="M80 13c16 0 28 13 28 28v8H80z" fill="#D7DDCF" opacity="0.7" />
+
+      {/* Recessed sage front door. */}
+      <path
+        d="M29 50h72v35a6 6 0 0 1-6 6H35a6 6 0 0 1-6-6z"
+        fill="#E4EBDD"
+        stroke="#AEB5A7"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <rect x="43" y="58" width="44" height="5" rx="2.5" fill="#7F9477" />
+      <path d="M52 76h26" stroke="#AEB5A7" strokeWidth="3" strokeLinecap="round" />
+
+      {/* A single dusty accent reads as a mailbox flag, not a UI control. */}
+      <path d="M96 47V26" stroke="#C96D60" strokeWidth="4" strokeLinecap="round" />
+      <path d="M96 26h13a3 3 0 0 1 3 3v8H96z" fill="#E8736A" />
+      <circle cx="96" cy="48" r="4" fill="#C96D60" />
+
+      {/* Short feet ground the object in the room. */}
+      <rect x="34" y="89" width="8" height="9" rx="3" fill="#AEB5A7" />
+      <rect x="88" y="89" width="8" height="9" rx="3" fill="#AEB5A7" />
     </svg>
   );
 }

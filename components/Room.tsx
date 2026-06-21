@@ -6,7 +6,7 @@ import {
   DeskArt,
   CabinetArt,
   FrameArt,
-  PhoneArt,
+  MailboxArt,
   CdPlayerArt,
   PlantArt,
   WindowArt,
@@ -82,15 +82,15 @@ export default function Room({ onOpen }: { onOpen: (id: WindowId) => void }) {
         <DeskArt />
       </RoomObject>
 
-      {/* Phone -> Contact */}
+      {/* Mailbox -> Contact */}
       <RoomObject
         label="MAILBOX"
         ariaLabel="Open mailbox"
         onClick={() => onOpen("contact")}
-        className="left-[20%] bottom-[50%] h-[13%] w-[11%]"
+        className="left-[20%] bottom-[49%] h-[15%] w-[12%]"
         bob={1}
       >
-        <PhoneArt />
+        <MailboxArt />
       </RoomObject>
 
       {/* CD player -> Playlist */}

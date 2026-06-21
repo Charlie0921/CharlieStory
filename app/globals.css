@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-400.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-500.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-600.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VT323";
+  src: url("/fonts/vt323-400.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --font-main: "IBM Plex Mono", monospace;
+  --font-accent: "VT323", monospace;
+  --font-display: var(--font-main);
+  --font-sans: var(--font-main);
+  --font-mono: var(--font-main);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: 0.94rem;
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+  color: #26262b;
+  background:
+    radial-gradient(120% 90% at 15% -10%, #fbfaf6 0%, #f6f3ec 50%, #eceae3 100%)
+      fixed;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+button,
+input,
+textarea,
+select,
+nav,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+.font-accent,
+.counter-card,
+.eyebrow,
+.retro-label {
+  font-family: var(--font-accent);
+  letter-spacing: 0.08em;
+}
+
+.site-shell {
+  background-color: #f2eee6;
+  background-image: radial-gradient(#d5cec1 0.75px, transparent 0.75px);
+  background-size: 16px 16px;
+}
+
+.profile-rail { box-shadow: inset 0 0 0 4px rgba(255,255,255,.45); }
+.avatar-card { background-image: linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px); background-size: 18px 18px; }
+.profile-photo {
+  display: block;
+  object-fit: cover;
+  object-position: 52% 38%;
+}
+.counter-card { min-width: 150px; border: 1px solid #c9c3b7; border-radius: 8px; background: #fffdf8; padding: 9px 12px; box-shadow: 2px 3px 0 #d8d0c2; font-size: 1rem; line-height: 1.05; color: #6b6863; }
+.counter-card > p { border-bottom: 1px dashed #dedbd2; padding-bottom: 4px; letter-spacing: .16em; }
+.counter-card > div { display: flex; justify-content: space-between; gap: 18px; margin-top: 4px; }
+.counter-card b { color: #b85d52; font-weight: 500; }
+.rail-link { flex: 1; border: 1px solid #dedbd2; border-radius: 6px; background: white; padding: 7px 5px; text-align: center; font-family: var(--font-mono); font-size: .58rem; color: #5c5c64; }
+.eyebrow { font-size: .9rem; line-height: 1; text-transform: uppercase; color: #77736e; }
+.primary-button, .secondary-button { align-items: center; justify-content: center; border-radius: 8px; padding: 12px 16px; text-align: center; font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; transition: .2s ease; }
+.primary-button { border: 1px solid #9e493f; background: #b85d52; color: white; }
+.primary-button:hover { background: #9e493f; transform: translateY(-1px); }
+.secondary-button { border: 1px solid #c9c3b7; background: white; color: #26262b; }
+.secondary-button:hover { border-color: #77669b; transform: translateY(-1px); }
+
+.folder-tabs {
+  scrollbar-width: thin;
+  scrollbar-color: #bdb5a7 transparent;
+}
+
+.folder-tab {
+  --tab-color: #e7dfd0;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  min-width: 104px;
+  height: 39px;
+  margin-right: -1px;
+  transform: translateY(5px);
+  border: 1px solid #aaa397;
+  border-bottom-color: #aaa397;
+  border-radius: 9px 9px 0 0;
+  background: var(--tab-color);
+  padding: 9px 13px 8px;
+  color: #57544f;
+  font-family: var(--font-main);
+  font-size: .64rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-align: left;
+  box-shadow: inset 0 1px rgba(255,255,255,.65);
+  transition: transform .16s ease, background-color .16s ease;
+}
+
+.folder-tab::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: -5px;
+  width: 34px;
+  height: 6px;
+  border: 1px solid #aaa397;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: var(--tab-color);
+}
+
+.folder-tab-mark {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  border: 1px solid currentColor;
+  opacity: .45;
+}
+
+.folder-tab-2 { --tab-color: #dce6e5; }
+.folder-tab-3 { --tab-color: #eadbd4; }
+.folder-tab-4 { --tab-color: #dfd9e8; }
+.folder-tab-5 { --tab-color: #dce5dc; }
+.folder-tab-6 { --tab-color: #e9dfca; }
+
+.folder-tab:hover { transform: translateY(2px); color: #26262b; }
+
+.folder-tab.is-active {
+  z-index: 4;
+  transform: translateY(1px);
+  border-bottom-color: var(--tab-color);
+  color: #26262b;
+  font-weight: 600;
+  box-shadow: inset 0 2px rgba(255,255,255,.8), 0 -2px 8px rgba(38,38,43,.05);
+}
+
+.folder-panel {
+  border-radius: 0 15px 15px 15px;
+  box-shadow: inset 0 0 0 4px rgba(255,255,255,.18);
+}
+
+.avatar-speech::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  bottom: 13px;
+  width: 14px;
+  height: 14px;
+  transform: rotate(45deg);
+  border-right: 1px solid #aaa397;
+  border-top: 1px solid #aaa397;
+  background: #fffdf8;
+}
+
+@media (max-width: 1023px) {
+  .profile-rail { display: grid; grid-template-columns: 110px 1fr; column-gap: 16px; align-items: center; }
+  .profile-rail .avatar-card { grid-row: span 4; margin-top: 0; height: 110px; }
+  .profile-rail > div[aria-label="Profile links"] { display: none; }
+}
+
+@media (max-width: 600px) {
+  .profile-rail { display: block; }
+  .profile-rail .avatar-card { display: none; }
+  .profile-rail > h2 { margin-top: 1.5rem; }
+  .folder-tab { min-width: 96px; }
+  .avatar-speech { left: -135%; width: 130px; font-size: .9rem; }
+}
+
+::selection {
+  background: #e8736a;
+  color: #fff;
+}
+
+/* tidy scrollbars inside windows */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #dedbd2;
+  border-radius: 8px;
+}
+
+:focus-visible {
+  outline: 2px solid #e8736a;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}

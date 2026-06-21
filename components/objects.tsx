@@ -86,13 +86,17 @@ export function FrameArt(props: P) {
 
 export function PhoneArt(props: P) {
   return (
-    <svg viewBox="0 0 130 90" width="100%" height="100%" {...props}>
-      <ellipse cx="65" cy="81" rx="47" ry="5" fill="#26262B" opacity="0.1" />
-      <rect x="16" y="15" width="98" height="61" rx="8" fill="#FBFAF6" stroke="#3A3A42" strokeWidth="4" />
-      <path d="M20 20l45 34 45-34" fill="#DCE9F2" stroke="#3A3A42" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M20 71l33-29M110 71L77 42" fill="none" stroke="#3A3A42" strokeWidth="3" strokeLinecap="round" />
-      <circle cx="65" cy="53" r="8" fill="#E8736A" />
-      <path d="M61 53l3 3 6-7" fill="none" stroke="#FBFAF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 130 100" width="100%" height="100%" {...props}>
+      <rect x="18" y="18" width="94" height="67" rx="9" fill="#FBFAF6" stroke="#AEB5A7" strokeWidth="2" />
+      <path d="M18 31h94" fill="none" stroke="#AEB5A7" strokeWidth="2" />
+      <circle cx="29" cy="25" r="2" fill="#7F9477" />
+      <circle cx="37" cy="25" r="2" fill="#D7DDCF" />
+      <rect x="31" y="41" width="68" height="34" rx="4" fill="#E4EBDD" stroke="#73806D" strokeWidth="2" />
+      <path d="M34 44l31 21 31-21" fill="#F6F3EC" stroke="#73806D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M34 72l23-18M96 72L73 54" fill="none" stroke="#9BA995" strokeWidth="1.75" strokeLinecap="round" />
+      <circle cx="99" cy="37" r="8" fill="#C96D60" stroke="#FBFAF6" strokeWidth="2" />
+      <path d="M96 37h6M99 34v6" stroke="#FBFAF6" strokeWidth="1.5" strokeLinecap="round" />
+      <ellipse cx="65" cy="91" rx="38" ry="4" fill="#596254" opacity="0.1" />
     </svg>
   );
 }

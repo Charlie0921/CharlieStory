@@ -15,7 +15,7 @@ import type { WindowId } from "@/lib/types";
 
 export default function Room({ onOpen }: { onOpen: (id: WindowId) => void }) {
   return (
-    <div className="relative mx-auto h-[535px] w-full max-w-[960px] select-none sm:h-[540px]">
+    <div className="relative mx-auto h-full min-h-[460px] w-full max-w-[960px] select-none">
       {/* Wall */}
       <div className="absolute inset-0 rounded-3xl border border-line bg-wall shadow-room overflow-hidden">
         <div
@@ -87,8 +87,8 @@ export default function Room({ onOpen }: { onOpen: (id: WindowId) => void }) {
         label="MAILBOX"
         ariaLabel="Open mailbox"
         onClick={() => onOpen("contact")}
-        className="left-[20%] bottom-[25%] h-[13%] w-[11%]"
-        bob={2}
+        className="left-[20%] bottom-[50%] h-[13%] w-[11%]"
+        bob={1}
       >
         <PhoneArt />
       </RoomObject>

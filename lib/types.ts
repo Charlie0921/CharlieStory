@@ -12,6 +12,20 @@ export type Project = {
   stack: string[];
   role: string;
   result: string;
+  images: ProjectImage[];
+  links: ProjectLinks;
+};
+
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+export type ProjectLinks = {
+  github: string;
+  demo: string;
+  caseStudy: string;
 };
 
 export type Role = {

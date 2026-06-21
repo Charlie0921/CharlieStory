@@ -29,7 +29,9 @@ export const PROJECTS = ([
     solution: "Built a responsive portfolio from scratch with custom Web Components and a Supabase-backed project collection.",
     stack: ["JavaScript", "HTML", "CSS", "Supabase", "PostgreSQL"],
     role: "Designer / Full-Stack Developer",
-    result: "Created a maintainable portfolio that publishes project updates without a front-end framework."
+    result: "Created a maintainable portfolio that publishes project updates without a front-end framework.",
+    images: [],
+    links: { github: "", demo: "", caseStudy: "" }
   },
   {
     fileNo: "PROJECT-002", title: "Faulty Sewage Pipe AI Detector", impact: "Improved detection precision by 35% and reached a top public leaderboard score in a ROK Air Force AI hackathon.", org: "ROK Air Force AI Hackathon", status: "Hackathon", domain: "research",
@@ -37,35 +39,62 @@ export const PROJECTS = ([
     solution: "Trained and tuned a YOLOv8 computer-vision model while comparing candidate detection architectures and hyperparameters.",
     stack: ["Python", "YOLOv8", "PyTorch", "NumPy"],
     role: "Machine Learning Developer",
-    result: "Raised model precision by 35% and achieved a top public test score."
+    result: "Raised model precision by 35% and achieved a top public test score.",
+    images: [
+      { src: "/images/projects/sewagepipe/defect-classification.png", alt: "Sewage pipe defect classification results", caption: "Defect Classification" },
+      { src: "/images/projects/sewagepipe/plan.jpeg", alt: "Sewage pipe detector project plan", caption: "Project Plan" }
+    ],
+    links: { github: "", demo: "", caseStudy: "" }
   },
   {
     fileNo: "PROJECT-003", title: "BeyondClass", impact: "Built an education platform that centralizes competitions, scholarships, and student opportunities.", org: "Penn State Inc.U", status: "Top-6 finalist", domain: "product",
     problem: "Students miss useful academic and extracurricular opportunities because information is scattered across different channels.",
     solution: "Led development of a responsive platform that organizes opportunities into one accessible interface.",
     stack: ["React", "JavaScript", "SCSS", "HTML"], role: "Tech Lead",
-    result: "Earned Top-6 finalist recognition and $2,500 in Penn State startup funding."
+    result: "Earned Top-6 finalist recognition and $2,500 in Penn State startup funding.",
+    images: [
+      { src: "/images/projects/beyondclass/about-us.png", alt: "BeyondClass about us page", caption: "About Us" },
+      { src: "/images/projects/beyondclass/details-page.png", alt: "BeyondClass opportunity details page", caption: "Details Page" },
+      { src: "/images/projects/beyondclass/opportunities-page.png", alt: "BeyondClass opportunities page", caption: "Opportunities Page" }
+    ],
+    links: { github: "", demo: "", caseStudy: "" }
   },
   {
     fileNo: "PROJECT-004", title: "PSUStudyFinder", impact: "Won 3rd place at HackPSU 2022 by helping students find classmates in the same courses.", org: "HackPSU 2022", status: "3rd place", domain: "product",
     problem: "Students at a large university often struggle to find classmates and form study groups.",
     solution: "Built an Android app where students add courses, discover peers, and share schedules through a course-based community.",
     stack: ["Java", "Android Studio", "Firebase"], role: "Front-End Developer / UI Designer",
-    result: "Placed 3rd among more than 900 HackPSU participants."
+    result: "Placed 3rd among more than 900 HackPSU participants.",
+    images: [
+      { src: "/images/projects/psu-study-finder/app-preview.png", alt: "PSUStudyFinder mobile app preview", caption: "App Preview" },
+      { src: "/images/projects/psu-study-finder/login-and-sign-up-pages.png", alt: "PSUStudyFinder login and sign-up pages", caption: "Login & Sign-up" },
+      { src: "/images/projects/psu-study-finder/main-and-course-add-page.png", alt: "PSUStudyFinder main and course add pages", caption: "Course Finder" }
+    ],
+    links: { github: "", demo: "", caseStudy: "" }
   },
   {
     fileNo: "PROJECT-005", title: "Mapping Space Trash", impact: "Visualized orbital debris from NASA open datasets in an interactive 3D experience.", org: "NASA Space Apps Challenge", status: "Hackathon", domain: "research",
     problem: "Space-debris data is difficult for non-specialists to interpret as raw records and coordinates.",
     solution: "Built a browser-based visualization that maps debris orbiting Earth in three dimensions.",
     stack: ["Three.js", "JavaScript", "HTML", "NASA Open Data"], role: "Front-End Developer",
-    result: "Delivered an interactive visualization during the NASA Space Apps Challenge."
+    result: "Delivered an interactive visualization during the NASA Space Apps Challenge.",
+    images: [
+      { src: "/images/projects/mapping-space/project-demo.gif", alt: "Mapping Space Trash interactive visualization demo", caption: "Interactive Demo" }
+    ],
+    links: { github: "", demo: "", caseStudy: "" }
   },
   {
     fileNo: "PROJECT-006", title: "Tanyak Laundry", impact: "Built a real-time laundry-management app used by all 60 residents in a military residence hall.", org: "ROK Air Force", status: "Shipped", domain: "product",
     problem: "Residents repeatedly waited for shared machines and relied on group messages to track availability.",
     solution: "Built a responsive availability and notification system, then iterated from direct user feedback.",
     stack: ["React", "TypeScript", "Supabase", "CSS"], role: "App Developer / Product Designer",
-    result: "Increased machine utilization by up to 90% and launched to all 60 residents."
+    result: "Increased machine utilization by up to 90% and launched to all 60 residents.",
+    images: [
+      { src: "/images/projects/tanyak/login-page.png", alt: "Tanyak Laundry login page", caption: "Login Page" },
+      { src: "/images/projects/tanyak/home-and-device-settings-page.png", alt: "Tanyak Laundry home and device settings pages", caption: "Home & Device Settings" },
+      { src: "/images/projects/tanyak/faq-page.png", alt: "Tanyak Laundry FAQ page", caption: "FAQ Page" }
+    ],
+    links: { github: "", demo: "", caseStudy: "" }
   }
 ] satisfies Project[]).reverse();
 

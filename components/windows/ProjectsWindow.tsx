@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PROJECTS, DOMAIN_COLOR, DOMAIN_LABEL } from "@/lib/data";
+import type { Project } from "@/lib/types";
 
 export default function ProjectsWindow() {
   const [idx, setIdx] = useState(0); const p = PROJECTS[idx];
@@ -13,7 +14,39 @@ export default function ProjectsWindow() {
       <p className="my-5 border-y border-dashed border-line py-3 font-display text-lg leading-snug text-ink">{p.impact}</p>
       <div className="grid gap-5 sm:grid-cols-2"><Field label="Problem">{p.problem}</Field><Field label="Solution">{p.solution}</Field><Field label="My role">{p.role}</Field><Field label="Result / Impact"><strong>{p.result}</strong></Field></div>
       <div className="mt-5"><p className="eyebrow">Tech stack</p><div className="mt-2 flex flex-wrap gap-1.5">{p.stack.map(s => <span key={s} className="rounded-md border border-line bg-mist px-2 py-1 font-mono text-[0.65rem] text-ink-soft">{s}</span>)}</div></div>
+      <EvidenceArchive key={p.fileNo} project={p} />
+      <ProjectLinks links={p.links} />
     </motion.article>
   </div>;
 }
 function Field({ label, children }: { label: string; children: React.ReactNode }) { return <div><p className="eyebrow">{label}</p><p className="mt-1 text-sm leading-relaxed text-ink">{children}</p></div>; }
+
+function EvidenceArchive({ project }: { project: Project }) {
+  const [active, setActive] = useState(0);
+  if (!project.images.length) return null;
+  const featured = project.images[active];
+
+  return <section className="evidence-archive" aria-label={`${project.title} evidence screens`}>
+    <div className="evidence-heading"><div><p className="eyebrow">Evidence / Screens</p><p>ARCHIVE REF. {project.fileNo.replace("PROJECT-", "")}</p></div><span>{String(active + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span></div>
+    <figure className="evidence-featured">
+      <img src={featured.src} alt={featured.alt} />
+      <figcaption><span>EXHIBIT {String.fromCharCode(65 + active)}</span>{featured.caption}</figcaption>
+    </figure>
+    {project.images.length > 1 && <div className="evidence-strip" aria-label="Select evidence image">
+      {project.images.map((image, imageIdx) => <button key={image.src} type="button" onClick={() => setActive(imageIdx)} className={imageIdx === active ? "is-active" : ""} aria-label={`View ${image.caption}`} aria-pressed={imageIdx === active}>
+        <img src={image.src} alt="" /><span>{String.fromCharCode(65 + imageIdx)}. {image.caption}</span>
+      </button>)}
+    </div>}
+  </section>;
+}
+
+function ProjectLinks({ links }: { links: Project["links"] }) {
+  const available = [
+    { href: links.demo, label: "View Project" },
+    { href: links.github, label: "Source Code" },
+    { href: links.caseStudy, label: "Case Study" }
+  ].filter(link => link.href);
+
+  if (!available.length) return null;
+  return <div className="project-actions">{available.map(link => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label}<span aria-hidden="true">↗</span></a>)}</div>;
+}

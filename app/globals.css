@@ -294,6 +294,10 @@ h6 {
   grid-template-rows: 72px minmax(0, 1fr);
 }
 
+.mini-home-shell.is-room-home {
+  grid-template-rows: 72px minmax(0, 1fr);
+}
+
 .mini-header {
   position: relative;
   z-index: 5;
@@ -335,6 +339,14 @@ h6 {
   grid-template-columns: 218px minmax(0, 1fr) 108px;
   gap: 0;
   padding: 10px 12px 12px;
+}
+
+.mini-body.is-room-home {
+  align-items: stretch;
+}
+
+.mini-body.is-room-home .profile-card {
+  align-self: stretch;
 }
 
 .profile-card {
@@ -407,9 +419,135 @@ h6 {
 .playlist-memo small { display: block; margin-top: 9px; color: #8c8679; font-family: var(--font-accent); font-size: .75rem; }
 
 .content-column { min-width: 0; min-height: 0; }
+.mini-body.is-room-home .content-column { align-self: stretch; }
 .main-panel { height: 100%; min-height: 0; overflow: hidden; border: 1px solid #9ea596; border-radius: 4px 0 0 4px; background: #eee9dc; box-shadow: inset 0 0 0 4px rgba(255,255,255,.28); }
+.main-panel.is-room-home { height: 100%; }
 .room-bar { height: 34px; display: flex; align-items: center; justify-content: space-between; padding: 0 13px; border-bottom: 1px solid #c4c1b6; background: #faf7ed; color: #74766e; font-size: .54rem; letter-spacing: .12em; }
-.room-stage { height: calc(100% - 34px); min-height: 0; overflow: hidden; padding: 6px; }
+.room-stage { height: calc(100% - 34px); min-height: 0; overflow: hidden; padding: 4px 6px 6px; display: grid; place-items: center; background: #202d4f; container-type: size; }
+.main-panel.is-room-home .room-stage { height: calc(100% - 34px); }
+
+.miniroom-hero {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.miniroom-hero__desktop {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.miniroom-hero__frame {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  width: min(100%, 125cqh, 1180px);
+  max-height: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: #202d4f;
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,.5);
+  overflow: hidden;
+}
+
+.miniroom-hero__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@supports not (width: 1cqh) {
+  .miniroom-hero__frame {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+  }
+}
+
+.miniroom-hero__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.miniroom-hotspot {
+  position: absolute;
+  border: 1px solid transparent;
+  background: transparent;
+  outline: 0;
+  transition: box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
+}
+
+.miniroom-hotspot::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 1px solid transparent;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.miniroom-hotspot:hover,
+.miniroom-hotspot:focus-visible,
+.miniroom-hotspot.is-active {
+  border-color: rgba(115, 132, 103, .68);
+  background: rgba(130, 151, 121, .08);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.48), 0 0 18px rgba(132, 160, 118, .22);
+}
+
+.miniroom-hotspot:hover::before,
+.miniroom-hotspot:focus-visible::before,
+.miniroom-hotspot.is-active::before {
+  border-color: rgba(190, 221, 176, .78);
+  box-shadow: 0 0 12px rgba(189, 220, 175, .24);
+}
+
+/* Toggle this class from MiniRoomHero while tuning hotspot coordinates. */
+.miniroom-hero--debug .miniroom-hotspot {
+  border-color: rgba(85, 120, 146, .8);
+  background: rgba(85, 120, 146, .14);
+}
+
+.miniroom-mobile-card.is-disabled {
+  cursor: default;
+  opacity: .72;
+}
+
+.miniroom-hero__mobile {
+  display: none;
+}
+
+.miniroom-mobile-card {
+  display: grid;
+  gap: 5px;
+  padding: 12px 13px;
+  border: 1px solid #aeb2a4;
+  border-radius: 6px;
+  background: #faf7ee;
+  color: #4d5448;
+  text-align: left;
+  box-shadow: inset 0 1px rgba(255,255,255,.7), 1px 1px 0 rgba(101,113,94,.08);
+}
+
+.miniroom-mobile-card span {
+  font-size: .67rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+}
+
+.miniroom-mobile-card small {
+  color: #818477;
+  font-size: .52rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.miniroom-mobile-card.is-active {
+  border-color: #6f8767;
+  background: #eef3e8;
+}
 
 .side-tabs { min-height: 0; padding-top: 16px; display: flex; flex-direction: column; gap: 5px; align-items: stretch; }
 .mini-tab {
@@ -481,6 +619,7 @@ h6 {
   .mobile-tabs .mini-tab { width: auto; min-width: 0; height: 38px; margin: 0 -1px 0 0; padding: 0 8px; border-left-color: #9da694; border-radius: 7px 7px 0 0; }
   .mobile-tabs .mini-tab.is-active, .mobile-tabs .mini-tab:hover { width: auto; }
   .main-panel { height: 620px; border-radius: 0 4px 4px 4px; }
+  .main-panel.is-room-home { height: 620px; }
   .side-tabs { display: none; }
 }
 
@@ -510,9 +649,12 @@ h6 {
   .mobile-tabs .mini-tab:last-child { grid-column: 1 / -1; }
   .mobile-tabs .mini-tab.is-active { border-color: #667d5e; }
   .main-panel { height: 560px; }
+  .main-panel.is-room-home { height: 560px; min-height: 0; }
   .room-bar span:last-child { display: none; }
-  .room-stage { overflow-x: auto; }
-  .room-stage > div { min-width: 580px; }
+  .room-stage { height: calc(100% - 34px); overflow: hidden; padding: 6px 8px 8px; }
+  .miniroom-hero__desktop { display: grid; }
+  .miniroom-hero__frame { width: min(100%, 125cqh); max-width: 100%; }
+  .miniroom-hero__mobile { display: none; }
   .playlist-compact { grid-template-columns: 1fr; }
   .playlist-memo { width: min(220px, 86%); margin: 4px auto 0; }
 }

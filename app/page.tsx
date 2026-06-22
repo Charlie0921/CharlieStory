@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import Room from "@/components/Room";
+import MiniRoomHero from "@/components/MiniRoomHero";
 import Window from "@/components/Window";
 import AboutWindow from "@/components/windows/AboutWindow";
 import ProjectsWindow from "@/components/windows/ProjectsWindow";
@@ -25,7 +25,7 @@ export default function Page() {
   return (
     <BgmPlayerProvider>
     <main className="site-shell">
-      <section className="mini-home-shell">
+      <section className={`mini-home-shell ${activeTab ? "" : "is-room-home"}`}>
         <header className="mini-header">
           <button className="brand-block" onClick={() => setActiveTab(null)} aria-label="Return to mini room">
             <span className="brand-kicker"><i /> CHARLIE&apos;S MINI PORTFOLIO</span>
@@ -34,11 +34,11 @@ export default function Page() {
           </button>
           <div className="mini-header-note">work, systems &amp; small useful things</div>
           <div className="visitor-counter" aria-label="Visitor count">
-            <span>TODAY <b>0001</b></span><span>TOTAL <b>650,000+</b></span>
+            <span>TODAY <b>1</b></span><span>TOTAL <b>9210</b></span>
           </div>
         </header>
 
-        <div className="mini-body">
+        <div className={`mini-body ${activeTab ? "" : "is-room-home"}`}>
           <aside className="profile-card">
             <div className="profile-card-label">OWNER / PROFILE</div>
             <div className="profile-image-wrap"><img src="/images/profile.png" alt="Kunjoong Charlie Kim" className="profile-photo" /></div>
@@ -60,13 +60,18 @@ export default function Page() {
             <nav aria-label="Portfolio sections" role="tablist" className="mobile-tabs">
               {NAV.map((id) => <TabButton key={id} id={id} activeTab={activeTab} onSelect={setActiveTab} />)}
             </nav>
-            <div className="main-panel" role="tabpanel">
+            <div className={`main-panel ${activeTab ? "" : "is-room-home"}`} role="tabpanel">
               {activeTab ? (
                 <Window key={activeTab} title={WINDOW_META[activeTab].title} subtitle={WINDOW_META[activeTab].subtitle} accent={WINDOW_META[activeTab].accent} onClose={() => setActiveTab(null)}>
                   {CONTENT[activeTab]}
                 </Window>
               ) : (
-                <><div className="room-bar"><span><i /> ROOM 0921</span><span>SELECT AN OBJECT OR MENU</span></div><div className="room-stage"><Room onOpen={setActiveTab} /></div></>
+                <>
+                  <div className="room-bar"><span><i /> ROOM 0921</span><span>SELECT AN OBJECT OR MENU</span></div>
+                  <div className="room-stage">
+                    <MiniRoomHero onOpen={setActiveTab} />
+                  </div>
+                </>
               )}
             </div>
           </div>

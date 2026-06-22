@@ -24,14 +24,33 @@ export const DOMAIN_COLOR = { enterprise: "#b85d52", research: "#77669b", produc
 
 export const PROJECTS = ([
   {
-    fileNo: "PROJECT-001", title: "Personal Portfolio Website", impact: "Built a full-stack portfolio and lightweight project CMS using native web technologies.", org: "Personal Project", status: "Active", domain: "product",
-    problem: "A static portfolio made project updates repetitive and did not reflect the depth of my development journey.",
-    solution: "Built a responsive portfolio from scratch with custom Web Components and a Supabase-backed project collection.",
-    stack: ["JavaScript", "HTML", "CSS", "Supabase", "PostgreSQL"],
-    role: "Designer / Full-Stack Developer",
-    result: "Created a maintainable portfolio that publishes project updates without a front-end framework.",
-    images: [],
-    links: { github: "", demo: "", caseStudy: "" }
+    fileNo: "PROJECT-001", title: "OfferLens", impact: "Built an AI-powered tool that detects job scams in real time and helps job seekers avoid risky offers.", org: "Personal Project", status: "MVP", domain: "product", category: "AI Safety Tool",
+    problem: "College students and early-career job seekers increasingly find jobs through social media, where professional-looking scam messages can cause financial loss, identity theft, and stress.",
+    solution: "Built a real-time tool that analyzes job descriptions, LinkedIn messages, emails, and PDFs, then returns an explainable risk score and actionable safety guidance.",
+    stack: ["DistilBERT", "FastAPI", "Google Safe Browsing API", "Python", "React", "Base44"],
+    role: "Full-Stack / AI Developer",
+    result: "Delivered a working MVP that combines NLP, keyword signals, and URL safety checks so users can evaluate suspicious job offers before responding.",
+    images: [
+      { src: "/images/projects/offerlens/landing-page.png", alt: "OfferLens overview screen", caption: "Overview" },
+      { src: "/images/projects/offerlens/gauge.jpg", alt: "OfferLens scam risk analysis screen", caption: "Risk Analysis" },
+      { src: "/images/projects/offerlens/recommended-actions.jpg", alt: "OfferLens AI generated safe reply screen", caption: "Safe Reply" }
+    ],
+    links: { github: "", demo: "", caseStudy: "" },
+    technicalDetails: [
+      "Fine-tuned a DistilBERT model on job-posting and scam-related datasets.",
+      "Built a FastAPI backend to serve the trained model for real-time inference.",
+      "Added URL safety detection using the Google Safe Browsing API.",
+      "Designed keyword-based suspicious and legitimate signal groups.",
+      "Combined model, keyword, and URL signals into a weighted risk score."
+    ],
+    riskFormula: "Risk = 0.6 × ML + 0.2 × Keywords + 0.2 × URL",
+    challenges: [
+      "Collecting and cleaning realistic job-scam datasets.",
+      "Reducing false positives when legitimate posts used urgent language.",
+      "Deploying the NLP model for fast, real-time inference.",
+      "Handling text, PDFs, and copied messages consistently.",
+      "Making the risk score interpretable and actionable."
+    ]
   },
   {
     fileNo: "PROJECT-002", title: "Faulty Sewage Pipe AI Detector", impact: "Improved detection precision by 35% and reached a top public leaderboard score in a ROK Air Force AI hackathon.", org: "ROK Air Force AI Hackathon", status: "Hackathon", domain: "research",

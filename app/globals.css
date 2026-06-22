@@ -115,6 +115,14 @@ h6 {
 .secondary-button { border: 1px solid #c9c3b7; background: white; color: #26262b; }
 .secondary-button:hover { border-color: #77669b; transform: translateY(-1px); }
 
+.technical-notes { margin-top: 18px; border: 1px dashed #aaa397; background: #f8f4e9; }
+.technical-notes summary { cursor: pointer; padding: 10px 12px; color: #4f5960; font-family: var(--font-mono); font-size: .62rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.technical-notes[open] summary { border-bottom: 1px dashed #c9c3b7; }
+.technical-notes-content { display: grid; gap: 14px; padding: 12px; color: #4e4d49; font-size: .72rem; line-height: 1.55; }
+.technical-notes-content ul { margin-top: 7px; padding-left: 17px; list-style: square; }
+.technical-notes-content li + li { margin-top: 4px; }
+.technical-notes-content code { display: block; margin-top: 7px; padding: 8px 10px; border-left: 3px solid #557d92; background: white; color: #344f5c; font-size: .68rem; }
+
 .evidence-archive { margin-top: 22px; padding: 12px; border: 1px solid #aaa397; background: #eee9dc; box-shadow: inset 0 0 0 3px rgba(255,255,255,.35); }
 .evidence-heading { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 9px; padding: 0 2px 8px; border-bottom: 1px dashed #aaa397; }
 .evidence-heading div > p:last-child, .evidence-heading > span { margin-top: 4px; color: #858176; font-size: .52rem; letter-spacing: .11em; }

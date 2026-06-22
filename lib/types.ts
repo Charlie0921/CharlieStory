@@ -7,6 +7,7 @@ export type Project = {
   org: string;
   status: string;
   domain: Domain;
+  category?: string;
   problem: string;
   solution: string;
   stack: string[];
@@ -14,6 +15,9 @@ export type Project = {
   result: string;
   images: ProjectImage[];
   links: ProjectLinks;
+  technicalDetails?: string[];
+  riskFormula?: string;
+  challenges?: string[];
 };
 
 export type ProjectImage = {

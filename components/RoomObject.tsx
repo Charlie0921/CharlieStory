@@ -8,6 +8,7 @@ type Props = {
   onClick: () => void;
   className?: string;
   bob?: number;
+  pressed?: boolean;
   children: React.ReactNode;
 };
 
@@ -17,6 +18,7 @@ export default function RoomObject({
   onClick,
   className = "",
   bob = 0,
+  pressed,
   children,
 }: Props) {
   const reduce = useReducedMotion();
@@ -25,6 +27,7 @@ export default function RoomObject({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
+      aria-pressed={pressed}
       className={`group absolute cursor-pointer outline-none ${className}`}
       initial={false}
       animate={reduce || !bob ? {} : { y: [0, -bob, 0] }}

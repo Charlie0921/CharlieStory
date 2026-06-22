@@ -114,7 +114,8 @@ export const SKILLS: SkillGroup[] = [
 ];
 
 export const TRACKS: Track[] = [
-  { title: "Soft Focus", artist: "desk hours" }, { title: "Paper Light", artist: "studio notes" }, { title: "Window Seat", artist: "4:00 PM sun" }, { title: "Daydream Memo", artist: "late shift" }
+  { title: "Haru Haru", artist: "BIGBANG", src: "/audios/haru-haru-inst.mp3" },
+  { title: "FOCUS", artist: "Hearts2Hearts", src: "/audios/focus-inst.mp3" }
 ];
 
 export const WINDOW_META: Record<WindowId, { title: string; subtitle: string; accent: string }> = {
@@ -122,6 +123,5 @@ export const WINDOW_META: Record<WindowId, { title: string; subtitle: string; ac
   projects: { title: "PROJECTS", subtitle: "Selected work", accent: "#557d92" },
   experience: { title: "EXPERIENCE", subtitle: "Roles and leadership", accent: "#b85d52" },
   resume: { title: "RESUME", subtitle: "Skills and experience", accent: "#77669b" },
-  contact: { title: "MAILBOX", subtitle: "Send a note", accent: "#557d92" },
-  playlist: { title: "BGM", subtitle: "Room soundtrack", accent: "#b85d52" }
+  contact: { title: "MAILBOX", subtitle: "Send a note", accent: "#557d92" }
 };

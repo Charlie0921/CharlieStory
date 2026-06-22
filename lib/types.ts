@@ -39,5 +39,5 @@ export type Role = {
 };
 
 export type SkillGroup = { group: string; items: string };
-export type Track = { title: string; artist: string };
-export type WindowId = "about" | "projects" | "experience" | "resume" | "contact" | "playlist";
+export type Track = { title: string; artist: string; src: string };
+export type WindowId = "about" | "projects" | "experience" | "resume" | "contact";

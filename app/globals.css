@@ -355,7 +355,47 @@ h6 {
 .profile-links { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 7px; }
 .profile-links a { padding: 6px 3px; border: 1px solid #d0cdc1; border-radius: 3px; background: #fff; color: #6d6e67; font-size: .5rem; letter-spacing: .04em; text-align: center; }
 .profile-links a:hover { color: #4f674a; border-color: #91a28a; }
+.profile-bgm { margin-top: 10px; }
 .profile-footer { margin-top: auto; padding-top: 10px; color: #979489; font-size: .48rem; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+
+/* Small early-web BGM player */
+.bgm-widget { width: 100%; max-width: 330px; padding: 10px; border: 1px solid #aaa79c; border-radius: 5px; background: #f4eddd; color: #4c4b45; box-shadow: 2px 2px 0 #d7d0c2; }
+.bgm-widget__topline { display: flex; align-items: center; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #bbb5a8; color: #9b5149; font-size: .54rem; font-weight: 600; letter-spacing: .16em; }
+.bgm-widget__light { width: 6px; height: 6px; border: 1px solid #788879; border-radius: 50%; background: #d9dfd1; }
+.bgm-widget__light.is-playing { background: #829779; }
+.bgm-widget__display { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 9px; min-width: 0; padding: 9px 2px 7px; }
+.bgm-widget__disc { position: relative; width: 32px; height: 32px; border: 1px solid #637b87; border-radius: 50%; background: repeating-radial-gradient(circle, #7891a0 0 2px, #607985 3px 4px); }
+.bgm-widget__disc::before { content: ""; position: absolute; inset: 7px; border: 1px solid #a96057; border-radius: 50%; background: #cf7f73; }
+.bgm-widget__disc i { position: absolute; z-index: 1; inset: 13px; border-radius: 50%; background: #f4eddd; }
+.bgm-widget__track { min-width: 0; display: grid; line-height: 1.15; }
+.bgm-widget__track span { color: #73806d; font-family: var(--font-accent); font-size: .85rem; letter-spacing: .04em; }
+.bgm-widget__track strong { overflow: hidden; color: #343630; font-size: .77rem; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.bgm-widget__track small { overflow: hidden; margin-top: 3px; color: #898378; font-size: .52rem; text-overflow: ellipsis; white-space: nowrap; }
+.bgm-widget__number { color: #597888; font-family: var(--font-accent); font-size: 1rem; }
+.bgm-widget__progress { height: 4px; overflow: hidden; border: 1px solid #bdb7aa; background: #e4ddcf; }
+.bgm-widget__progress i { display: block; height: 100%; background: #a55e55; transition: width .18s ease; }
+.bgm-widget__controls { display: flex; align-items: center; gap: 5px; margin-top: 7px; }
+.bgm-widget__controls button { padding: 3px 8px; border: 1px solid #aaa79d; border-radius: 2px; background: #fffaf0; color: #5a6255; font-family: var(--font-accent); font-size: .78rem; letter-spacing: .07em; line-height: 1; }
+.bgm-widget__controls button:hover { border-color: #7d8d77; background: #edf0e5; }
+.bgm-widget__controls span { margin-left: auto; color: #8d887d; font-size: .45rem; letter-spacing: .08em; }
+.bgm-widget--mini { min-width: 0; max-width: 100%; padding: 6px 7px; overflow: hidden; box-shadow: none; }
+.bgm-mini__row { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 7px; min-width: 0; margin-bottom: 5px; }
+.bgm-mini__label { color: #9b5149; font-family: var(--font-accent); font-size: .76rem; letter-spacing: .1em; line-height: 1; }
+.bgm-mini__row strong { min-width: 0; overflow: hidden; color: #45473f; font-size: .55rem; font-weight: 600; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.bgm-widget--mini .bgm-widget__progress { height: 3px; }
+.bgm-widget--mini .bgm-widget__controls { gap: 4px; margin-top: 5px; }
+.bgm-widget--mini .bgm-widget__controls button { min-width: 0; padding: 2px 6px; font-size: .63rem; }
+
+.playlist-compact { display: grid; grid-template-columns: minmax(260px, 330px) 190px; align-items: start; gap: 16px; width: min(536px, 100%); margin: 6px auto 0; }
+.playlist-compact__player > p { margin-top: 9px; color: #77736b; font-size: .62rem; line-height: 1.6; }
+.playlist-memo { position: relative; margin-top: 12px; padding: 20px 13px 12px; border: 1px solid #bbb3a4; background: #eee5cb; color: #59584f; transform: rotate(1deg); }
+.playlist-memo::before { content: ""; position: absolute; inset: 4px; border: 1px dashed rgba(139,128,105,.32); pointer-events: none; }
+.playlist-memo__tape { position: absolute; top: -8px; left: 50%; width: 48px; height: 15px; transform: translateX(-50%) rotate(-2deg); border-left: 1px solid rgba(150,137,109,.25); border-right: 1px solid rgba(150,137,109,.25); background: rgba(213,201,169,.72); }
+.playlist-memo > span { color: #9b5149; font-family: var(--font-accent); font-size: .9rem; letter-spacing: .1em; }
+.playlist-memo ol { margin-top: 8px; border-top: 1px dashed #bcb19b; }
+.playlist-memo li { display: flex; gap: 8px; padding: 5px 1px; border-bottom: 1px dotted #c8bda7; font-size: .58rem; }
+.playlist-memo li i { color: #66808c; font-style: normal; }
+.playlist-memo small { display: block; margin-top: 9px; color: #8c8679; font-family: var(--font-accent); font-size: .75rem; }
 
 .content-column { min-width: 0; min-height: 0; }
 .main-panel { height: 100%; min-height: 0; overflow: hidden; border: 1px solid #9ea596; border-radius: 4px 0 0 4px; background: #eee9dc; box-shadow: inset 0 0 0 4px rgba(255,255,255,.28); }
@@ -408,6 +448,8 @@ h6 {
   .profile-image-wrap { grid-row: 1 / 4; height: 92px; }
   .profile-copy h2 { margin-top: 0; }
   .profile-intro, .profile-status, .profile-open, .profile-links, .profile-footer { display: none; }
+  .profile-bgm { grid-column: 1 / -1; width: 100%; margin-top: 9px; }
+  .profile-bgm .bgm-widget--mini { max-width: 260px; margin-left: auto; }
   .mobile-tabs { display: flex; overflow-x: auto; padding: 0 2px; scrollbar-width: thin; }
   .mobile-tabs .mini-tab { min-width: 112px; height: 38px; margin: 0 -1px 0 0; border-left-color: #9da694; border-radius: 7px 7px 0 0; }
   .mobile-tabs .mini-tab.is-active, .mobile-tabs .mini-tab:hover { width: auto; }
@@ -428,8 +470,11 @@ h6 {
   .profile-card { grid-template-columns: 70px 1fr; }
   .profile-card-label { grid-column: 2; }
   .profile-image-wrap { height: 70px; }
+  .profile-bgm .bgm-widget--mini { max-width: 100%; }
   .main-panel { height: 560px; }
   .room-bar span:last-child { display: none; }
   .room-stage { overflow-x: auto; }
   .room-stage > div { min-width: 580px; }
+  .playlist-compact { grid-template-columns: 1fr; }
+  .playlist-memo { width: min(220px, 86%); margin: 4px auto 0; }
 }

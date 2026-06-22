@@ -8,20 +8,22 @@ import ProjectsWindow from "@/components/windows/ProjectsWindow";
 import ExperienceWindow from "@/components/windows/ExperienceWindow";
 import ResumeWindow from "@/components/windows/ResumeWindow";
 import ContactWindow from "@/components/windows/ContactWindow";
-import PlaylistWindow from "@/components/windows/PlaylistWindow";
+import BgmWidget from "@/components/BgmWidget";
+import { BgmPlayerProvider } from "@/components/BgmPlayerContext";
 import { PROFILE, WINDOW_META } from "@/lib/data";
 import type { WindowId } from "@/lib/types";
 
 const CONTENT: Record<WindowId, ReactNode> = {
   about: <AboutWindow />, projects: <ProjectsWindow />, experience: <ExperienceWindow />,
-  resume: <ResumeWindow />, contact: <ContactWindow />, playlist: <PlaylistWindow />,
+  resume: <ResumeWindow />, contact: <ContactWindow />,
 };
-const NAV: WindowId[] = ["about", "projects", "experience", "resume", "contact", "playlist"];
+const NAV: WindowId[] = ["about", "projects", "experience", "resume", "contact"];
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState<WindowId | null>(null);
 
   return (
+    <BgmPlayerProvider>
     <main className="site-shell">
       <section className="mini-home-shell">
         <header className="mini-header">
@@ -45,6 +47,7 @@ export default function Page() {
               <p className="profile-intro">{PROFILE.intro}</p>
             </div>
             <div className="profile-status"><span /> {PROFILE.status}</div>
+            <div className="profile-bgm"><BgmWidget mini /></div>
             <button onClick={() => setActiveTab("about")} className="profile-open">VIEW FULL PROFILE <span>→</span></button>
             <div className="profile-links" aria-label="Profile links">
               <a href={PROFILE.github} target="_blank" rel="noreferrer">GITHUB ↗</a>
@@ -74,6 +77,7 @@ export default function Page() {
         </div>
       </section>
     </main>
+    </BgmPlayerProvider>
   );
 }
 

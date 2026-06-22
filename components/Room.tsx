@@ -12,8 +12,10 @@ import {
   WindowArt,
 } from "./objects";
 import type { WindowId } from "@/lib/types";
+import { useBgmPlayer } from "@/components/BgmPlayerContext";
 
 export default function Room({ onOpen }: { onOpen: (id: WindowId) => void }) {
+  const { playing, togglePlay } = useBgmPlayer();
   return (
     <div className="relative mx-auto h-full min-h-[460px] w-full max-w-[960px] select-none">
       {/* Wall */}
@@ -93,11 +95,12 @@ export default function Room({ onOpen }: { onOpen: (id: WindowId) => void }) {
         <MailboxArt />
       </RoomObject>
 
-      {/* CD player -> Playlist */}
+      {/* Radio / shared BGM control */}
       <RoomObject
         label="BGM"
-        ariaLabel="Open background music"
-        onClick={() => onOpen("playlist")}
+        ariaLabel={playing ? "Pause background music" : "Play background music"}
+        pressed={playing}
+        onClick={() => void togglePlay()}
         className="left-[7%] bottom-[24%] h-[16%] w-[18%]"
         bob={1.5}
       >

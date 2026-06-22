@@ -1,77 +1,59 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
 import AdminProjectList from "@/components/admin/AdminProjectList";
-import type { Project } from "@/lib/types";
-
-type PortfolioProjectRow = {
-  id: string;
-  file_no: string;
-  title: string;
-  impact: string | null;
-  org: string | null;
-  status: string | null;
-  domain: Project["domain"];
-  category: string | null;
-  problem: string | null;
-  solution: string | null;
-  role: string | null;
-  result: string | null;
-  stack: string[] | null;
-  images: Project["images"] | null;
-  links: Project["links"] | null;
-  technical_details: string[] | null;
-  challenges: string[] | null;
-  display_order: number | null;
-  is_published: boolean;
-};
+import { supabase } from "@/lib/supabase/client";
+import {
+  getAllPortfolioProjects,
+  type PortfolioProjectRow,
+} from "@/lib/supabase/projects";
 
 export default function AdminProjectsPage() {
   const router = useRouter();
-
   const [projects, setProjects] = useState<PortfolioProjectRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const loadProjects = useCallback(async () => {
+    setError("");
+
+    try {
+      const rows = await getAllPortfolioProjects();
+      setProjects(rows);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load projects.");
+    }
+  }, []);
 
   useEffect(() => {
     async function checkUserAndLoadProjects() {
       const {
-        data: { user },
-      } = await supabase.auth.getUser();
+        data: { session },
+      } = await supabase.auth.getSession();
 
-      if (!user) {
-        router.push("/admin/login");
+      if (!session) {
+        router.replace("/admin/login");
         return;
       }
 
-      const { data, error } = await supabase
-        .from("portfolio_projects")
-        .select("*")
-        .order("display_order", { ascending: true });
-
-      if (error) {
-        console.error("Failed to load admin projects:", error);
-      } else {
-        setProjects((data ?? []) as PortfolioProjectRow[]);
-      }
-
+      await loadProjects();
       setLoading(false);
     }
 
     checkUserAndLoadProjects();
-  }, [router]);
+  }, [loadProjects, router]);
 
   async function handleLogout() {
     await supabase.auth.signOut();
-    router.push("/admin/login");
+    router.replace("/admin/login");
   }
 
   if (loading) {
     return (
       <main className="site-shell">
-        <section className="mini-home-shell is-room-home p-8">
+        <section className="mini-home-shell is-room-home admin-page-shell p-8">
           <p className="text-sm text-ink-soft">Loading admin projects...</p>
         </section>
       </main>
@@ -80,9 +62,9 @@ export default function AdminProjectsPage() {
 
   return (
     <main className="site-shell">
-      <section className="mini-home-shell is-room-home p-8">
-        <div className="mx-auto max-w-5xl rounded-xl border border-line bg-white p-6">
-          <div className="mb-6 flex items-start justify-between gap-4">
+      <section className="mini-home-shell is-room-home admin-page-shell p-6">
+        <div className="mx-auto w-full max-w-6xl rounded-xl border border-line bg-paper-bright p-6 shadow-soft">
+          <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="eyebrow">Admin</p>
               <h1 className="mt-1 font-display text-2xl font-semibold text-ink">
@@ -93,15 +75,29 @@ export default function AdminProjectsPage() {
               </p>
             </div>
 
-            <button
-              onClick={handleLogout}
-              className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-sm uppercase tracking-[0.08em] text-ink-soft"
-            >
-              Logout
-            </button>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/admin/projects/new"
+                className="rounded-md border border-coral-deep bg-coral px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-white"
+              >
+                New Project
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Logout
+              </button>
+            </div>
           </div>
 
-          <AdminProjectList projects={projects} />
+          {error ? (
+            <p className="mb-4 rounded-md border border-coral bg-white px-3 py-2 text-sm text-coral-deep">
+              {error}
+            </p>
+          ) : null}
+
+          <AdminProjectList projects={projects} onChanged={loadProjects} />
         </div>
       </section>
     </main>

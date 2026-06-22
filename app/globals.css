@@ -298,6 +298,23 @@ h6 {
   grid-template-rows: 72px minmax(0, 1fr);
 }
 
+.mini-home-shell.admin-page-shell {
+  display: block;
+  overflow-y: auto;
+  scrollbar-color: #aeb8a6 #eeeade;
+  scrollbar-width: thin;
+}
+
+.mini-home-shell.admin-page-shell::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mini-home-shell.admin-page-shell::-webkit-scrollbar-thumb {
+  border: 2px solid #eeeade;
+  border-radius: 8px;
+  background: #aeb8a6;
+}
+
 .mini-header {
   position: relative;
   z-index: 5;

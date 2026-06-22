@@ -24,12 +24,12 @@ type MiniRoomHeroProps = {
 };
 
 export const MINIROOM_HOTSPOTS: MiniRoomHotspot[] = [
-  { id: "profile", label: "Profile", href: "#about", top: "35.6%", left: "13.1%", width: "13.7%", height: "14.4%", kind: "window", windowId: "about" },
-  { id: "contact", label: "Contact / Mailbox", href: "#contact", top: "35.7%", left: "27.2%", width: "7.3%", height: "18.6%", kind: "window", windowId: "contact" },
-  { id: "projects", label: "Projects", href: "#projects", top: "20.1%", left: "52.7%", width: "17.8%", height: "19.6%", kind: "window", windowId: "projects" },
-  { id: "resume", label: "Resume", href: "#resume", top: "52.1%", left: "57.2%", width: "12.6%", height: "12.8%", kind: "window", windowId: "resume" },
-  { id: "bgm", label: "BGM Player", href: "#bgm", top: "2.3%", left: "52.8%", width: "11.6%", height: "15.6%", kind: "action", action: "bgm" },
-  { id: "experience", label: "Experience", href: "#experience", top: "30.2%", left: "83.2%", width: "10.7%", height: "44.4%", kind: "window", windowId: "experience" },
+  { id: "profile", label: "Profile", href: "#about", top: "38.6%", left: "20.1%", width: "10.7%", height: "12.4%", kind: "window", windowId: "about" },
+  { id: "contact", label: "Contact / Mailbox", href: "#contact", top: "40.7%", left: "31.2%", width: "7.3%", height: "15%", kind: "window", windowId: "contact" },
+  { id: "projects", label: "Projects", href: "#projects", top: "33.1%", left: "50.7%", width: "15.8%", height: "14.6%", kind: "window", windowId: "projects" },
+  { id: "resume", label: "Resume", href: "#resume", top: "48.1%", left: "54.2%", width: "12.6%", height: "12.8%", kind: "window", windowId: "resume" },
+  { id: "bgm", label: "BGM Player", href: "#bgm", top: "21.3%", left: "50.8%", width: "20.6%", height: "10.6%", kind: "action", action: "bgm" },
+  { id: "experience", label: "Experience", href: "#experience", top: "40.2%", left: "75.2%", width: "10.7%", height: "22.4%", kind: "window", windowId: "experience" },
 ];
 
 const MOBILE_NAV_ITEMS = [

@@ -11,15 +11,20 @@ import ContactWindow from "@/components/windows/ContactWindow";
 import BgmWidget from "@/components/BgmWidget";
 import { BgmPlayerProvider } from "@/components/BgmPlayerContext";
 import ViewCounter from "@/components/ViewCounter";
-import { PROFILE, WINDOW_META } from "@/lib/data";
+import { EXPERIENCE, PROFILE, WINDOW_META } from "@/lib/data";
+import {
+  getPublishedExperiences,
+  mapExperienceToRole,
+} from "@/lib/supabase/experience";
 import { getPublishedProjects } from "@/lib/supabase/projects";
-import type { Project, WindowId } from "@/lib/types";
+import type { Project, Role, WindowId } from "@/lib/types";
 
 const NAV: WindowId[] = ["about", "projects", "experience", "resume", "contact"];
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState<WindowId | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [experiences, setExperiences] = useState<Role[]>(EXPERIENCE);
 
   useEffect(() => {
     async function loadProjects() {
@@ -30,10 +35,24 @@ export default function Page() {
     loadProjects();
   }, []);
 
+  useEffect(() => {
+    async function loadExperiences() {
+      try {
+        const data = await getPublishedExperiences();
+        setExperiences(data.map(mapExperienceToRole));
+      } catch (error) {
+        console.error("Failed to fetch portfolio experiences:", error);
+        setExperiences(EXPERIENCE);
+      }
+    }
+
+    loadExperiences();
+  }, []);
+
   const CONTENT: Record<WindowId, ReactNode> = {
     about: <AboutWindow />,
     projects: <ProjectsWindow projects={projects} />,
-    experience: <ExperienceWindow />,
+    experience: <ExperienceWindow experiences={experiences} />,
     resume: <ResumeWindow />,
     contact: <ContactWindow />,
   };

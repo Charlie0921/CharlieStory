@@ -10,6 +10,7 @@ import ResumeWindow from "@/components/windows/ResumeWindow";
 import ContactWindow from "@/components/windows/ContactWindow";
 import BgmWidget from "@/components/BgmWidget";
 import { BgmPlayerProvider } from "@/components/BgmPlayerContext";
+import ViewCounter from "@/components/ViewCounter";
 import { PROFILE, WINDOW_META } from "@/lib/data";
 import { getPublishedProjects } from "@/lib/supabase/projects";
 import type { Project, WindowId } from "@/lib/types";
@@ -58,14 +59,7 @@ export default function Page() {
               work, systems &amp; small useful things
             </div>
 
-            <div className="visitor-counter" aria-label="Visitor count">
-              <span>
-                TODAY <b>1</b>
-              </span>
-              <span>
-                TOTAL <b>9210</b>
-              </span>
-            </div>
+            <ViewCounter />
           </header>
 
           <div className={`mini-body ${activeTab ? "" : "is-room-home"}`}>

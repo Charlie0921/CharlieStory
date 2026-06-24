@@ -100,4 +100,24 @@ export type PortfolioSkillUpsert = {
 };
 
 export type Track = { title: string; artist: string; src: string };
-export type WindowId = "about" | "projects" | "experience" | "resume" | "contact";
+export type Note = {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  category: string;
+  tags: string[];
+  featured: boolean;
+  order: number | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  notionUrl: string;
+};
+
+export type WindowId =
+  | "about"
+  | "projects"
+  | "experience"
+  | "resume"
+  | "notes"
+  | "contact";

@@ -7,6 +7,7 @@ import AboutWindow from "@/components/windows/AboutWindow";
 import ProjectsWindow from "@/components/windows/ProjectsWindow";
 import ExperienceWindow from "@/components/windows/ExperienceWindow";
 import ResumeWindow from "@/components/windows/ResumeWindow";
+import NotesWindow from "@/components/windows/NotesWindow";
 import ContactWindow from "@/components/windows/ContactWindow";
 import BgmWidget from "@/components/BgmWidget";
 import { BgmPlayerProvider } from "@/components/BgmPlayerContext";
@@ -19,7 +20,14 @@ import {
 import { getPublishedProjects } from "@/lib/supabase/projects";
 import type { Project, Role, WindowId } from "@/lib/types";
 
-const NAV: WindowId[] = ["about", "projects", "experience", "resume", "contact"];
+const NAV: WindowId[] = [
+  "about",
+  "projects",
+  "experience",
+  "resume",
+  "notes",
+  "contact",
+];
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState<WindowId | null>(null);
@@ -54,6 +62,7 @@ export default function Page() {
     projects: <ProjectsWindow projects={projects} />,
     experience: <ExperienceWindow experiences={experiences} />,
     resume: <ResumeWindow />,
+    notes: <NotesWindow />,
     contact: <ContactWindow />,
   };
 

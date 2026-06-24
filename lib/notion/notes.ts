@@ -36,6 +36,8 @@ type NotionPage = {
 
 type NotionDatabaseResponse = {
   results?: NotionPage[];
+  has_more?: boolean;
+  next_cursor?: string | null;
 };
 
 export async function getPublishedNotes(): Promise<Note[]> {
@@ -47,31 +49,20 @@ export async function getPublishedNotes(): Promise<Note[]> {
     throw new Error("Missing Notion notes environment variables.");
   }
 
-  let response = await queryNotesDatabase(apiKey, databaseId, "status");
-
-  if (!response.ok && response.status === 400) {
-    response = await queryNotesDatabase(apiKey, databaseId, "select");
-  }
-
-  if (!response.ok) {
-  const errorBody = await response.text();
-
-  console.error("Notion API error:", {
-    status: response.status,
-    body: errorBody,
-  });
-
-  throw new Error(
-    `Notion notes request failed: ${response.status} ${errorBody}`
+  const rawPages = await queryAllNotesDatabasePages(apiKey, databaseId);
+  const mappedNotes = rawPages.map(mapNotionPageToNote);
+  const filteredNotes = mappedNotes.filter(
+    (note) => isPublished(note.status) && note.title,
   );
+
+  console.log("Notion notes raw results count:", rawPages.length);
+  console.log("Notion notes mapped notes count:", mappedNotes.length);
+  console.log("Notion notes filtered notes count:", filteredNotes.length);
+
+  return filteredNotes.map(({ status, ...note }) => note).sort(sortNotes);
 }
 
-  const data = (await response.json()) as NotionDatabaseResponse;
-
-  return (data.results ?? []).map(mapNotionPageToNote).sort(sortNotes);
-}
-
-function mapNotionPageToNote(page: NotionPage): Note {
+function mapNotionPageToNote(page: NotionPage): Note & { status: string } {
   const properties = page.properties;
 
   return {
@@ -86,6 +77,7 @@ function mapNotionPageToNote(page: NotionPage): Note {
     createdAt: getDate(properties["Created time"]),
     updatedAt: getDate(properties["Last updated time"]),
     notionUrl: page.url ?? "",
+    status: getSelectName(properties.Status),
   };
 }
 
@@ -137,10 +129,43 @@ function dateValue(value: string | null) {
   return value ? new Date(value).getTime() : 0;
 }
 
+function isPublished(status: string) {
+  return status.trim().toLowerCase() === "published";
+}
+
+async function queryAllNotesDatabasePages(apiKey: string, databaseId: string) {
+  const pages: NotionPage[] = [];
+  let cursor: string | null = null;
+
+  do {
+    const response = await queryNotesDatabase(apiKey, databaseId, cursor);
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+
+      console.error("Notion API error:", {
+        status: response.status,
+        body: errorBody,
+      });
+
+      throw new Error(
+        `Notion notes request failed: ${response.status} ${errorBody}`,
+      );
+    }
+
+    const data = (await response.json()) as NotionDatabaseResponse;
+
+    pages.push(...(data.results ?? []));
+    cursor = data.has_more ? data.next_cursor ?? null : null;
+  } while (cursor);
+
+  return pages;
+}
+
 function queryNotesDatabase(
   apiKey: string,
   databaseId: string,
-  statusPropertyType: "status" | "select",
+  startCursor: string | null,
 ) {
   return fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
     method: "POST",
@@ -150,13 +175,9 @@ function queryNotesDatabase(
       "Notion-Version": NOTION_VERSION,
     },
     body: JSON.stringify({
-      filter: {
-        property: "Status",
-        [statusPropertyType]: {
-          equals: "Published",
-        },
-      },
+      page_size: 100,
+      ...(startCursor ? { start_cursor: startCursor } : {}),
     }),
-    next: { revalidate: 300 },
+    cache: "no-store",
   });
 }

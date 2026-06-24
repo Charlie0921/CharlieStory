@@ -26,16 +26,13 @@ const fallbackProfile: ResumeProfile = {
 };
 
 export default function ResumeWindow() {
-  const [profile, setProfile] = useState<ResumeProfile | null>(null);
-  const [skills, setSkills] = useState<SkillGroup[] | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<ResumeProfile>(fallbackProfile);
+  const [skills, setSkills] = useState<SkillGroup[]>(SKILLS);
 
   useEffect(() => {
     let active = true;
 
     async function loadResume() {
-      setLoading(true);
-
       try {
         const [profileData, skillData] = await Promise.all([
           getProfile(),
@@ -44,8 +41,10 @@ export default function ResumeWindow() {
 
         if (!active) return;
 
-        if (!profileData) {
-          throw new Error("No profile data found.");
+        const publishedSkills = skillData.map(mapPortfolioSkillToSkillGroup);
+
+        if (!isValidProfile(profileData) || !publishedSkills.length) {
+          return;
         }
 
         setProfile({
@@ -56,18 +55,9 @@ export default function ResumeWindow() {
           resume: profileData.resume_url ?? PROFILE.resume,
         });
 
-        setSkills(skillData.map(mapPortfolioSkillToSkillGroup));
+        setSkills(publishedSkills);
       } catch (error) {
         console.error("Failed to fetch resume content:", error);
-
-        if (active) {
-          setProfile(fallbackProfile);
-          setSkills(SKILLS);
-        }
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
       }
     }
 
@@ -77,16 +67,6 @@ export default function ResumeWindow() {
       active = false;
     };
   }, []);
-
-  if (loading || !profile || !skills) {
-    return (
-      <div className="mx-auto max-w-2xl">
-        <div className="rounded-xl border border-line bg-white p-5 text-sm text-ink-soft sm:p-7">
-          Loading resume...
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -133,4 +113,10 @@ export default function ResumeWindow() {
       </a>
     </div>
   );
+}
+
+function isValidProfile(
+  profile: Awaited<ReturnType<typeof getProfile>>,
+): profile is NonNullable<Awaited<ReturnType<typeof getProfile>>> {
+  return Boolean(profile?.name?.trim() && profile.role?.trim());
 }

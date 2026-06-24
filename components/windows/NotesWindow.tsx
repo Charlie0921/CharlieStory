@@ -110,11 +110,9 @@ export default function NotesWindow() {
                     {note.category || "Technical Note"}
                   </p>
 
-                  {note.summary ? (
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">
-                      {note.summary}
-                    </p>
-                  ) : null}
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">
+                    {note.summary || "No summary available."}
+                  </p>
                 </div>
               </button>
 

@@ -63,5 +63,61 @@ export type PortfolioExperience = {
 };
 
 export type SkillGroup = { group: string; items: string };
+
+export type PortfolioProfile = {
+  id: string;
+  name: string;
+  role: string;
+  education: string | null;
+  grad: string | null;
+  resume_url: string | null;
+  updated_at?: string;
+};
+
+export type PortfolioSkill = {
+  id: string;
+  skill_group: string;
+  items: string;
+  order_index: number | null;
+  is_published: boolean;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type PortfolioProfileUpdate = {
+  name: string;
+  role: string;
+  education: string | null;
+  grad: string | null;
+  resume_url: string | null;
+};
+
+export type PortfolioSkillUpsert = {
+  skill_group: string;
+  items: string;
+  order_index: number | null;
+  is_published: boolean;
+};
+
 export type Track = { title: string; artist: string; src: string };
-export type WindowId = "about" | "projects" | "experience" | "resume" | "contact";
+export type Note = {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  category: string;
+  tags: string[];
+  featured: boolean;
+  order: number | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  notionUrl: string;
+};
+
+export type WindowId =
+  | "about"
+  | "projects"
+  | "experience"
+  | "resume"
+  | "notes"
+  | "contact";

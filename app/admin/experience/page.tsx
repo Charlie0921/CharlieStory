@@ -160,6 +160,12 @@ export default function AdminExperiencePage() {
               >
                 Projects
               </Link>
+              <Link
+                href="/admin/resume"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Resume
+              </Link>
               <button
                 type="button"
                 onClick={startCreate}

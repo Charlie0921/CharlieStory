@@ -83,6 +83,12 @@ export default function AdminProjectsPage() {
                 Experience
               </Link>
               <Link
+                href="/admin/resume"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Resume
+              </Link>
+              <Link
                 href="/admin/projects/new"
                 className="rounded-md border border-coral-deep bg-coral px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-white"
               >

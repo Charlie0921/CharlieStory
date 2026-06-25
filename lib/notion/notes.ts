@@ -111,18 +111,7 @@ function getDate(property: NotionProperty | undefined) {
 }
 
 function sortNotes(a: Note, b: Note) {
-  if (a.featured !== b.featured) {
-    return a.featured ? -1 : 1;
-  }
-
-  const aOrder = a.order ?? Number.POSITIVE_INFINITY;
-  const bOrder = b.order ?? Number.POSITIVE_INFINITY;
-
-  if (aOrder !== bOrder) {
-    return aOrder - bOrder;
-  }
-
-  return dateValue(b.updatedAt) - dateValue(a.updatedAt);
+  return dateValue(b.createdAt) - dateValue(a.createdAt);
 }
 
 function dateValue(value: string | null) {

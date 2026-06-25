@@ -29,6 +29,10 @@ const NAV: WindowId[] = [
   "contact",
 ];
 
+const HOME_NAV_LABELS: Partial<Record<WindowId, string>> = {
+  notes: "BLOG",
+};
+
 export default function Page() {
   const [activeTab, setActiveTab] = useState<WindowId | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -105,7 +109,9 @@ export default function Page() {
               <div className="profile-copy">
                 <h2>Charlie Kim</h2>
                 <p className="profile-title">Software engineer · builder</p>
-                <p className="profile-intro">{PROFILE.intro}</p>
+                <p className="profile-intro">
+                  CS student building small useful tools for business workflows and creative interfaces.
+                </p>
               </div>
 
               <div className="profile-status">
@@ -158,7 +164,7 @@ export default function Page() {
                 {activeTab ? (
                   <Window
                     key={activeTab}
-                    title={WINDOW_META[activeTab].title}
+                    title={HOME_NAV_LABELS[activeTab] ?? WINDOW_META[activeTab].title}
                     subtitle={WINDOW_META[activeTab].subtitle}
                     accent={WINDOW_META[activeTab].accent}
                     onClose={() => setActiveTab(null)}
@@ -175,6 +181,32 @@ export default function Page() {
                     </div>
 
                     <div className="room-stage">
+                      <section className="home-intro" aria-label="Portfolio entry points">
+                        <div className="home-intro__copy">
+                          <p className="home-intro__description">
+                            A small room for software projects, business systems, and creative tools.
+                          </p>
+                        </div>
+
+                        <div className="home-intro__actions" aria-label="Primary actions">
+                          <button
+                            type="button"
+                            className="home-cta home-cta--primary"
+                            onClick={() => setActiveTab("projects")}
+                          >
+                            View Projects
+                          </button>
+                          <a
+                            className="home-cta"
+                            href={PROFILE.resume}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Resume
+                          </a>
+                        </div>
+                      </section>
+
                       <MiniRoomHero onOpen={setActiveTab} />
                     </div>
                   </>
@@ -222,7 +254,7 @@ function TabButton({
       className={`mini-tab ${active ? "is-active" : ""}`}
     >
       <span className="tab-dot" />
-      {WINDOW_META[id].title}
+      {HOME_NAV_LABELS[id] ?? WINDOW_META[id].title}
       <span className="tab-arrow">›</span>
     </button>
   );

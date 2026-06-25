@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useRef, useState, type ReactNode } from "react";
 import { TRACKS } from "@/lib/data";
 
 type BgmPlayerValue = {
@@ -20,12 +20,6 @@ export function BgmPlayerProvider({ children }: { children: ReactNode }) {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const track = TRACKS[trackIndex];
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    void audio.play().catch(() => setPlaying(false));
-  }, []);
 
   const togglePlay = async () => {
     const audio = audioRef.current;
@@ -69,7 +63,6 @@ export function BgmPlayerProvider({ children }: { children: ReactNode }) {
         ref={audioRef}
         src={track.src}
         preload="metadata"
-        autoPlay
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onTimeUpdate={updateProgress}

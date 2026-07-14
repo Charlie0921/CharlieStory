@@ -256,7 +256,7 @@ export default function AdminResumePage() {
     return (
       <main className="site-shell">
         <section className="mini-home-shell is-room-home admin-page-shell p-8">
-          <p className="text-sm text-ink-soft">Loading admin resume...</p>
+          <p className="text-sm text-ink-soft">Loading admin skills...</p>
         </section>
       </main>
     );
@@ -270,14 +270,26 @@ export default function AdminResumePage() {
             <div>
               <p className="eyebrow">Admin</p>
               <h1 className="mt-1 font-display text-2xl font-semibold text-ink">
-                Resume Editor
+                Skills Editor
               </h1>
               <p className="mt-2 text-sm text-ink-soft">
-                Manage the profile and skills shown in the resume window.
+                Manage the skills summary, education, and resume link shown on the Skills page.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-2">
+              <Link
+                href="/admin/profile"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Profile
+              </Link>
+              <Link
+                href="/admin/resume#skills-management"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Skills
+              </Link>
               <Link
                 href="/admin/projects"
                 className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
@@ -307,9 +319,9 @@ export default function AdminResumePage() {
           ) : null}
 
           <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-            <section className="min-w-0 rounded-lg border border-line bg-mist p-4">
+            <section id="page-summary" className="min-w-0 rounded-lg border border-line bg-mist p-4">
               <h2 className="font-display text-lg font-semibold text-ink">
-                Basic Info
+                Page Summary
               </h2>
               <form onSubmit={handleProfileSubmit} className="mt-4 space-y-4">
                 {profileMessage ? (
@@ -317,10 +329,10 @@ export default function AdminResumePage() {
                     {profileMessage}
                   </p>
                 ) : null}
-                <TextField label="Name" value={profileForm.name} onChange={(value) => updateProfileField("name", value)} required />
-                <TextField label="Role" value={profileForm.role} onChange={(value) => updateProfileField("role", value)} required />
+                <TextField label="Display Name" value={profileForm.name} onChange={(value) => updateProfileField("name", value)} required />
+                <TextField label="Headline" value={profileForm.role} onChange={(value) => updateProfileField("role", value)} required />
                 <TextField label="Education" value={profileForm.education} onChange={(value) => updateProfileField("education", value)} />
-                <TextField label="Grad" value={profileForm.grad} onChange={(value) => updateProfileField("grad", value)} />
+                <TextField label="Graduation" value={profileForm.grad} onChange={(value) => updateProfileField("grad", value)} />
                 <TextField label="Resume URL" type="url" value={profileForm.resume_url} onChange={(value) => updateProfileField("resume_url", value)} />
 
                 <button
@@ -333,7 +345,7 @@ export default function AdminResumePage() {
               </form>
             </section>
 
-            <section className="min-w-0 rounded-lg border border-line bg-white p-4">
+            <section id="skills-management" className="min-w-0 rounded-lg border border-line bg-white p-4">
               <h2 className="font-display text-lg font-semibold text-ink">
                 Skills Management
               </h2>

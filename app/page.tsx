@@ -18,10 +18,17 @@ import {
   mapExperienceToRole,
 } from "@/lib/supabase/experience";
 import { getPublishedProjects } from "@/lib/supabase/projects";
-import type { Project, Role, WindowId } from "@/lib/types";
+import { getProfile } from "@/lib/supabase/resume";
+import {
+  fallbackSidebarProfile,
+  getSidebarProfile,
+} from "@/lib/supabase/sidebarProfile";
+import type { Project, Role, SidebarProfileUpsert, Track, WindowId } from "@/lib/types";
 
-const NAV: WindowId[] = [
-  "about",
+type NavId = "home" | WindowId;
+
+const NAV: NavId[] = [
+  "home",
   "projects",
   "experience",
   "resume",
@@ -29,7 +36,8 @@ const NAV: WindowId[] = [
   "contact",
 ];
 
-const HOME_NAV_LABELS: Partial<Record<WindowId, string>> = {
+const HOME_NAV_LABELS: Partial<Record<NavId, string>> = {
+  home: "HOME",
   notes: "BLOG",
 };
 
@@ -37,6 +45,9 @@ export default function Page() {
   const [activeTab, setActiveTab] = useState<WindowId | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [experiences, setExperiences] = useState<Role[]>(EXPERIENCE);
+  const [resumeHref, setResumeHref] = useState(PROFILE.resume);
+  const [sidebarProfile, setSidebarProfile] =
+    useState<SidebarProfileUpsert>(fallbackSidebarProfile);
 
   useEffect(() => {
     async function loadProjects() {
@@ -61,6 +72,73 @@ export default function Page() {
     loadExperiences();
   }, []);
 
+  useEffect(() => {
+    let active = true;
+
+    async function loadResumeHref() {
+      try {
+        const profile = await getProfile();
+        const resumeUrl = profile?.resume_url?.trim();
+
+        if (active && resumeUrl) {
+          setResumeHref(resumeUrl);
+        }
+      } catch (error) {
+        console.error("Failed to fetch resume link:", error);
+      }
+    }
+
+    loadResumeHref();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadSidebarProfile() {
+      try {
+        const profile = await getSidebarProfile();
+
+        if (active && profile) {
+          setSidebarProfile({
+            profile_image_url: profile.profile_image_url,
+            display_name: profile.display_name,
+            role_title: profile.role_title,
+            short_bio: profile.short_bio,
+            status_text: profile.status_text,
+            footer_text: profile.footer_text,
+            github_url: profile.github_url,
+            linkedin_url: profile.linkedin_url,
+            bgm_title: profile.bgm_title,
+            bgm_artist: profile.bgm_artist,
+            bgm_audio_url: profile.bgm_audio_url,
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch sidebar profile:", error);
+      }
+    }
+
+    loadSidebarProfile();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const sidebarTracks: Track[] = sidebarProfile.bgm_audio_url?.trim()
+    ? [
+        {
+          title: sidebarProfile.bgm_title?.trim() || "BGM",
+          artist: sidebarProfile.bgm_artist?.trim() || "Portfolio",
+          src: sidebarProfile.bgm_audio_url,
+        },
+      ]
+    : [];
+
   const CONTENT: Record<WindowId, ReactNode> = {
     about: <AboutWindow />,
     projects: <ProjectsWindow projects={projects} />,
@@ -71,7 +149,7 @@ export default function Page() {
   };
 
   return (
-    <BgmPlayerProvider>
+    <BgmPlayerProvider tracks={sidebarTracks}>
       <main className="site-shell">
         <section className={`mini-home-shell ${activeTab ? "" : "is-room-home"}`}>
           <header className="mini-header">
@@ -100,22 +178,25 @@ export default function Page() {
 
               <div className="profile-image-wrap">
                 <img
-                  src="/images/profile.png"
-                  alt="Kunjoong Charlie Kim"
+                  src={sidebarProfile.profile_image_url || "/images/profile.png"}
+                  alt={sidebarProfile.display_name}
                   className="profile-photo"
                 />
               </div>
 
               <div className="profile-copy">
-                <h2>Charlie Kim</h2>
+                <h2>{sidebarProfile.display_name}</h2>
+                <p className="profile-title">{sidebarProfile.role_title}</p>
+                <div className="hidden">
                 <p className="profile-title">Software engineer · builder</p>
+                </div>
                 <p className="profile-intro">
-                  CS student building small useful tools for business workflows and creative interfaces.
+                  {sidebarProfile.short_bio}
                 </p>
               </div>
 
               <div className="profile-status">
-                <span /> {PROFILE.status}
+                <span /> {sidebarProfile.status_text}
               </div>
 
               <div className="profile-bgm">
@@ -124,19 +205,21 @@ export default function Page() {
 
               <button
                 onClick={() => setActiveTab("about")}
-                className="profile-open"
+                className="hidden"
               >
                 VIEW FULL PROFILE <span>→</span>
               </button>
 
               <div className="profile-links" aria-label="Profile links">
-                <a href={PROFILE.github} target="_blank" rel="noreferrer">
+                <a href={sidebarProfile.github_url || PROFILE.github} target="_blank" rel="noreferrer">
                   GITHUB ↗
                 </a>
-                <a href={PROFILE.linkedin} target="_blank" rel="noreferrer">
+                <a href={sidebarProfile.linkedin_url || PROFILE.linkedin} target="_blank" rel="noreferrer">
                   LINKEDIN ↗
                 </a>
               </div>
+
+              <div className="profile-footer">{sidebarProfile.footer_text}</div>
 
               <div className="profile-footer">Penn State · CS · 2027</div>
             </aside>
@@ -167,7 +250,6 @@ export default function Page() {
                     title={HOME_NAV_LABELS[activeTab] ?? WINDOW_META[activeTab].title}
                     subtitle={WINDOW_META[activeTab].subtitle}
                     accent={WINDOW_META[activeTab].accent}
-                    onClose={() => setActiveTab(null)}
                   >
                     {CONTENT[activeTab]}
                   </Window>
@@ -198,7 +280,7 @@ export default function Page() {
                           </button>
                           <a
                             className="home-cta"
-                            href={PROFILE.resume}
+                            href={resumeHref}
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -240,21 +322,23 @@ function TabButton({
   activeTab,
   onSelect,
 }: {
-  id: WindowId;
+  id: NavId;
   activeTab: WindowId | null;
-  onSelect: (id: WindowId) => void;
+  onSelect: (id: WindowId | null) => void;
 }) {
-  const active = activeTab === id;
+  const active = id === "home" ? activeTab === null : activeTab === id;
+  const label =
+    id === "home" ? HOME_NAV_LABELS.home : HOME_NAV_LABELS[id] ?? WINDOW_META[id].title;
 
   return (
     <button
-      onClick={() => onSelect(id)}
+      onClick={() => onSelect(id === "home" ? null : id)}
       aria-selected={active}
       role="tab"
       className={`mini-tab ${active ? "is-active" : ""}`}
     >
       <span className="tab-dot" />
-      {HOME_NAV_LABELS[id] ?? WINDOW_META[id].title}
+      {label}
       <span className="tab-arrow">›</span>
     </button>
   );

@@ -92,6 +92,36 @@ export type PortfolioProfileUpdate = {
   resume_url: string | null;
 };
 
+export type SidebarProfile = {
+  id: string;
+  profile_image_url: string | null;
+  display_name: string;
+  role_title: string;
+  short_bio: string;
+  status_text: string;
+  footer_text: string | null;
+  github_url: string | null;
+  linkedin_url: string | null;
+  bgm_title: string | null;
+  bgm_artist: string | null;
+  bgm_audio_url: string | null;
+  updated_at?: string;
+};
+
+export type SidebarProfileUpsert = {
+  profile_image_url: string | null;
+  display_name: string;
+  role_title: string;
+  short_bio: string;
+  status_text: string;
+  footer_text: string | null;
+  github_url: string | null;
+  linkedin_url: string | null;
+  bgm_title: string | null;
+  bgm_artist: string | null;
+  bgm_audio_url: string | null;
+};
+
 export type PortfolioSkillUpsert = {
   skill_group: string;
   items: string;

@@ -395,6 +395,7 @@ h6 {
 .profile-links a:hover { color: #4f674a; border-color: #91a28a; }
 .profile-bgm { margin-top: 10px; }
 .profile-footer { margin-top: auto; padding-top: 10px; color: #979489; font-size: .48rem; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+.profile-footer + .profile-footer { display: none; }
 
 /* Small early-web BGM player */
 .bgm-widget { width: 100%; max-width: 330px; padding: 10px; border: 1px solid #aaa79c; border-radius: 5px; background: #f4eddd; color: #4c4b45; box-shadow: 2px 2px 0 #d7d0c2; }

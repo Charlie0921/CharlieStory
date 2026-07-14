@@ -2,9 +2,10 @@
 
 import { createContext, useContext, useRef, useState, type ReactNode } from "react";
 import { TRACKS } from "@/lib/data";
+import type { Track } from "@/lib/types";
 
 type BgmPlayerValue = {
-  track: (typeof TRACKS)[number];
+  track: Track;
   trackIndex: number;
   playing: boolean;
   progress: number;
@@ -14,12 +15,19 @@ type BgmPlayerValue = {
 
 const BgmPlayerContext = createContext<BgmPlayerValue | null>(null);
 
-export function BgmPlayerProvider({ children }: { children: ReactNode }) {
+export function BgmPlayerProvider({
+  children,
+  tracks = TRACKS,
+}: {
+  children: ReactNode;
+  tracks?: Track[];
+}) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [trackIndex, setTrackIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const track = TRACKS[trackIndex];
+  const playlist = tracks.length ? tracks : TRACKS;
+  const track = playlist[trackIndex] ?? playlist[0];
 
   const togglePlay = async () => {
     const audio = audioRef.current;
@@ -38,9 +46,9 @@ export function BgmPlayerProvider({ children }: { children: ReactNode }) {
   const next = async () => {
     const audio = audioRef.current;
     if (!audio) return;
-    const nextIndex = (trackIndex + 1) % TRACKS.length;
+    const nextIndex = (trackIndex + 1) % playlist.length;
     audio.pause();
-    audio.src = TRACKS[nextIndex].src;
+    audio.src = playlist[nextIndex].src;
     audio.load();
     setTrackIndex(nextIndex);
     setProgress(0);

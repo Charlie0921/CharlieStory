@@ -75,13 +75,16 @@ export default function ResumeWindow() {
           Current
         </div>
 
-        <p className="eyebrow">Candidate record</p>
+        <p className="eyebrow">Skills summary</p>
 
         <h3 className="font-display text-2xl font-semibold text-ink">
-          {profile.name}
+          Software Engineering &middot; Business Systems &middot; Data / ML
         </h3>
 
-        <p className="mt-1 text-sm text-ink-soft">{profile.role}</p>
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-soft">
+          Technical stack across software engineering, data work, and business
+          systems.
+        </p>
 
         <div className="my-5 border-t border-dashed border-line" />
 
@@ -96,10 +99,10 @@ export default function ResumeWindow() {
           ))}
         </div>
 
-        <div className="mt-5 rounded-lg bg-ice-wash p-3 text-sm text-ice-deep">
-          {profile.education}
-          <br />
-          <span className="text-xs">{profile.grad}</span>
+        <div className="mt-5 rounded-lg bg-ice-wash p-3 text-xs leading-relaxed text-ice-deep">
+          <p className="eyebrow text-ice-deep">Education</p>
+          <p className="mt-1">{profile.education}</p>
+          <p className="mt-0.5 text-[0.7rem] text-ink-soft">{profile.grad}</p>
         </div>
       </div>
 

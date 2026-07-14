@@ -53,10 +53,10 @@ export default function Room({ onOpen }: { onOpen: (id: WindowId) => void }) {
 
       {/* --- Interactive objects --- */}
 
-      {/* Poster / Frame -> Resume */}
+      {/* Poster / Frame -> Skills */}
       <RoomObject
-        label="RESUME"
-        ariaLabel="Open resume"
+        label="SKILLS"
+        ariaLabel="Open skills"
         onClick={() => onOpen("resume")}
         className="right-[26%] top-[9%] h-[18%] w-[18%]"
         bob={1.5}

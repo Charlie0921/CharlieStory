@@ -31,6 +31,22 @@ create table if not exists public.portfolio_skills (
   updated_at timestamptz default now()
 );
 
+create table if not exists public.portfolio_sidebar_profile (
+  id uuid primary key default gen_random_uuid(),
+  profile_image_url text,
+  display_name text not null,
+  role_title text not null,
+  short_bio text not null,
+  status_text text not null,
+  footer_text text,
+  github_url text,
+  linkedin_url text,
+  bgm_title text,
+  bgm_artist text,
+  bgm_audio_url text,
+  updated_at timestamptz default now()
+);
+
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -51,8 +67,14 @@ create trigger set_portfolio_skills_updated_at
 before update on public.portfolio_skills
 for each row execute function public.set_updated_at();
 
+drop trigger if exists set_portfolio_sidebar_profile_updated_at on public.portfolio_sidebar_profile;
+create trigger set_portfolio_sidebar_profile_updated_at
+before update on public.portfolio_sidebar_profile
+for each row execute function public.set_updated_at();
+
 alter table public.portfolio_profile enable row level security;
 alter table public.portfolio_skills enable row level security;
+alter table public.portfolio_sidebar_profile enable row level security;
 
 drop policy if exists "Public can read portfolio profile" on public.portfolio_profile;
 create policy "Public can read portfolio profile"
@@ -92,6 +114,25 @@ on public.portfolio_skills
 for delete
 using (app.is_admin_email());
 
+drop policy if exists "Public can read sidebar profile" on public.portfolio_sidebar_profile;
+create policy "Public can read sidebar profile"
+on public.portfolio_sidebar_profile
+for select
+using (true);
+
+drop policy if exists "Admin can insert sidebar profile" on public.portfolio_sidebar_profile;
+create policy "Admin can insert sidebar profile"
+on public.portfolio_sidebar_profile
+for insert
+with check (app.is_admin_email());
+
+drop policy if exists "Admin can update sidebar profile" on public.portfolio_sidebar_profile;
+create policy "Admin can update sidebar profile"
+on public.portfolio_sidebar_profile
+for update
+using (app.is_admin_email())
+with check (app.is_admin_email());
+
 insert into public.portfolio_profile (
   name,
   role,
@@ -122,6 +163,33 @@ from (
     ('Business Systems', 'Workflow Automation, Requirements Analysis, REST APIs, MSSQL', 3, true)
 ) as seed(skill_group, items, order_index, is_published)
 where not exists (select 1 from public.portfolio_skills);
+
+insert into public.portfolio_sidebar_profile (
+  profile_image_url,
+  display_name,
+  role_title,
+  short_bio,
+  status_text,
+  footer_text,
+  github_url,
+  linkedin_url,
+  bgm_title,
+  bgm_artist,
+  bgm_audio_url
+)
+select
+  '/images/profile.png',
+  'Charlie Kim',
+  'Software engineer · builder',
+  'CS student building small useful tools for business workflows and creative interfaces.',
+  'Currently debugging life abroad.',
+  'Penn State · CS · 2027',
+  'https://github.com/Charlie0921',
+  'https://linkedin.com/in/kunjoong-kim',
+  'Haru Haru',
+  'BIGBANG',
+  '/audios/haru-haru-inst.mp3'
+where not exists (select 1 from public.portfolio_sidebar_profile);
 
 -- Run this once in Supabase SQL editor with your admin email:
 -- alter database postgres set app.admin_email = 'you@example.com';

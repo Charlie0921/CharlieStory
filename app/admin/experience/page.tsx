@@ -155,30 +155,42 @@ export default function AdminExperiencePage() {
 
             <div className="flex flex-wrap gap-2">
               <Link
+                href="/admin/profile"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Profile
+              </Link>
+              <Link
+                href="/admin/resume#skills-management"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Skills
+              </Link>
+              <Link
                 href="/admin/projects"
                 className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
               >
                 Projects
               </Link>
               <Link
-                href="/admin/resume"
+                href="/admin/experience"
                 className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
               >
-                Resume
+                Experience
               </Link>
-              <button
-                type="button"
-                onClick={startCreate}
-                className="rounded-md border border-coral-deep bg-coral px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-white"
-              >
-                New Experience
-              </button>
               <button
                 type="button"
                 onClick={handleLogout}
                 className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
               >
                 Logout
+              </button>
+              <button
+                type="button"
+                onClick={startCreate}
+                className="rounded-md border border-coral-deep bg-coral px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-white"
+              >
+                New Experience
               </button>
             </div>
           </div>

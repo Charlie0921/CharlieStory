@@ -27,7 +27,7 @@ export const MINIROOM_HOTSPOTS: MiniRoomHotspot[] = [
   { id: "profile", label: "Profile", href: "#about", top: "38.6%", left: "20.1%", width: "10.7%", height: "12.4%", kind: "window", windowId: "about" },
   { id: "contact", label: "Contact / Mailbox", href: "#contact", top: "40.7%", left: "31.2%", width: "7.3%", height: "15%", kind: "window", windowId: "contact" },
   { id: "projects", label: "Projects", href: "#projects", top: "33.1%", left: "50.7%", width: "15.8%", height: "14.6%", kind: "window", windowId: "projects" },
-  { id: "resume", label: "Resume", href: "#resume", top: "48.1%", left: "54.2%", width: "12.6%", height: "12.8%", kind: "window", windowId: "resume" },
+  { id: "resume", label: "Skills", href: "#resume", top: "48.1%", left: "54.2%", width: "12.6%", height: "12.8%", kind: "window", windowId: "resume" },
   { id: "bgm", label: "BGM Player", href: "#bgm", top: "21.3%", left: "50.8%", width: "20.6%", height: "10.6%", kind: "action", action: "bgm" },
   { id: "experience", label: "Experience", href: "#experience", top: "40.2%", left: "75.2%", width: "10.7%", height: "22.4%", kind: "window", windowId: "experience" },
 ];
@@ -36,7 +36,7 @@ const MOBILE_NAV_ITEMS = [
   { id: "about", label: "Profile", kind: "window" as const, windowId: "about" as const },
   { id: "contact", label: "Contact", kind: "window" as const, windowId: "contact" as const },
   { id: "projects", label: "Projects", kind: "window" as const, windowId: "projects" as const },
-  { id: "resume", label: "Resume", kind: "window" as const, windowId: "resume" as const },
+  { id: "resume", label: "Skills", kind: "window" as const, windowId: "resume" as const },
   { id: "experience", label: "Experience", kind: "window" as const, windowId: "experience" as const },
   { id: "bgm", label: "BGM Player", kind: "action" as const, action: "bgm" as const },
 ];

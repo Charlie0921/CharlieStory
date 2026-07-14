@@ -141,7 +141,7 @@ export const WINDOW_META: Record<WindowId, { title: string; subtitle: string; ac
   about: { title: "PROFILE", subtitle: "Owner’s card", accent: "#77669b" },
   projects: { title: "PROJECTS", subtitle: "Selected work", accent: "#557d92" },
   experience: { title: "EXPERIENCE", subtitle: "Roles and leadership", accent: "#b85d52" },
-  resume: { title: "RESUME", subtitle: "Skills and experience", accent: "#77669b" },
+  resume: { title: "SKILLS", subtitle: "TECH STACK SUMMARY", accent: "#77669b" },
   notes: { title: "NOTES", subtitle: "Technical notes", accent: "#6f7f5f" },
   contact: { title: "MAILBOX", subtitle: "Send a note", accent: "#557d92" }
 };

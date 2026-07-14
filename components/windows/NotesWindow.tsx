@@ -90,7 +90,7 @@ export default function NotesWindow() {
                     NOTE-{String(index + 1).padStart(2, "0")}
                   </span>
                   <p className="mt-1 font-accent text-base text-ink-soft">
-                    {formatDate(note.updatedAt)}
+                    {formatDate(note.createdAt)}
                   </p>
                 </div>
 
@@ -123,7 +123,6 @@ export default function NotesWindow() {
                       {note.category || "Technical Note"}
                     </Field>
                     <Field label="Created">{formatDate(note.createdAt)}</Field>
-                    <Field label="Updated">{formatDate(note.updatedAt)}</Field>
                     <Field label="Tags">
                       {note.tags.length ? (
                         <span className="flex flex-wrap gap-1.5">

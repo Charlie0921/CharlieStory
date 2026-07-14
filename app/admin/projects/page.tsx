@@ -77,22 +77,28 @@ export default function AdminProjectsPage() {
 
             <div className="flex flex-wrap gap-2">
               <Link
+                href="/admin/profile"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Profile
+              </Link>
+              <Link
+                href="/admin/resume#skills-management"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Skills
+              </Link>
+              <Link
+                href="/admin/projects"
+                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
+              >
+                Projects
+              </Link>
+              <Link
                 href="/admin/experience"
                 className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
               >
                 Experience
-              </Link>
-              <Link
-                href="/admin/resume"
-                className="rounded-md border border-line bg-mist px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-ink-soft"
-              >
-                Resume
-              </Link>
-              <Link
-                href="/admin/projects/new"
-                className="rounded-md border border-coral-deep bg-coral px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-white"
-              >
-                New Project
               </Link>
               <button
                 onClick={handleLogout}
@@ -100,6 +106,12 @@ export default function AdminProjectsPage() {
               >
                 Logout
               </button>
+              <Link
+                href="/admin/projects/new"
+                className="rounded-md border border-coral-deep bg-coral px-3 py-2 font-accent text-base uppercase tracking-[0.08em] text-white"
+              >
+                New Project
+              </Link>
             </div>
           </div>
 

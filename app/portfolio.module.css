@@ -209,7 +209,7 @@
   transform: rotate(-11deg);
   z-index: 1;
 }
-.portrait img {
+.portrait > img {
   display: block;
   width: 100%;
   aspect-ratio: 1;
@@ -234,14 +234,24 @@
   transform: rotate(-10deg);
   z-index: 2;
 }
-.spark {
+.heroComputer {
   position: absolute;
-  width: 95px;
-  height: 95px;
-  bottom: 5px;
-  right: -18px;
-  color: #8f2f1f;
-  transform: rotate(9deg);
+  display: block;
+  width: 132px;
+  aspect-ratio: 1.15;
+  bottom: -8px;
+  right: -42px;
+  overflow: hidden;
+  transform: rotate(10deg);
+  z-index: 2;
+}
+.heroComputer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(3.08);
+  transform-origin: 47% 49%;
 }
 .artLabel {
   font-size: 12px;
@@ -320,6 +330,61 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 56px 32px;
+}
+.projectToggleWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 56px;
+  padding-top: 114px;
+  position: relative;
+}
+.projectCharacter {
+  width: 100px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+.projectCharacter img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(3.25);
+  transform-origin: 50% 50%;
+}
+.projectToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 9px 8px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--pill);
+  color: var(--ink);
+  font-size: 15px;
+  transition:
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.25s;
+}
+.projectToggle:hover {
+  transform: translateY(-3px);
+  background: #e6dfd0;
+}
+.projectToggleIcon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1;
 }
 .projectImage {
   display: block;
@@ -419,6 +484,34 @@
 .empty {
   padding: 40px 0;
   color: var(--muted);
+}
+.loadingState {
+  text-align: center;
+}
+.loadingCharacter {
+  display: block;
+  width: 112px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  margin: -18px auto 14px;
+  animation: searchFloat 1.1s ease-in-out infinite alternate;
+}
+.loadingCharacter img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(3.25);
+  transform-origin: 50% 50%;
+}
+.contentLoading {
+  margin-top: 36px;
+  padding: 24px 0 8px;
+  text-align: center;
+  color: var(--muted);
+}
+.contentLoading .loadingCharacter {
+  margin: 0 auto 16px;
 }
 .about {
   border-block: 1px solid var(--line);
@@ -527,7 +620,7 @@
   grid-template-columns: 1fr 1.2fr;
   gap: 70px;
 }
-.toolbox > div > p:last-child {
+.toolbox > div:first-child > p:not(.eyebrow) {
   color: var(--muted);
   margin-top: 20px;
 }
@@ -558,6 +651,9 @@
   --font-display: Outfit, Arial, sans-serif;
   --font-accent: Outfit, Arial, sans-serif;
 }
+.notesPanel {
+  animation: notesPanelIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 .contact {
   text-align: center;
   padding: 80px 20px;
@@ -566,12 +662,20 @@
   position: relative;
   margin: 20px 0 64px;
 }
-.contactFlower {
+.contactCharacter {
   display: block;
-  font-size: 52px;
-  color: #8f2f1f;
-  line-height: 1;
-  margin-bottom: 24px;
+  width: 128px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  margin: -30px auto 8px;
+}
+.contactCharacter img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(3.15);
+  transform-origin: 49% 50%;
 }
 .contact h2 {
   font-size: clamp(35px, 4.5vw, 60px);
@@ -700,9 +804,9 @@
   .handNote {
     font-size: 18px;
   }
-  .spark {
-    width: 65px;
-    right: -8px;
+  .heroComputer {
+    width: 105px;
+    right: -18px;
   }
   .about {
     gap: 40px;
@@ -764,6 +868,11 @@
   .heroArt {
     max-width: 290px;
   }
+  .heroComputer {
+    width: 94px;
+    right: -8px;
+    bottom: 0;
+  }
   .hero .heroMeta {
     font-size: 12px;
   }
@@ -807,6 +916,24 @@
   .projectGrid {
     grid-template-columns: 1fr;
     gap: 38px;
+  }
+  .projectToggleWrap {
+    margin-top: 42px;
+    padding-top: 100px;
+    justify-content: center;
+  }
+  .projectCharacter {
+    width: 86px;
+  }
+  .projectToggle {
+    gap: 9px;
+    padding: 7px 7px 7px 15px;
+    font-size: 13px;
+    flex: 0 0 auto;
+  }
+  .projectToggleIcon {
+    width: 30px;
+    height: 30px;
   }
   .projectImage {
     padding: 36px 24px;
@@ -888,6 +1015,14 @@
   }
   .page {
     scroll-behavior: auto;
+  }
+}
+@keyframes searchFloat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
   }
 }
 
@@ -1005,4 +1140,25 @@
 .noteToggle p,
 .noteToggle > span:last-child {
   color: var(--muted);
+}
+.notesMoreWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 30px;
+}
+.notesMoreWrap > span {
+  color: var(--muted);
+  font-size: 12px;
+}
+@keyframes notesPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }

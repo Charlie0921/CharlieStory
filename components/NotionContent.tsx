@@ -257,7 +257,15 @@ export default function NotionContent({
         </button>
       </div>
     );
-  if (!blocks) return <p role="status">Loading content…</p>;
+  if (!blocks)
+    return (
+      <div className={styles.contentLoading} role="status">
+        <span className={styles.loadingCharacter} aria-hidden="true">
+          <img src="/images/character/search.png" alt="" />
+        </span>
+        <p>Loading content…</p>
+      </div>
+    );
   return (
     <div className={styles.notionContent}>
       {blocks.length ? (

@@ -26,7 +26,7 @@ The API uses version `2025-09-03` and `/v1/data_sources/{id}/query`. The optiona
 
 ## Mapping
 
-- Projects: `제목`, `Short Description`, `Position`, `Skills`, `GitHub`, `Website`, page cover. Optional `Display Order` controls ordering; otherwise Date descending and stable ID. Missing summaries remain empty. Website values without a scheme are normalized; invalid or non-HTTP URLs are omitted. The category filter uses actual technology tags.
+- Projects: `제목`, `Short Description`, `Position`, `Category`, `Skills`, `GitHub`, `Website`, page cover. `Category` is a single select with `Full Stack`, `Business Systems`, and `Machine Learning`, and drives the website filters. `Skills` remains the technology-tag list. Optional `Display Order` controls ordering; otherwise Date descending and stable ID. Missing summaries remain empty. Website values without a scheme are normalized; invalid or non-HTTP URLs are omitted.
 - Experience: `Company`, `Position`, `Date Label`, `Location`, `Display Order`, page-body paragraphs and bullet points. Date precision is preserved. Existing `Current` remains available in Notion; the website displays `Date Label`.
 - Notes: `Doc name`, `Summary`, `Category`, `Tags`, `Featured`, `Order`, created/updated times. Notes expand to show their actual body on the website.
 

@@ -31,9 +31,9 @@ test('URLs normalize valid bare domains and reject unsafe or non-URL values',()=
  assert.equal(model.safeUrl('tanyak20.netlify.app'),'https://tanyak20.netlify.app/');
  for(const value of ['javascript:alert(1)','data:text/html,hello','Competition ran confidential','//evil.example','https://user:pass@example.com'])assert.equal(model.safeUrl(value),'');
 });
-test('project mapping preserves Notion text and never uses old local achievements',()=>{
- const mapped=portfolio.mapProject(page({properties:{'제목':{title:[{plain_text:'New project'}]},'Short Description':{rich_text:[{plain_text:'Original description'}]},Website:{url:'demo.example.com'},GitHub:{url:'Confidential'},Skills:{multi_select:[{name:'Python'}]}},cover:{file:{url:'https://files.example.com/temporary'}}}));
- assert.equal(mapped.title,'New project');assert.equal(mapped.impact,'Original description');assert.equal(mapped.problem,'');assert.equal(mapped.links.github,'');assert.equal(mapped.links.demo,'https://demo.example.com/');assert.match(mapped.images[0].src,/^\/api\/notion\/projects\//);
+test('project mapping preserves Notion text and category without using old local achievements',()=>{
+ const mapped=portfolio.mapProject(page({properties:{'제목':{title:[{plain_text:'New project'}]},'Short Description':{rich_text:[{plain_text:'Original description'}]},Category:{select:{name:'Machine Learning'}},Website:{url:'demo.example.com'},GitHub:{url:'Confidential'},Skills:{multi_select:[{name:'Python'}]}},cover:{file:{url:'https://files.example.com/temporary'}}}));
+ assert.equal(mapped.title,'New project');assert.equal(mapped.impact,'Original description');assert.equal(mapped.category,'Machine Learning');assert.equal(mapped.problem,'');assert.equal(mapped.links.github,'');assert.equal(mapped.links.demo,'https://demo.example.com/');assert.match(mapped.images[0].src,/^\/api\/notion\/projects\//);
 });
 test('pagination follows cursor and sends the publication filter; repeated reads are cached',async()=>{
  process.env.NOTION_API_KEY='pagination-fixture';let calls=0;

@@ -26,6 +26,7 @@ export default function Page() {
   }>({ projects: null, experience: null });
   const [attempt, setAttempt] = useState(0);
   const [filter, setFilter] = useState("all");
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const [selected, setSelected] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [showNotes, setShowNotes] = useState(false);
@@ -67,12 +68,9 @@ export default function Page() {
   }, [selected]);
 
   const visible = projects.filter(
-    (p) =>
-      filter === "all" ||
-      p.stack.some(
-        (skill) => skill.toLowerCase().replace(".js", "") === filter,
-      ),
+    (project) => filter === "all" || project.category === filter,
   );
+  const displayedProjects = showAllProjects ? visible : visible.slice(0, 4);
 
   return (
     <main className={styles.page} id="top">
@@ -132,16 +130,9 @@ export default function Page() {
             <img src={profile.image} alt={profile.name} />
             <span>Hello, I’m {profile.name.split(" ")[0]}.</span>
           </div>
-          <svg
-            className={styles.spark}
-            viewBox="0 0 100 100"
-            aria-hidden="true"
-          >
-            <path
-              d="M50 5 53 35 77 15 65 43 95 44 66 54 88 78 59 65 52 96 45 66 18 87 34 58 4 50 36 44 16 18 44 35Z"
-              fill="currentColor"
-            />
-          </svg>
+          <span className={styles.heroComputer} aria-hidden="true">
+            <img src="/images/character/computer.png" alt="" />
+          </span>
           <span className={styles.artLabel}>software + systems + people</span>
         </div>
       </section>
@@ -172,21 +163,24 @@ export default function Page() {
         <div className={styles.filters} aria-label="Filter projects">
           {[
             ["all", "All work"],
-            ["react", "React"],
-            ["python", "Python"],
-            ["java", "Java"],
+            ["Full Stack", "Full Stack"],
+            ["Business Systems", "Business Systems"],
+            ["Machine Learning", "Machine Learning"],
           ].map(([id, label]) => (
             <button
               key={id}
               aria-pressed={filter === id}
-              onClick={() => setFilter(id)}
+              onClick={() => {
+                setFilter(id);
+                setShowAllProjects(false);
+              }}
             >
               {label}
             </button>
           ))}
         </div>
-        <div className={styles.projectGrid}>
-          {visible.map((project, index) => (
+        <div className={styles.projectGrid} id="project-grid">
+          {displayedProjects.map((project, index) => (
             <article className={styles.project} key={project.fileNo}>
               <button
                 className={`${styles.projectImage} ${styles[`tone${index % 3}`]}`}
@@ -227,13 +221,50 @@ export default function Page() {
             </article>
           ))}
         </div>
+        {visible.length > 4 && (
+          <div className={styles.projectToggleWrap}>
+            <span className={styles.projectCharacter} aria-hidden="true">
+              <img
+                src="/images/character/more%20project.png"
+                alt=""
+                loading="lazy"
+              />
+            </span>
+            <button
+              className={styles.projectToggle}
+              type="button"
+              aria-controls="project-grid"
+              aria-expanded={showAllProjects}
+              onClick={() => setShowAllProjects((current) => !current)}
+            >
+              <span>
+                {showAllProjects
+                  ? "Show fewer projects"
+                  : `View more projects (${visible.length - 4})`}
+              </span>
+              <span className={styles.projectToggleIcon} aria-hidden="true">
+                {showAllProjects ? "↑" : "↓"}
+              </span>
+            </button>
+          </div>
+        )}
         {!visible.length && (
-          <p className={styles.empty} role="status">
-            {loading
-              ? "Loading projects…"
-              : errors.projects ||
-                "No published projects in this category yet."}
-          </p>
+          <div
+            className={`${styles.empty} ${loading ? styles.loadingState : ""}`}
+            role="status"
+          >
+            {loading && (
+              <span className={styles.loadingCharacter} aria-hidden="true">
+                <img src="/images/character/search.png" alt="" />
+              </span>
+            )}
+            <p>
+              {loading
+                ? "Loading projects…"
+                : errors.projects ||
+                  "No published projects in this category yet."}
+            </p>
+          </div>
         )}
         {errors.projects && (
           <button
@@ -396,7 +427,7 @@ export default function Page() {
           </button>
         </div>
         {showNotes && (
-          <div id="technical-notes">
+          <div id="technical-notes" className={styles.notesPanel}>
             <NotesWindow />
           </div>
         )}
@@ -407,8 +438,12 @@ export default function Page() {
         className={styles.contact}
         aria-labelledby="contact-title"
       >
-        <span className={styles.contactFlower} aria-hidden="true">
-          ✳
+        <span className={styles.contactCharacter} aria-hidden="true">
+          <img
+            src="/images/character/contact.png"
+            alt=""
+            loading="lazy"
+          />
         </span>
         <p className={styles.eyebrow}>HAVE SOMETHING IN MIND?</p>
         <h2 id="contact-title">

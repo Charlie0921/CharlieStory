@@ -1,345 +1,502 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import MiniRoomHero from "@/components/MiniRoomHero";
-import Window from "@/components/Window";
-import AboutWindow from "@/components/windows/AboutWindow";
-import ProjectsWindow from "@/components/windows/ProjectsWindow";
-import ExperienceWindow from "@/components/windows/ExperienceWindow";
-import ResumeWindow from "@/components/windows/ResumeWindow";
+import { useEffect, useRef, useState } from "react";
+import { PROFILE, SKILLS } from "@/lib/data";
+import type { Project, Role } from "@/lib/types";
+import NotionContent from "@/components/NotionContent";
 import NotesWindow from "@/components/windows/NotesWindow";
-import ContactWindow from "@/components/windows/ContactWindow";
-import BgmWidget from "@/components/BgmWidget";
-import { BgmPlayerProvider } from "@/components/BgmPlayerContext";
-import ViewCounter from "@/components/ViewCounter";
-import { EXPERIENCE, PROFILE, WINDOW_META } from "@/lib/data";
-import {
-  getPublishedExperiences,
-  mapExperienceToRole,
-} from "@/lib/supabase/experience";
-import { getPublishedProjects } from "@/lib/supabase/projects";
-import { getProfile } from "@/lib/supabase/resume";
-import {
-  fallbackSidebarProfile,
-  getSidebarProfile,
-} from "@/lib/supabase/sidebarProfile";
-import type { Project, Role, SidebarProfileUpsert, Track, WindowId } from "@/lib/types";
-
-type NavId = "home" | WindowId;
-
-const NAV: NavId[] = [
-  "home",
-  "projects",
-  "experience",
-  "resume",
-  "notes",
-  "contact",
-];
-
-const HOME_NAV_LABELS: Partial<Record<NavId, string>> = {
-  home: "HOME",
-  notes: "BLOG",
-};
+import styles from "./portfolio.module.css";
 
 export default function Page() {
-  const [activeTab, setActiveTab] = useState<WindowId | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [experiences, setExperiences] = useState<Role[]>(EXPERIENCE);
-  const [resumeHref, setResumeHref] = useState(PROFILE.resume);
-  const [sidebarProfile, setSidebarProfile] =
-    useState<SidebarProfileUpsert>(fallbackSidebarProfile);
-
-  useEffect(() => {
-    async function loadProjects() {
-      const data = await getPublishedProjects();
-      setProjects(data);
-    }
-
-    loadProjects();
-  }, []);
-
-  useEffect(() => {
-    async function loadExperiences() {
-      try {
-        const data = await getPublishedExperiences();
-        setExperiences(data.map(mapExperienceToRole));
-      } catch (error) {
-        console.error("Failed to fetch portfolio experiences:", error);
-        setExperiences(EXPERIENCE);
-      }
-    }
-
-    loadExperiences();
-  }, []);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadResumeHref() {
-      try {
-        const profile = await getProfile();
-        const resumeUrl = profile?.resume_url?.trim();
-
-        if (active && resumeUrl) {
-          setResumeHref(resumeUrl);
-        }
-      } catch (error) {
-        console.error("Failed to fetch resume link:", error);
-      }
-    }
-
-    loadResumeHref();
-
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadSidebarProfile() {
-      try {
-        const profile = await getSidebarProfile();
-
-        if (active && profile) {
-          setSidebarProfile({
-            profile_image_url: profile.profile_image_url,
-            display_name: profile.display_name,
-            role_title: profile.role_title,
-            short_bio: profile.short_bio,
-            status_text: profile.status_text,
-            footer_text: profile.footer_text,
-            github_url: profile.github_url,
-            linkedin_url: profile.linkedin_url,
-            bgm_title: profile.bgm_title,
-            bgm_artist: profile.bgm_artist,
-            bgm_audio_url: profile.bgm_audio_url,
-          });
-        }
-      } catch (error) {
-        console.error("Failed to fetch sidebar profile:", error);
-      }
-    }
-
-    loadSidebarProfile();
-
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  const sidebarTracks: Track[] = sidebarProfile.bgm_audio_url?.trim()
-    ? [
-        {
-          title: sidebarProfile.bgm_title?.trim() || "BGM",
-          artist: sidebarProfile.bgm_artist?.trim() || "Portfolio",
-          src: sidebarProfile.bgm_audio_url,
-        },
-      ]
-    : [];
-
-  const CONTENT: Record<WindowId, ReactNode> = {
-    about: <AboutWindow />,
-    projects: <ProjectsWindow projects={projects} />,
-    experience: <ExperienceWindow experiences={experiences} />,
-    resume: <ResumeWindow />,
-    notes: <NotesWindow />,
-    contact: <ContactWindow />,
+  const [experiences, setExperiences] = useState<Role[]>([]);
+  const skills = SKILLS;
+  const education = { school: PROFILE.education, graduation: PROFILE.grad };
+  const resume = PROFILE.resume;
+  const profile = {
+    name: "Charlie Kim",
+    bio: PROFILE.intro,
+    image: "/images/profile.png",
+    github: PROFILE.github,
+    linkedin: PROFILE.linkedin,
   };
+  const [errors, setErrors] = useState<{
+    projects: string | null;
+    experience: string | null;
+  }>({ projects: null, experience: null });
+  const [attempt, setAttempt] = useState(0);
+  const [filter, setFilter] = useState("all");
+  const [selected, setSelected] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [showNotes, setShowNotes] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
 
-  return (
-    <BgmPlayerProvider tracks={sidebarTracks}>
-      <main className="site-shell">
-        <section className={`mini-home-shell ${activeTab ? "" : "is-room-home"}`}>
-          <header className="mini-header">
-            <button
-              className="brand-block"
-              onClick={() => setActiveTab(null)}
-              aria-label="Return to mini room"
-            >
-              <span className="brand-kicker">
-                <i /> CHARLIE&apos;S MINI PORTFOLIO
-              </span>
-              <span className="brand-name">{PROFILE.handle}</span>
-              <span className="brand-role">{PROFILE.role}</span>
-            </button>
+  useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+    fetch("/api/portfolio", { signal: controller.signal, cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!Array.isArray(data.projects) || !Array.isArray(data.experiences))
+          throw new Error("Invalid response");
+        setProjects(data.projects);
+        setExperiences(data.experiences);
+        setErrors(data.errors);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted)
+          setErrors({
+            projects: "Projects are temporarily unavailable.",
+            experience: "Experience is temporarily unavailable.",
+          });
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+    return () => controller.abort();
+  }, [attempt]);
 
-            <div className="mini-header-note">
-              work, systems &amp; small useful things
-            </div>
+  useEffect(() => {
+    if (!selected) return;
+    dialog.current?.showModal();
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [selected]);
 
-            <ViewCounter />
-          </header>
-
-          <div className={`mini-body ${activeTab ? "" : "is-room-home"}`}>
-            <aside className="profile-card">
-              <div className="profile-card-label">OWNER / PROFILE</div>
-
-              <div className="profile-image-wrap">
-                <img
-                  src={sidebarProfile.profile_image_url || "/images/profile.png"}
-                  alt={sidebarProfile.display_name}
-                  className="profile-photo"
-                />
-              </div>
-
-              <div className="profile-copy">
-                <h2>{sidebarProfile.display_name}</h2>
-                <p className="profile-title">{sidebarProfile.role_title}</p>
-                <div className="hidden">
-                <p className="profile-title">Software engineer · builder</p>
-                </div>
-                <p className="profile-intro">
-                  {sidebarProfile.short_bio}
-                </p>
-              </div>
-
-              <div className="profile-status">
-                <span /> {sidebarProfile.status_text}
-              </div>
-
-              <div className="profile-bgm">
-                <BgmWidget mini />
-              </div>
-
-              <button
-                onClick={() => setActiveTab("about")}
-                className="hidden"
-              >
-                VIEW FULL PROFILE <span>→</span>
-              </button>
-
-              <div className="profile-links" aria-label="Profile links">
-                <a href={sidebarProfile.github_url || PROFILE.github} target="_blank" rel="noreferrer">
-                  GITHUB ↗
-                </a>
-                <a href={sidebarProfile.linkedin_url || PROFILE.linkedin} target="_blank" rel="noreferrer">
-                  LINKEDIN ↗
-                </a>
-              </div>
-
-              <div className="profile-footer">{sidebarProfile.footer_text}</div>
-
-              <div className="profile-footer">Penn State · CS · 2027</div>
-            </aside>
-
-            <div className="content-column">
-              <nav
-                aria-label="Portfolio sections"
-                role="tablist"
-                className="mobile-tabs"
-              >
-                {NAV.map((id) => (
-                  <TabButton
-                    key={id}
-                    id={id}
-                    activeTab={activeTab}
-                    onSelect={setActiveTab}
-                  />
-                ))}
-              </nav>
-
-              <div
-                className={`main-panel ${activeTab ? "" : "is-room-home"}`}
-                role="tabpanel"
-              >
-                {activeTab ? (
-                  <Window
-                    key={activeTab}
-                    title={HOME_NAV_LABELS[activeTab] ?? WINDOW_META[activeTab].title}
-                    subtitle={WINDOW_META[activeTab].subtitle}
-                    accent={WINDOW_META[activeTab].accent}
-                  >
-                    {CONTENT[activeTab]}
-                  </Window>
-                ) : (
-                  <>
-                    <div className="room-bar">
-                      <span>
-                        <i /> ROOM 0921
-                      </span>
-                      <span>SELECT AN OBJECT OR MENU</span>
-                    </div>
-
-                    <div className="room-stage">
-                      <section className="home-intro" aria-label="Portfolio entry points">
-                        <div className="home-intro__copy">
-                          <p className="home-intro__description">
-                            A small room for software projects, business systems, and creative tools.
-                          </p>
-                        </div>
-
-                        <div className="home-intro__actions" aria-label="Primary actions">
-                          <button
-                            type="button"
-                            className="home-cta home-cta--primary"
-                            onClick={() => setActiveTab("projects")}
-                          >
-                            View Projects
-                          </button>
-                          <a
-                            className="home-cta"
-                            href={resumeHref}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            Resume
-                          </a>
-                        </div>
-                      </section>
-
-                      <MiniRoomHero onOpen={setActiveTab} />
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <nav
-              aria-label="Portfolio sections"
-              role="tablist"
-              className="side-tabs"
-            >
-              {NAV.map((id) => (
-                <TabButton
-                  key={id}
-                  id={id}
-                  activeTab={activeTab}
-                  onSelect={setActiveTab}
-                />
-              ))}
-            </nav>
-          </div>
-        </section>
-      </main>
-    </BgmPlayerProvider>
+  const visible = projects.filter(
+    (p) =>
+      filter === "all" ||
+      p.stack.some(
+        (skill) => skill.toLowerCase().replace(".js", "") === filter,
+      ),
   );
-}
-
-function TabButton({
-  id,
-  activeTab,
-  onSelect,
-}: {
-  id: NavId;
-  activeTab: WindowId | null;
-  onSelect: (id: WindowId | null) => void;
-}) {
-  const active = id === "home" ? activeTab === null : activeTab === id;
-  const label =
-    id === "home" ? HOME_NAV_LABELS.home : HOME_NAV_LABELS[id] ?? WINDOW_META[id].title;
 
   return (
-    <button
-      onClick={() => onSelect(id === "home" ? null : id)}
-      aria-selected={active}
-      role="tab"
-      className={`mini-tab ${active ? "is-active" : ""}`}
-    >
-      <span className="tab-dot" />
-      {label}
-      <span className="tab-arrow">›</span>
-    </button>
+    <main className={styles.page} id="top">
+      <a className={styles.skip} href="#work">
+        Skip to projects
+      </a>
+      <header className={styles.header}>
+        <a
+          className={styles.wordmark}
+          href="#top"
+          aria-label="Charlie Kim home"
+        >
+          ck<span>*</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a className={styles.navContact} href="#contact">
+            Let’s talk
+          </a>
+        </nav>
+      </header>
+
+      <section className={styles.hero} aria-labelledby="intro-title">
+        <div className={styles.intro}>
+          <p className={styles.eyebrow}>KUNJOONG “CHARLIE” KIM · DEVELOPER</p>
+          <h1 id="intro-title">
+            Making complex
+            <br />
+            things <span>feel simple.</span>
+          </h1>
+          <p className={styles.heroCopy}>{profile.bio}</p>
+          <div className={styles.actions}>
+            <a className={styles.darkButton} href="#work">
+              Explore my work
+            </a>
+            <a
+              className={styles.lightButton}
+              href={resume}
+              target="_blank"
+              rel="noreferrer"
+            >
+              View résumé
+            </a>
+          </div>
+          <p className={styles.heroMeta}>
+            Computer Science @ Penn State <span> / </span> Class of 2027
+          </p>
+        </div>
+        <div className={styles.heroArt}>
+          <span className={styles.handNote}>
+            a little curiosity,
+            <br />a lot of building.
+          </span>
+          <div className={styles.portrait}>
+            <img src={profile.image} alt={profile.name} />
+            <span>Hello, I’m {profile.name.split(" ")[0]}.</span>
+          </div>
+          <svg
+            className={styles.spark}
+            viewBox="0 0 100 100"
+            aria-hidden="true"
+          >
+            <path
+              d="M50 5 53 35 77 15 65 43 95 44 66 54 88 78 59 65 52 96 45 66 18 87 34 58 4 50 36 44 16 18 44 35Z"
+              fill="currentColor"
+            />
+          </svg>
+          <span className={styles.artLabel}>software + systems + people</span>
+        </div>
+      </section>
+
+      <div className={styles.interests}>
+        <span>Built with purpose.</span>
+        <p>
+          Full-stack development <i /> Business systems <i /> Applied AI
+        </p>
+        <span className={styles.smallFlower}>✳</span>
+      </div>
+
+      <section
+        id="work"
+        className={styles.section}
+        aria-labelledby="work-title"
+      >
+        <div className={styles.sectionHeading}>
+          <div>
+            <p className={styles.eyebrow}>SELECTED WORK</p>
+            <h2 id="work-title">Real problems. Useful software.</h2>
+          </div>
+          <p>
+            From everyday friction to working products.
+            <br />A few things I’ve helped bring to life.
+          </p>
+        </div>
+        <div className={styles.filters} aria-label="Filter projects">
+          {[
+            ["all", "All work"],
+            ["react", "React"],
+            ["python", "Python"],
+            ["java", "Java"],
+          ].map(([id, label]) => (
+            <button
+              key={id}
+              aria-pressed={filter === id}
+              onClick={() => setFilter(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <div className={styles.projectGrid}>
+          {visible.map((project, index) => (
+            <article className={styles.project} key={project.fileNo}>
+              <button
+                className={`${styles.projectImage} ${styles[`tone${index % 3}`]}`}
+                onClick={() => setSelected(project)}
+                aria-label={`Read ${project.title} case study`}
+              >
+                {project.images[0] ? (
+                  <img
+                    src={project.images[0].src}
+                    alt={project.images[0].alt}
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className={styles.projectPlaceholder}>
+                    {project.title}
+                  </span>
+                )}
+                <span className={styles.projectBadge}>
+                  {project.status || "Project"}
+                </span>
+                <span className={styles.imageAction}>Explore project</span>
+              </button>
+              <div className={styles.projectMeta}>
+                <span>{project.category || "Project"}</span>
+                <span>{project.role}</span>
+              </div>
+              <h3>
+                <button onClick={() => setSelected(project)}>
+                  {project.title}
+                </button>
+              </h3>
+              <p>{project.impact}</p>
+              <div className={styles.tags}>
+                {project.stack.slice(0, 4).map((s) => (
+                  <span key={s}>{s}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+        {!visible.length && (
+          <p className={styles.empty} role="status">
+            {loading
+              ? "Loading projects…"
+              : errors.projects ||
+                "No published projects in this category yet."}
+          </p>
+        )}
+        {errors.projects && (
+          <button
+            className={styles.lightButton}
+            onClick={() => setAttempt((n) => n + 1)}
+          >
+            Try again
+          </button>
+        )}
+      </section>
+
+      <section
+        id="about"
+        className={`${styles.section} ${styles.about}`}
+        aria-labelledby="about-title"
+      >
+        <div>
+          <p className={styles.eyebrow}>THE PERSON BEHIND THE CODE</p>
+          <h2 id="about-title">
+            An engineer’s mindset.
+            <br />
+            <span>A builder’s curiosity.</span>
+          </h2>
+          <p>{PROFILE.bio}</p>
+          <p>{PROFILE.bio2}</p>
+          <a
+            className={styles.lightButton}
+            href={profile.github}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Find me on GitHub
+          </a>
+        </div>
+        <div className={styles.aboutCard}>
+          <span className={styles.cardFlower}>✳</span>
+          <h3>A little about me</h3>
+          <dl>
+            <div>
+              <dt>Studying</dt>
+              <dd>{education.school}</dd>
+            </div>
+            <div>
+              <dt>Graduating</dt>
+              <dd>{education.graduation}</dd>
+            </div>
+            <div>
+              <dt>Based in</dt>
+              <dd>{PROFILE.location}</dd>
+            </div>
+            <div>
+              <dt>Speaking</dt>
+              <dd>{PROFILE.languages}</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section
+        id="experience"
+        className={styles.section}
+        aria-labelledby="experience-title"
+      >
+        <div className={styles.sectionHeading}>
+          <div>
+            <p className={styles.eyebrow}>ALONG THE WAY</p>
+            <h2 id="experience-title">Where I’ve contributed.</h2>
+          </div>
+          <p>
+            Engineering, operations, and the
+            <br />
+            people who connect them.
+          </p>
+        </div>
+        {!experiences.length && (
+          <p role="status" className={styles.empty}>
+            {loading
+              ? "Loading experience…"
+              : errors.experience || "No published experience yet."}
+          </p>
+        )}
+        {errors.experience && (
+          <button
+            className={styles.lightButton}
+            onClick={() => setAttempt((n) => n + 1)}
+          >
+            Try again
+          </button>
+        )}
+        <div className={styles.experience}>
+          {experiences.map((role, index) => (
+            <details key={`${role.org}-${index}`}>
+              <summary>
+                <span className={styles.dates}>{role.dates}</span>
+                <span>
+                  <strong>{role.org}</strong>
+                  <span className={styles.roleTitle}>{role.title}</span>
+                </span>
+                <span className={styles.expand} aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <div className={styles.roleDetails}>
+                {role.place && <p>{role.place}</p>}
+                <ul>
+                  {role.logs.map((log) => (
+                    <li key={log}>{log}</li>
+                  ))}
+                </ul>
+                <div className={styles.tags}>
+                  {role.skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section
+        className={`${styles.section} ${styles.toolbox}`}
+        aria-labelledby="tools-title"
+      >
+        <div>
+          <p className={styles.eyebrow}>MY TOOLBOX</p>
+          <h2 id="tools-title">
+            The right tools.
+            <br />
+            For the real problem.
+          </h2>
+          <p>Across interfaces, APIs, data, and workflows.</p>
+        </div>
+        <div className={styles.skillGrid}>
+          {skills.map((skill) => (
+            <div key={skill.group}>
+              <h3>{skill.group}</h3>
+              <p>{skill.items}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        className={`${styles.section} ${styles.notes}`}
+        aria-labelledby="notes-title"
+      >
+        <div className={styles.sectionHeading}>
+          <div>
+            <p className={styles.eyebrow}>THINKING OUT LOUD</p>
+            <h2 id="notes-title">Notes from the process.</h2>
+          </div>
+          <button
+            className={styles.lightButton}
+            aria-expanded={showNotes}
+            aria-controls="technical-notes"
+            onClick={() => setShowNotes(!showNotes)}
+          >
+            {showNotes ? "Close notes" : "Browse technical notes"}
+          </button>
+        </div>
+        {showNotes && (
+          <div id="technical-notes">
+            <NotesWindow />
+          </div>
+        )}
+      </section>
+
+      <section
+        id="contact"
+        className={styles.contact}
+        aria-labelledby="contact-title"
+      >
+        <span className={styles.contactFlower} aria-hidden="true">
+          ✳
+        </span>
+        <p className={styles.eyebrow}>HAVE SOMETHING IN MIND?</p>
+        <h2 id="contact-title">
+          Let’s build something
+          <br />
+          <span>that makes a difference.</span>
+        </h2>
+        <p>{PROFILE.open}.</p>
+        <a className={styles.darkButton} href={`mailto:${PROFILE.email}`}>
+          Say hello
+        </a>
+        <a className={styles.email} href={`mailto:${PROFILE.email}`}>
+          {PROFILE.email}
+        </a>
+      </section>
+      <footer className={styles.footer}>
+        <span>
+          © {new Date().getFullYear()} {profile.name}
+        </span>
+        <span>Made with care &amp; a little curiosity.</span>
+        <div>
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
+          <a href={resume} target="_blank" rel="noreferrer">
+            Résumé
+          </a>
+        </div>
+      </footer>
+
+      <dialog
+        ref={dialog}
+        className={styles.dialog}
+        aria-labelledby="project-title"
+        onClose={() => setSelected(null)}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) dialog.current?.close();
+        }}
+      >
+        {selected && (
+          <div className={styles.dialogBody}>
+            <button
+              className={styles.close}
+              onClick={() => dialog.current?.close()}
+              aria-label="Close project"
+            >
+              Close ×
+            </button>
+            <p className={styles.eyebrow}>
+              {selected.org} · {selected.role}
+            </p>
+            <h2 id="project-title">{selected.title}</h2>
+            <p className={styles.lead}>{selected.impact}</p>
+            <div className={styles.tags}>
+              {selected.stack.map((s) => (
+                <span key={s}>{s}</span>
+              ))}
+            </div>
+            <NotionContent
+              key={selected.fileNo}
+              kind="projects"
+              id={selected.fileNo}
+            />
+            <div className={styles.actions}>
+              {Object.entries(selected.links)
+                .filter(([, href]) => href)
+                .map(([label, href]) => (
+                  <a
+                    className={styles.lightButton}
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {label === "github"
+                      ? "Source code"
+                      : label === "demo"
+                        ? "Live demo"
+                        : "Full case study"}
+                  </a>
+                ))}
+            </div>
+          </div>
+        )}
+      </dialog>
+    </main>
   );
 }

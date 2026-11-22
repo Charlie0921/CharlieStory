@@ -1,5 +1,15 @@
 # Portfolio Redesign Plan
 
+## Implemented theme refresh — November 22, 2026
+
+The homepage now uses the Josh Kern reference documented in `uiux-design-source.md`: warm paper and ink colors, locally hosted Outfit / DM Sans, pill controls, generous spacing, and project screenshots. The existing English portfolio content is retained.
+
+- One-page navigation: selected work, About, experience, technical toolbox, notes, and contact.
+- Category filters and native dialog case studies include project problems, contributions, outcomes, technical details, and images. Experience rows expand with native disclosures.
+- Projects, Experience, and Technical Notes now use the server-side Notion integration described in `notion-projects-integration.md`.
+- Introduction, education, skills, contact, and résumé remain in code; Supabase admin entrypoints redirect to the homepage.
+- This is a local source update. Deployment and live API credentials must be verified separately.
+
 ## Goal
 
 Build Charlie Kim's software developer portfolio around enterprise systems, full-stack development, and an interest in technology and business. Preserve the personal black-and-white illustration identity of gunpodo_is.
@@ -8,12 +18,12 @@ A personal website demonstrates work and personality; it is not a universal requ
 
 ## Current Scope
 
-Connect only the existing Notion Projects database. Keep the hero, About, experience, contact information, and website design in code. The specific integration decision in `notion-projects-integration.md` takes precedence over earlier broader synchronization ideas.
+Connect the existing Notion Projects, Experience, and Technical Notes databases. Keep the hero, About, education, skills, contact information, and website design in code. The specific integration decision in `notion-projects-integration.md` takes precedence over earlier broader synchronization ideas.
 
 ## Responsibilities
 
-- Notion: project metadata, case studies, and publication control.
-- Website code: layout, navigation, responsive behavior, accessibility, and non-project content.
+- Notion: project metadata, case studies, experience, technical notes, and publication control.
+- Website code: layout, navigation, responsive behavior, accessibility, and static profile content.
 - Canva: optional illustration preparation and style exploration, not duplicate content management.
 - GitHub: code, documentation, review, and version history.
 - Netlify: hosting and server-side integration.

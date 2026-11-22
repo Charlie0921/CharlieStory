@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Kunjoong Charlie Kim · Developer Portfolio",
-  description: "A recruiter-friendly developer portfolio inspired by a Korean Cyworld mini-homepage.",
+  description: "Kunjoong Charlie Kim — Penn State computer science student building practical software, business systems, and applied AI. Explore projects, experience, and technical notes.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

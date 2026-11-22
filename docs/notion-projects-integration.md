@@ -1,124 +1,55 @@
-# Notion Projects Integration
+# Notion portfolio integration
 
-## Decision
+## Implemented scope
 
-Connect only the existing Notion Projects database to the portfolio website. Do not parse or synchronize the entire Notion portfolio page. Existing project writing can remain unchanged initially. This decision supersedes earlier suggestions to synchronize all profile and experience content.
+Projects, Experience, and Technical Notes now read from Notion server-side and feed the existing design. The homepage no longer reads Supabase or substitutes local project/experience records. Introduction, education, skills, contact, and résumé remain in code. Legacy `/admin/*` entrypoints redirect to the homepage; edit content in Notion instead. Historical Supabase implementation files remain unused by the public homepage.
 
-## Content Ownership
+## Sources
 
-| Content | Maintained in |
-|---|---|
-| Hero and introduction | Website code |
-| About and experience | Website code |
-| Character illustrations | Website assets |
-| Project metadata | Notion Projects database |
-| Case studies | Individual Notion project pages |
-| Contact and social links | Website code |
+| Content | Database page | Data source |
+|---|---|---|
+| Projects | `8a805bcf-d0bd-4ba6-8f12-fa18ac7a142c` | `86af8e7d-18fd-4b46-88fd-a4c9c9f96fe1` |
+| Experience | `420282c8-196e-8117-bcf1-c3ed26ca3fc3` | `420282c8-196e-81b0-b9e7-000b1153ed16` |
+| Technical Notes | `388282c8-196e-8023-8cd6-e2caaf20827c` | `388282c8-196e-807b-9b76-000b0c992fd5` |
 
-Only project content updates automatically from Notion. Other content requires code changes.
+Projects and Experience belong to `Kunjoong(Charlie) Kim`, page `6ccc4e92-aa9e-409c-ac25-142073253052`.
 
-## Architecture
+## Setup
 
-```text
-Projects data source
-  -> Server-side Notion API client
-  -> Content mapping and validation
-  -> Project cards
+1. Copy `.env.example` to `.env.local`.
+2. Set `NOTION_API_KEY` to a server-side Notion connection token. Never put it in a `NEXT_PUBLIC_` variable or browser code.
+3. Grant that connection read access to each database using Notion's Connections menu. ChatGPT's connection does not supply credentials to the website.
+4. Mark projects and experience rows `Published`; notes use the existing `Status = Published` option.
+5. Restart `npm run dev`. On deployment, set the same variables in the hosting provider and redeploy.
 
-Individual project pages
-  -> Retrieve content blocks
-  -> Block renderer
-  -> Website project detail pages
-```
+The API uses version `2025-09-03` and `/v1/data_sources/{id}/query`. The optional source overrides take **data-source IDs**, not database page IDs. Legacy `NOTION_DATABASE_ID` / `NOTION_NOTES_DATABASE_ID` are no longer used. Defaults match the table above.
 
-The website controls presentation. Notion controls project content and block order. The assistant's Notion connector is separate from the deployed application's integration; configure application credentials and permissions separately.
+## Mapping
 
-## Existing Properties
+- Projects: `제목`, `Short Description`, `Position`, `Skills`, `GitHub`, `Website`, page cover. Optional `Display Order` controls ordering; otherwise Date descending and stable ID. Missing summaries remain empty. Website values without a scheme are normalized; invalid or non-HTTP URLs are omitted. The category filter uses actual technology tags.
+- Experience: `Company`, `Position`, `Date Label`, `Location`, `Display Order`, page-body paragraphs and bullet points. Date precision is preserved. Existing `Current` remains available in Notion; the website displays `Date Label`.
+- Notes: `Doc name`, `Summary`, `Category`, `Tags`, `Featured`, `Order`, created/updated times. Notes expand to show their actual body on the website.
 
-- `제목`: project title.
-- `Short Description`: project summary.
-- `Position`: personal role.
-- `Skills`: technology tags.
-- `Date`: timeline.
-- `GitHub`: repository URL.
-- `Website`: demo or live application URL.
-- `Members`: team information.
+Projects gained a `Published` checkbox during integration. Missing or unchecked publication fields never expose a record. Notion view filters are not used as access control.
 
-Use an existing page cover where appropriate, with a fallback for missing images. Validate and normalize outgoing URLs.
+## Rendering and endpoints
 
-## Proposed Properties
+- `/api/portfolio`: independent project/experience results and section-specific errors.
+- `/api/notes`: published note metadata.
+- `/api/notion/projects/{id}` and `/api/notion/notes/{id}`: publication-checked content.
+- `/api/notion/projects/{id}?asset=cover`: fresh publication-checked redirect to the current cover URL. Signed URLs are not committed or stored in card data.
 
-These are proposals, not confirmation of database changes.
+Body rendering preserves ordering, rich text formatting, headings, nested lists, toggles, code, quotes, callouts, images, checklists, tables, and columns. Attachments and embeds are safe outgoing links, equations are plain notation, unsupported block types show a notice. Nested databases, child pages, synced blocks, and linked pages are not traversed or rendered. This excludes Tanyak Laundry sprint databases. Readers can still follow ordinary outgoing hyperlinks, but linked content is never fetched automatically.
 
-- `Published` checkbox: only explicitly checked projects may appear publicly. Missing or unchecked means unpublished.
-- Optional `Featured` checkbox.
-- Optional `Display Order` number.
-- Optional `Slug` text for readable URLs.
+## Caching and limits
 
-Without a slug, use stable ID-based routes. Do not derive permanent URLs solely from mutable titles.
+- Metadata lists: strict 300-second in-memory cache per server instance, with concurrent request deduplication. A visitor receives a refreshed list on the next request after expiry. Already-open pages refresh on reload.
+- Page bodies: 120-second cache. Direct body/cover requests check fresh page metadata and source membership before serving content. Unpublished/moved/deleted pages cannot be retrieved from the body cache.
+- Listings can retain an unpublished card for up to the metadata cache TTL; the detail endpoint rejects it immediately when Notion reports it unpublished.
+- No stale cache fallback on API failure. Empty results and failures have distinct UI states. A missing API key never exposes local fallback content.
+- Cache is not shared across serverless instances and is lost on restart. Hosting-adapter behavior and real credentials still require deployment verification.
+- Requests are spaced 350ms apart within a process. HTTP 429/529 uses Retry-After with bounded retries; delays longer than 30 seconds surface a retryable UI error. Lists and block children are paginated. Body safety limits are 12 levels and 2,000 blocks; exceeding them yields an error instead of silently incomplete content.
 
-## Rendering
+## Verification
 
-Do not require identical project headings or extract sections by heading names. Render supported blocks in their existing order.
-
-Initial support:
-
-- Headings, paragraphs, and rich text.
-- Bulleted and numbered lists.
-- Images and code blocks.
-- Toggles, including nested content.
-- Quotes, callouts, and dividers as needed.
-
-Handle pagination and recursive child-block retrieval. Define explicit behavior for unsupported blocks. Do not automatically publish linked content.
-
-Exclude embedded sprint databases, internal planning documents, arbitrary nested databases, and full Notion-layout replication from the initial version. In particular, exclude Tanyak Laundry's embedded sprint databases.
-
-## Updates
-
-Start with cached server-side fetching and time-based revalidation. Document the interval and actual behavior for the installed Next.js and Netlify adapter versions. Content edits should not require a code commit.
-
-Automatic updates are not guaranteed instant synchronization. Consider verified webhooks later; a webhook signals a change and the application must fetch updated content.
-
-## Security and Reliability
-
-- Keep credentials server-side, never in browser code or `NEXT_PUBLIC_` variables.
-- Grant only necessary access.
-- Enforce publication checks for listings and direct detail routes.
-- Account for cached content when unpublishing.
-- Handle deleted or unavailable projects, API errors, and rate limits.
-- Refresh expiring Notion-hosted image URLs or use stable asset storage.
-- Never hard-code temporary signed image URLs.
-- Keep permanent character artwork in website assets.
-
-## First Milestone: Tanyak Laundry
-
-1. Fetch database properties and display a card.
-2. Retrieve and render the project body.
-3. Preserve nested maintenance-toggle content.
-4. Exclude embedded sprint databases.
-5. Verify an edit appears after revalidation.
-6. Verify unpublished projects are inaccessible directly.
-7. Test on desktop and mobile.
-
-## Acceptance Criteria
-
-- Metadata and case studies come from Notion.
-- Different project headings are supported.
-- Website styling is independent of Notion layout.
-- Drafts and private planning content are not exposed.
-- Updates follow documented refresh behavior.
-- Images, deletion, errors, and unpublishing are tested.
-
-## References
-
-- https://developers.notion.com/guides/data-apis/working-with-page-content
-- https://developers.notion.com/reference/retrieve-a-page
-- https://developers.notion.com/reference/get-block-children
-- https://developers.notion.com/guides/authorization/credential-security
-- https://developers.notion.com/reference/webhooks
-- https://developers.notion.com/reference/file-object
-- https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview/
-
-## Status
-
-Implementation decision only. This document does not assert that database properties, integration behavior, or deployment settings have been changed.
+Run `npm run test:notion` for mocked API tests covering publication checks, foreign-source rejection, pagination, cache invalidation, nested content, exclusion of child databases, and URL normalization. Run `npm run build` for the full application build. Mock tests do not prove live credentials, access grants, or deployment synchronization.

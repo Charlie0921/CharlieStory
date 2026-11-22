@@ -61,7 +61,7 @@ export const PROJECTS = ([
     result: "Raised model precision by 35% and achieved a top public test score.",
     images: [
       { src: "/images/projects/sewagepipe/defect-classification.png", alt: "Sewage pipe defect classification results", caption: "Defect Classification" },
-      { src: "/images/projects/sewagepipe/plan.jpeg", alt: "Sewage pipe detector project plan", caption: "Project Plan" }
+      { src: "/images/projects/sewagepipe/Plan.jpeg", alt: "Sewage pipe detector project plan", caption: "Project Plan" }
     ],
     links: { github: "", demo: "", caseStudy: "" }
   },
